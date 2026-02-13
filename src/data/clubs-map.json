@@ -1,0 +1,61 @@
+[
+  {
+    "id": "wesstar",
+    "lat": 51.94437770119193,
+    "lng": 5.9830657579109845,
+    "oprichtingsjaar": 1986,
+    "aantal_leden": 47,
+    "leden_datum": "01-12-2025",
+    "klasse_veld": "3e klasse",
+    "klasse_zaal": "3e klasse",
+    "website": "https://www.wesstar.nl"
+  },
+  {
+    "id": "duko",
+    "name": "Duko",
+    "lat": 51.94376701193088,
+    "lng": 6.030838300019142,
+    "oprichtingsjaar": 1978,
+    "aantal_leden": 85,
+    "leden_datum": "01-12-2025",
+    "klasse_veld": "3e klasse",
+    "klasse_zaal": "2e klasse",
+    "website": "https://www.dukoduiven.nl"
+  },
+  {
+    "id": "dlkv",
+    "name": "DLKV",
+    "lat": 51.93181101746238,
+    "lng": 6.1309932922460995,
+    "oprichtingsjaar": null,
+    "aantal_leden": 23,
+    "leden_datum": "01-12-2025",
+    "klasse_veld": "Breedte korfbal",
+    "klasse_zaal": "Breedte korfbal",
+    "website": null
+  },
+  {
+    "id": "rivalen",
+    "name": "KV Rivalen",
+    "lat": 52.00672826056138,
+    "lng": 6.152125196363951,
+    "oprichtingsjaar": 1960,
+    "aantal_leden": 56,
+    "leden_datum": "01-12-2025",
+    "klasse_veld": "4e klasse",
+    "klasse_zaal": "2e klasse",
+    "website": "https://www.rivalen.nl"
+  },
+  {
+    "id": "zwaluwen",
+    "name": "KV de Zwaluwen",
+    "lat": 51.928772297232335,
+    "lng": 6.0986959599518995,
+    "oprichtingsjaar": 1956,
+    "aantal_leden": 191,
+    "leden_datum": "01-12-2025",
+    "klasse_veld": "1e klasse",
+    "klasse_zaal": "1e klasse",
+    "website": "https://www.rivalen.nl"
+  }
+]
