@@ -25,7 +25,7 @@ interface ClubMapProps {
 
 export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
   return (
-    <Card className="h-[400px] w-full overflow-hidden p-0">
+    <Card className={`h-full w-full overflow-hidden rounded-none p-0`}>
       <Map
         center={LIEMERS_CENTER}
         zoom={DEFAULT_ZOOM}
@@ -36,9 +36,6 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
           data={regionMapData as unknown as GeoJSON.FeatureCollection}
           fillColor="#FF6600"
           fillOpacity={0.15}
-          strokeColor="#FF6600"
-          strokeWidth={2}
-          strokeOpacity={0.6}
         />
         {clubs.map((club) => (
           <MapMarker

@@ -1,27 +1,18 @@
 ---
-title: Vrijwilligers
-excerpt: Word vrijwilliger bij het WK Korfbal 2027 in de Liemers.
+title: Vrijwilligers (Dummy)
+excerpt: Dit is dummycontent voor de vrijwilligerspagina.
 ---
 
-# Word vrijwilliger
+# Vrijwilligers dummycontent
 
-Het WK Korfbal 2027 kan niet zonder de inzet van honderden vrijwilligers. Wij zoeken enthousiaste mensen die willen bijdragen aan dit unieke evenement in de Liemers.
+Dit is tijdelijke placeholder-content voor vrijwilligers.
 
-## Wat kun je doen?
+## Voorbeeldrollen
 
-- **Logistiek** – Ondersteuning bij opbouw, afbouw en doorloop
-- **Gastheer/vrouw** – Ontvangst van teams en bezoekers
-- **Technisch** – Ondersteuning bij scoreborden en media
-- **Medisch** – Eerste hulp en begeleiding
-- **En meer** – Er is voor iedereen een passende rol
+- Teamondersteuning
+- Eventcoordinatie
+- Gastontvangst
 
-## Aanmelden
+## Placeholder tekst
 
-Ben je geïnteresseerd? Neem [contact](/contact) met ons op en vermeld dat je vrijwilliger wilt worden. We nemen zo snel mogelijk contact met je op.
-
-## Wat bieden wij?
-
-- Een onvergetelijke ervaring
-- Kleding en materialen
-- Maaltijden tijdens je diensten
-- Dankbaarheid van de hele korfbalcommunity
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur non mauris et nisi pulvinar aliquam.

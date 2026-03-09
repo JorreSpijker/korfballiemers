@@ -1,23 +1,16 @@
 ---
-title: WK Korfbal 2027 in de Liemers
-excerpt: De regio Liemers dient een bid in om het Wereldkampioenschap Korfbal 2027 te organiseren.
+title: Home (Dummy)
+excerpt: Dit is dummycontent voor de homepagina.
 ---
 
-# Welkom bij het WK Korfbal 2027 Bid
+# Home dummycontent
 
-De **Liemers** zet zich in om het **Wereldkampioenschap Korfbal 2027** te organiseren. Met talloze korfbalclubs, een sterke gemeenschap en uitstekende voorzieningen is onze regio de ideale gastheer voor dit internationale evenement.
+Dit is tijdelijke dummytekst voor de homepagina.
 
-## Waarom de Liemers?
+## Introsectie
 
-- **Rijke korfbaltraditie** – De regio kent een lange geschiedenis van korfbal
-- **Uitstekende accommodaties** – Sportlocaties van wereldklasse
-- **Gastvrije gemeenschap** – Vrijwilligers en supporters staan klaar
-- **Centrale ligging** – Goed bereikbaar vanuit heel Nederland en Europa
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer feugiat, sapien et posuere feugiat, dui dui congue nisl, in luctus mauris nibh id neque.
 
-## Ontdek de clubs
+## Extra sectie
 
-Op onze [Clubs-pagina](/clubs) vind je alle korfbalclubs uit de Liemers. Bekijk de interactieve kaart en maak kennis met de verenigingen die deze bid mogelijk maken.
-
-## Doe mee!
-
-Wil je **vrijwilliger** worden of uw organisatie als **sponsor** verbinden aan dit bijzondere evenement? Neem [contact](/contact) met ons op.
+Suspendisse potenti. Proin congue, urna at tincidunt aliquam, nibh massa dignissim nulla, et feugiat sem nisi sit amet arcu.

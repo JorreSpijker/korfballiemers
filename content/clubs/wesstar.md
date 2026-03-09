@@ -1,21 +1,21 @@
 ---
 id: wesstar
-name: Wesstar
-city: Zevenaar
-address: Sportpark De Greften
-website: https://www.wesstar.nl
+name: Club Dummy B
+city: Demodorp
+address: Korfbalpad 2
+website: https://example.com/club-b
 logo: ""
-excerpt: Korfbalvereniging Wesstar uit Zevenaar.
+excerpt: Dit is dummycontent voor clubdetailpagina B.
 ---
 
-# Wesstar
+# Club Dummy B
 
-**Wesstar** is een korfbalvereniging uit Zevenaar. De club speelt op Sportpark De Greften en heeft een rijke geschiedenis in de regio Liemers.
+Dit is tijdelijke placeholder-content voor een clubdetailpagina.
 
-## Over de club
+## Over deze club
 
-Wesstar is een actieve vereniging met leden van alle leeftijden. De club biedt korfbal aan op verschillende niveaus en draagt bij aan de sportieve gemeenschap in Zevenaar.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc viverra, justo ut mollis luctus, turpis massa dapibus turpis, non iaculis ligula mi ut eros.
 
 ## Contact
 
-Bezoek de [website van Wesstar](https://www.wesstar.nl) voor meer informatie over trainingstijden en lidmaatschap.
+Bezoek de [website van Club Dummy B](https://example.com/club-b) voor meer informatie.

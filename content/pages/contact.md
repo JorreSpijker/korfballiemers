@@ -1,21 +1,18 @@
 ---
-title: Contact
-excerpt: Neem contact op met het WK Korfbal 2027 Bid team.
+title: Contact (Dummy)
+excerpt: Dit is dummycontent voor de contactpagina.
 ---
 
-# Contact
+# Contact dummycontent
 
-Heeft u vragen over het WK Korfbal 2027 Bid of wilt u meer informatie? Neem gerust contact met ons op.
+Dit is tijdelijke placeholder-content voor contactinformatie.
 
-## Contactgegevens
+## Voorbeeldgegevens
 
-- **E-mail:** info@wk2027liemers.nl
-- **Postadres:** WK Korfbal 2027 Bid, Regio Liemers
+- E-mail: demo@example.com
+- Telefoon: +31 6 00 00 00 00
+- Adres: Voorbeeldstraat 1, 1234 AB Plaats
 
-## Vragen?
+## Placeholder tekst
 
-Of u nu vrijwilliger wilt worden, sponsor wilt worden, of gewoon informatie zoekt – we staan voor u klaar. Stuur een e-mail en we reageren zo snel mogelijk.
-
-## Volg ons
-
-Blijf op de hoogte van het laatste nieuws via onze [Nieuws-pagina](/nieuws).
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean suscipit, augue at vestibulum feugiat, sem eros faucibus est, a pulvinar arcu erat at libero.

@@ -1,4 +1,10 @@
-import { getPageContent } from "@/lib/content";
+import { getPageContent, getAllClubs } from "@/lib/content";
+import { Hero } from "@/components/hero";
+import { NewsFeed } from "@/components/news-feed";
+import { ContentSection } from "@/components/content-section";
+import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
+import clubsMapData from "@/data/clubs-map.json";
+import type { ClubMapEntry } from "@/types/clubs-map";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,6 +15,12 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   const page = await getPageContent("home");
+  const clubs = await getAllClubs();
+  const mapClubs = clubsMapData as ClubMapEntry[];
+  const clubNames = Object.fromEntries(
+    clubs.map((c) => [c.frontmatter.id ?? c.slug, c.frontmatter.name ?? c.slug])
+  );
+
   if (!page) {
     return (
       <div className="container px-4 py-12">
@@ -18,23 +30,26 @@ export default async function HomePage() {
   }
 
   return (
-    <article className="container px-4 py-12">
-      <div className="mx-auto max-w-3xl space-y-8">
-        <header>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            {page.frontmatter.title}
-          </h1>
-          {page.frontmatter.excerpt && (
-            <p className="mt-2 text-lg text-muted-foreground">
-              {page.frontmatter.excerpt}
-            </p>
-          )}
-        </header>
+    <>
+      {/* Hero Section */}
+      <Hero clubs={mapClubs} clubNames={clubNames} />
+
+      {/* Intro Content Section */}
+
+      <ContentSection
+        title={page.frontmatter.title}
+      >
         <div
-          className="prose prose-neutral dark:prose-invert max-w-none"
+          className="prose prose-neutral max-w-none text-slate-700"
           dangerouslySetInnerHTML={{ __html: page.content }}
         />
-      </div>
-    </article>
+      </ContentSection>
+
+      <section className="container px-4 pb-16">
+        <NewsFeed limit={6} title="Nieuws uit de bid-regio" />
+      </section>
+
+      <SponsorLogoBar />
+    </>
   );
 }

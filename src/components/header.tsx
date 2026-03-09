@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu } from "lucide-react";
@@ -33,8 +34,8 @@ function NavLinks({
   onLinkClick?: () => void;
 }) {
   const linkClass = isMobile
-    ? "block rounded-md px-4 py-3 text-lg font-medium transition-colors pb-3"
-    : "rounded-md px-3 py-2 text-sm font-medium transition-colors pb-2";
+    ? "block px-4 py-3 text-lg font-medium transition-colors pb-3"
+    : "px-3 py-2 text-sm font-medium transition-colors pb-2";
 
   return (
     <>
@@ -67,26 +68,35 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="container mx-auto sticky top-6">
+    <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="z-50 w-full rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="w-fit rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       role="banner"
     >
       <div className="flex h-16 items-center px-4">
           <div className="logo-container border-t-none z-navigation rounded-b-2xl ml-4 border border-solid border-neutral-20 bg-white px-4 py-2 shadow-blue lg:absolute lg:-top-6 lg:left-2 lg:border xl:left-4">
             <Link
               href="/"
-              className="flex items-center flex-col gap-2 font-semibold text-lg transition-colors"
+              className="flex flex-col items-center gap-1 font-semibold text-lg transition-colors"
               aria-label="Naar homepage"
             >
-            <span>Korfbal in</span>
-            <span>De Liemers</span>
+              <Image
+                src="/korfbal-logo.svg"
+                alt="Korfbal in De Liemers logo"
+                width={42}
+                height={42}
+                priority
+              />
+              <span className="flex flex-col items-center text-sm leading-tight text-secondary">
+                <span>Korfbal in</span>
+                <span>De Liemers</span>
+              </span>
             </Link>
           </div>
 
         {/* Desktop nav */}
         <nav
-          className="ml-auto hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
+          className="ml-[200px] hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
           aria-label="Hoofdnavigatie"
         >
           <NavLinks pathname={pathname} />
