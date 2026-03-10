@@ -19,7 +19,7 @@ export function Footer() {
     <footer className="mt-16 bg-secondary text-secondary-foreground" role="contentinfo">
       <div className="h-1.5 w-full bg-primary" />
 
-      <div className="container px-4 py-12">
+      <div className="container mx-auto px-4 py-12">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
             <Link href="/" className="inline-flex items-center gap-3" aria-label="Naar homepage">

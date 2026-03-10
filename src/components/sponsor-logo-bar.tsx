@@ -9,12 +9,16 @@ const sponsors = [
   { name: "Sponsor 6", logo: "/sponsors/sponsor-6.svg" },
 ];
 
-export function SponsorLogoBar() {
+type SponsorLogoBarProps = {
+  id?: string;
+};
+
+export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
   const loopedSponsors = [...sponsors, ...sponsors];
 
   return (
-    <section className="border-y border-border bg-white">
-      <div className="container px-4 py-8">
+    <section id={id} className="border-y border-border bg-white">
+      <div className="container mx-auto px-4 py-8">
         <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
           Trots op onze sponsoren
         </p>

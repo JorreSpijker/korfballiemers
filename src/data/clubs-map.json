@@ -1,6 +1,8 @@
 [
   {
     "id": "wesstar",
+    "name": "Wesstar",
+    "logo": "/club-logos/logo-wesstar.png",
     "lat": 51.94437770119193,
     "lng": 5.9830657579109845,
     "oprichtingsjaar": 1986,
@@ -13,6 +15,7 @@
   {
     "id": "duko",
     "name": "Duko",
+    "logo": "/club-logos/logo-duko.png",
     "lat": 51.94376701193088,
     "lng": 6.030838300019142,
     "oprichtingsjaar": 1978,
@@ -25,6 +28,7 @@
   {
     "id": "dlkv",
     "name": "DLKV",
+    "logo": "/club-logos/logo-dlkv.png",
     "lat": 51.93181101746238,
     "lng": 6.1309932922460995,
     "oprichtingsjaar": null,
@@ -37,6 +41,7 @@
   {
     "id": "rivalen",
     "name": "KV Rivalen",
+    "logo": "/club-logos/logo-rivalen.png",
     "lat": 52.00672826056138,
     "lng": 6.152125196363951,
     "oprichtingsjaar": 1960,
@@ -49,6 +54,7 @@
   {
     "id": "zwaluwen",
     "name": "KV de Zwaluwen",
+    "logo": "/club-logos/logo-zwaluwen.svg",
     "lat": 51.928772297232335,
     "lng": 6.0986959599518995,
     "oprichtingsjaar": 1956,

@@ -14,6 +14,8 @@ type NewsFeedProps = {
   limit?: number;
   title?: string;
   showAllLink?: boolean;
+  fullWidth?: boolean;
+  id?: string;
 };
 
 function formatDate(date: string): string {
@@ -29,6 +31,8 @@ export function NewsFeed({
   limit = 6,
   title = "Laatste nieuws",
   showAllLink = true,
+  fullWidth = false,
+  id,
 }: NewsFeedProps) {
   const [items, setItems] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -71,12 +75,12 @@ export function NewsFeed({
 
   const hasItems = useMemo(() => items.length > 0, [items]);
 
-  return (
-    <section className="relative overflow-hidden rounded-3xl bg-secondary px-6 py-10 text-secondary-foreground sm:px-10">
+  const content = (
+    <>
       <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 translate-x-12 -translate-y-12 rounded-full bg-primary/20 blur-2xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-36 w-36 -translate-x-10 translate-y-12 rounded-full bg-primary/25 blur-2xl" />
 
-      <div className="relative">
+      <div className="container mx-auto">
         <div className="mb-8 flex items-end justify-between gap-4 border-b border-white/15 pb-4">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
@@ -134,6 +138,15 @@ export function NewsFeed({
           </ul>
         )}
       </div>
+    </>
+  );
+
+  return (
+    <section
+      id={id}
+      className="relative bg-secondary px-6 py-16 text-secondary-foreground sm:px-10"
+    >
+      {content}
     </section>
   );
 }

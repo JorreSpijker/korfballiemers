@@ -5,6 +5,7 @@ type ContentSectionProps = {
   intro?: string;
   children?: ReactNode;
   className?: string;
+  id?: string;
 };
 
 export function ContentSection({
@@ -12,9 +13,10 @@ export function ContentSection({
   intro,
   children,
   className,
+  id,
 }: ContentSectionProps) {
   return (
-    <section className={`bg-white py-12 sm:py-16 ${className ?? ""}`.trim()}>
+    <section id={id} className={`bg-white py-12 sm:py-16 ${className ?? ""}`.trim()}>
       <div className="container px-4">
         <div className="mx-auto max-w-3xl space-y-8">
           {(title || intro) && (

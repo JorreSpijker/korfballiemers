@@ -28,9 +28,17 @@ const quickLinks = [
   },
 ] as const;
 
-export function QuickLinks() {
+type QuickLinksProps = {
+  id?: string;
+};
+
+export function QuickLinks({ id }: QuickLinksProps) {
   return (
-      <section aria-labelledby="quick-links-title" className="space-y-4">
+      <section
+        id={id}
+        aria-labelledby="quick-links-title"
+        className="space-y-4"
+      >
         <h2 id="quick-links-title" className="text-xl font-semibold leading-none">
           Snelle links
         </h2>

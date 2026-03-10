@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import {
   Map,
@@ -46,7 +47,17 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
             <MarkerContent />
             <MarkerPopup closeButton>
               <div className="space-y-2 min-w-[200px] max-w-[280px]">
-                <div>
+                <div className="flex items-center gap-3">
+                  {club.logo && (
+                    <div className="relative h-10 w-10 overflow-hidden rounded-md border border-border bg-background shrink-0">
+                      <Image
+                        src={club.logo}
+                        alt={`${club.name ?? clubNames[club.id] ?? club.id} logo`}
+                        fill
+                        className="object-contain p-1"
+                      />
+                    </div>
+                  )}
                   <h3 className="font-semibold text-base">
                     {club.name ?? clubNames[club.id] ?? club.id}
                   </h3>
@@ -92,15 +103,6 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
                       </a>
                     </p>
                   )}
-                </div>
-                
-                <div className="pt-1 border-t border-border">
-                  <Link
-                    href={`/clubs/${club.id}`}
-                    className="inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
-                  >
-                    Meer informatie →
-                  </Link>
                 </div>
               </div>
             </MarkerPopup>

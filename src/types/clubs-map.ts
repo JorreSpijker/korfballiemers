@@ -1,6 +1,7 @@
 export interface ClubMapEntry {
   id: string;
   name?: string;
+  logo?: string;
   lat: number;
   lng: number;
   oprichtingsjaar?: number | null;
