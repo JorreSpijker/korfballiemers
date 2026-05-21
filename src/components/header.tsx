@@ -69,8 +69,6 @@ function NavLinks({
       {navItems.map(({ href, label }) => {
         const isActive = href.startsWith("#")
           ? activeSection === href
-          : href === "/"
-          ? pathname === "/"
           : pathname.startsWith(href);
         return (
           <Link
@@ -96,7 +94,7 @@ function NavLinks({
 export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState(navItems[0].href);
+  const [activeSection, setActiveSection] = useState<string>(navItems[0].href);
 
   useEffect(() => {
     const sectionIds = navItems
