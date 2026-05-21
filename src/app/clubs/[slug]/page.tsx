@@ -48,7 +48,7 @@ export default async function ClubDetailPage({
           </Link>
         </nav>
         <header>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
             {club.frontmatter.name ?? club.slug}
           </h1>
           {club.frontmatter.city && (

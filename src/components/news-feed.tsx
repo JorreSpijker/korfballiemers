@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 
@@ -8,6 +9,7 @@ type NewsItem = {
   title: string;
   excerpt: string;
   date: string;
+  image?: string | null;
 };
 
 type NewsFeedProps = {
@@ -75,56 +77,66 @@ export function NewsFeed({
 
   const hasItems = useMemo(() => items.length > 0, [items]);
 
+  const containerClass = fullWidth ? "w-full" : "container mx-auto";
+
   const content = (
-    <>
-      <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 translate-x-12 -translate-y-12 rounded-full bg-primary/20 blur-2xl" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-36 w-36 -translate-x-10 translate-y-12 rounded-full bg-primary/25 blur-2xl" />
-
-      <div className="container mx-auto">
-        <div className="mb-8 flex items-end justify-between gap-4 border-b border-white/15 pb-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
-              TeamNL-stijl
-            </p>
-            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-              {title}
-            </h2>
-          </div>
-          {showAllLink && (
-            <Link
-              href="/nieuws"
-              className="text-sm font-semibold text-primary transition hover:text-primary/80"
-            >
-              Bekijk alles
-            </Link>
-          )}
+    <div className={containerClass}>
+      <div className="mb-8 flex items-end justify-between gap-4 pb-4">
+        <div>
+          <h2 className="font-heading mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-slate-900">
+            {title}
+          </h2>
         </div>
-
-        {loading && <p className="text-white/70">Nieuws wordt geladen...</p>}
-
-        {error && <p className="text-sm text-red-200">{error}</p>}
-
-        {!loading && !error && !hasItems && (
-          <p className="text-white/70">Nog geen nieuwsberichten beschikbaar.</p>
+        {showAllLink && (
+          <Link
+            href="/nieuws"
+            className="text-sm font-semibold text-primary transition hover:text-primary/80"
+          >
+            Bekijk alles
+          </Link>
         )}
+      </div>
 
-        {!loading && !error && hasItems && (
-          <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {items.map((item) => (
-              <li key={item.slug}>
-                <article className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/5 p-5 backdrop-blur-sm transition hover:-translate-y-0.5 hover:border-primary/60 hover:bg-white/10">
-                  <time className="text-xs font-medium uppercase tracking-wide text-white/60" dateTime={item.date}>
+      {loading && <p className="text-sm text-slate-500">Nieuws wordt geladen...</p>}
+
+      {error && <p className="text-sm text-red-600">{error}</p>}
+
+      {!loading && !error && !hasItems && (
+        <p className="text-sm text-slate-500">Nog geen nieuwsberichten beschikbaar.</p>
+      )}
+
+      {!loading && !error && hasItems && (
+        <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => (
+            <li key={item.slug}>
+              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+                {item.image && (
+                  <div className="relative h-48 w-full">
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                )}
+                <div className="flex flex-1 flex-col gap-3 px-5 py-6">
+                  <time
+                    className="text-xs font-medium uppercase tracking-wide text-slate-500"
+                    dateTime={item.date}
+                  >
                     {formatDate(item.date)}
                   </time>
-                  <h3 className="mt-3 text-lg font-semibold leading-tight">
+                  <h3 className="font-heading text-lg font-semibold leading-tight text-slate-900">
                     <Link href={`/nieuws/${item.slug}`} className="hover:text-primary">
                       {item.title}
                     </Link>
                   </h3>
                   {item.excerpt && (
-                    <p className="mt-3 text-sm text-white/75">{item.excerpt}</p>
+                    <p className="text-sm text-slate-600">{item.excerpt}</p>
                   )}
-                  <div className="mt-auto pt-5">
+                  <div className="mt-3 pt-3">
                     <Link
                       href={`/nieuws/${item.slug}`}
                       className="inline-flex items-center text-sm font-semibold text-primary transition hover:text-primary/80"
@@ -132,20 +144,17 @@ export function NewsFeed({
                       Lees bericht
                     </Link>
                   </div>
-                </article>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 
   return (
-    <section
-      id={id}
-      className="relative bg-secondary px-6 py-16 text-secondary-foreground sm:px-10"
-    >
+    <section id={id} className="relative bg-white px-6 py-20 sm:px-10">
       {content}
     </section>
   );

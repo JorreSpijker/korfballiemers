@@ -26,19 +26,6 @@
     "website": "https://www.dukoduiven.nl"
   },
   {
-    "id": "dlkv",
-    "name": "DLKV",
-    "logo": "/club-logos/logo-dlkv.png",
-    "lat": 51.93181101746238,
-    "lng": 6.1309932922460995,
-    "oprichtingsjaar": null,
-    "aantal_leden": 23,
-    "leden_datum": "01-12-2025",
-    "klasse_veld": "Breedte korfbal",
-    "klasse_zaal": "Breedte korfbal",
-    "website": null
-  },
-  {
     "id": "rivalen",
     "name": "KV Rivalen",
     "logo": "/club-logos/logo-rivalen.png",

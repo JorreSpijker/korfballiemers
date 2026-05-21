@@ -1498,9 +1498,9 @@ function MapRegion({
   const fillLayerId = `region-fill-${id}`;
   const strokeLayerId = `region-stroke-${id}`;
 
-  // Use primary color if not specified (TeamNL Orange #FF6600)
-  const defaultFillColor = fillColor ?? "#FF6600";
-  const defaultStrokeColor = strokeColor ?? "#FF6600";
+  // Use primary color if not specified (#801007)
+  const defaultFillColor = fillColor ?? "#801007";
+  const defaultStrokeColor = strokeColor ?? "#801007";
 
   // Add source and layers on mount
   useEffect(() => {

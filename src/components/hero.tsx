@@ -1,4 +1,5 @@
 import { ClubMap } from "@/components/club-map";
+import Image from "next/image";
 import type { ClubMapEntry } from "@/types/clubs-map";
 
 interface HeroProps {
@@ -11,7 +12,7 @@ interface HeroProps {
 
 export function Hero({ clubs, clubNames, introTitle, introHtml, id }: HeroProps) {
   return (
-    <section id={id} className="border-b border-border bg-muted/20 h-[50vh]">
+    <section id={id} className="bg-muted/20 h-[50vh]">
       <div className="flex flex-col lg:flex-row h-full">
         {/* Intro - Links (op container-grid) */}
         <div className="w-full lg:w-1/2">
@@ -22,6 +23,15 @@ export function Hero({ clubs, clubNames, introTitle, introHtml, id }: HeroProps)
                 dangerouslySetInnerHTML={{ __html: introHtml }}
               />
             </article>
+            <div className="mt-10 flex justify-center lg:justify-start">
+              <Image
+                src="/liemers_heart.svg"
+                alt="Het Liemers-logo"
+                width={64}
+                height={64}
+                className="h-auto max-w-[64px]"
+              />
+            </div>
           </div>
         </div>
 

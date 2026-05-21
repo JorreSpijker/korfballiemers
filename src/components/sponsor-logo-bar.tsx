@@ -17,11 +17,20 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
   const loopedSponsors = [...sponsors, ...sponsors];
 
   return (
-    <section id={id} className="border-y border-border bg-white">
-      <div className="container mx-auto px-4 py-8">
-        <p className="mb-5 text-center text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+    <section id={id} className="bg-muted/20">
+      <div className="container mx-auto px-4 py-20">
+        <h2 className="font-heading mb-5 flex items-center justify-center gap-2 text-center font-semibold uppercase tracking-[0.16em] text-slate-500">
           Trots op onze sponsoren
-        </p>
+          <span className="inline-flex">
+            <Image
+              src="/liemers_heart.svg"
+              alt="Liemers hart"
+              width={24}
+              height={24}
+              className="h-6 w-auto"
+            />
+          </span>
+        </h2>
 
         <div className="relative overflow-hidden">
           <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent" />

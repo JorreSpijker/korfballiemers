@@ -2,6 +2,7 @@
 title: Nieuwsbericht Dummy 2
 date: 2025-02-01
 excerpt: Dit is een tweede dummy nieuwsbericht.
+image: https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80
 ---
 
 # Dummy nieuwsbericht 2

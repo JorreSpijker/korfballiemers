@@ -19,6 +19,11 @@ import type { GeoJSON } from "geojson";
 const LIEMERS_CENTER: [number, number] = [6.08, 51.93];
 const DEFAULT_ZOOM = 10;
 
+// Lock the zoom/pan so the entire Netherlands is always the widest view.
+// bbox: west, south, east, north (approximate national extents with margin)
+const NETHERLANDS_BOUNDS: [number, number, number, number] = [3.3, 50.5, 7.3, 53.7];
+const MIN_ZOOM_NETHERLANDS = 5;
+
 interface ClubMapProps {
   clubs: ClubMapEntry[];
   clubNames?: Record<string, string>;
@@ -31,11 +36,13 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
         center={LIEMERS_CENTER}
         zoom={DEFAULT_ZOOM}
         className="h-full w-full min-h-[300px]"
+        minZoom={MIN_ZOOM_NETHERLANDS}
+        maxBounds={NETHERLANDS_BOUNDS}
       >
         <MapControls showZoom />
         <MapRegion
           data={regionMapData as unknown as GeoJSON.FeatureCollection}
-          fillColor="#FF6600"
+          fillColor="#801007"
           fillOpacity={0.15}
         />
         {clubs.map((club) => (
@@ -49,7 +56,7 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
               <div className="space-y-2 min-w-[200px] max-w-[280px]">
                 <div className="flex items-center gap-3">
                   {club.logo && (
-                    <div className="relative h-10 w-10 overflow-hidden rounded-md border border-border bg-background shrink-0">
+                    <div className="relative h-10 w-10 overflow-hidden rounded-md bg-background shrink-0">
                       <Image
                         src={club.logo}
                         alt={`${club.name ?? clubNames[club.id] ?? club.id} logo`}
@@ -58,7 +65,7 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
                       />
                     </div>
                   )}
-                  <h3 className="font-semibold text-base">
+                  <h3 className="font-heading font-semibold text-base">
                     {club.name ?? clubNames[club.id] ?? club.id}
                   </h3>
                 </div>

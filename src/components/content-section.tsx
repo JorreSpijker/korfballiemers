@@ -22,7 +22,7 @@ export function ContentSection({
           {(title || intro) && (
             <header>
               {title && (
-                <h1 className="text-3xl font-bold tracking-tight text-secondary sm:text-4xl">
+                <h1 className="font-heading text-3xl font-bold tracking-tight text-secondary sm:text-4xl">
                   {title}
                 </h1>
               )}

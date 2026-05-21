@@ -21,7 +21,7 @@ export default async function ContactPage() {
     <article className="container px-4 py-12">
       <div className="mx-auto max-w-3xl space-y-8">
         <header>
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
             {page.frontmatter.title}
           </h1>
           {page.frontmatter.excerpt && (

@@ -55,7 +55,7 @@ export default async function NewsDetailPage({
                 })
               : ""}
           </time>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">
+          <h1 className="font-heading mt-1 text-3xl font-bold tracking-tight sm:text-4xl">
             {post.frontmatter.title}
           </h1>
         </header>

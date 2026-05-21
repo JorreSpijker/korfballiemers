@@ -39,7 +39,7 @@ export function QuickLinks({ id }: QuickLinksProps) {
         aria-labelledby="quick-links-title"
         className="space-y-4"
       >
-        <h2 id="quick-links-title" className="text-xl font-semibold leading-none">
+        <h2 id="quick-links-title" className="font-heading text-xl font-semibold leading-none">
           Snelle links
         </h2>
         <nav aria-label="Snelle links">

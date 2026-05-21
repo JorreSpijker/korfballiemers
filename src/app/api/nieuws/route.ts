@@ -14,6 +14,7 @@ export async function GET(request: Request) {
     title: post.frontmatter.title ?? post.slug,
     excerpt: post.frontmatter.excerpt ?? "",
     date: post.frontmatter.date ?? "",
+    image: post.frontmatter.image ?? null,
   }));
 
   return NextResponse.json({ news });

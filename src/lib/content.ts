@@ -16,6 +16,7 @@ export interface PageFrontmatter {
 
 export interface NewsPostFrontmatter extends PageFrontmatter {
   date?: string;
+  image?: string;
 }
 
 export interface ClubFrontmatter extends PageFrontmatter {

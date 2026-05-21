@@ -45,8 +45,7 @@ export default async function HomePage() {
       <NewsFeed
         id="nieuws"
         limit={6}
-        title="Nieuws uit de bid-regio"
-        fullWidth
+        title="Korfbalnieuws uit de Liemers"
       />
 
       <SponsorLogoBar id="sponsors" />

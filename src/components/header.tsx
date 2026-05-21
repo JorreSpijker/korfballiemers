@@ -16,7 +16,6 @@ import {
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { href: "#intro", label: "Home" },
   { href: "#nieuws", label: "Nieuws" },
   { href: "#vrijwilligers", label: "Vrijwilligers" },
   { href: "#sponsor-worden", label: "Sponsor worden" },
@@ -165,15 +164,15 @@ export function Header() {
                 priority
               />
               <span className="flex flex-col items-center text-sm leading-tight text-secondary">
-                <span>Korfbal in</span>
-                <span>De Liemers</span>
+                <span>LiemersCity</span>
+                <span>Korfbal</span>
               </span>
             </Link>
           </div>
 
         {/* Desktop nav */}
         <nav
-          className="ml-[200px] hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
+          className="ml-[140px] hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
           aria-label="Hoofdnavigatie"
         >
           <NavLinks pathname={pathname} activeSection={activeSection} />
