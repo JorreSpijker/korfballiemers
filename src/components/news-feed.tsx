@@ -109,7 +109,7 @@ export function NewsFeed({
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <li key={item.slug}>
-              <article className="flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+              <article className="flex h-full flex-col overflow-hidden rounded-sm bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
                 {item.image && (
                   <div className="relative h-48 w-full">
                     <Image
