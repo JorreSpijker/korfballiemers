@@ -1,13 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import {
   Map,
   MapControls,
   MapMarker,
   MarkerContent,
-  MarkerPopup,
   MapRegion,
 } from "@/components/ui/map";
 import { Card } from "@/components/ui/card";
@@ -15,12 +14,8 @@ import type { ClubMapEntry } from "@/types/clubs-map";
 import regionMapData from "@/data/region-map.json";
 import type { GeoJSON } from "geojson";
 
-// Liemers centrum (ongeveer Zevenaar): 51.93, 6.08
 const LIEMERS_CENTER: [number, number] = [6.08, 51.93];
 const DEFAULT_ZOOM = 10;
-
-// Lock the zoom/pan so the entire Netherlands is always the widest view.
-// bbox: west, south, east, north (approximate national extents with margin)
 const NETHERLANDS_BOUNDS: [number, number, number, number] = [3.3, 50.5, 7.3, 53.7];
 const MIN_ZOOM_NETHERLANDS = 5;
 
@@ -29,93 +24,118 @@ interface ClubMapProps {
   clubNames?: Record<string, string>;
 }
 
-export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
+function ClubSidebar({
+  club,
+  clubNames,
+}: {
+  club: ClubMapEntry;
+  clubNames: Record<string, string>;
+}) {
+  const name = club.name ?? clubNames[club.id] ?? club.id;
+
   return (
-    <Card className={`h-full w-full overflow-hidden rounded-none p-0`}>
-      <Map
-        center={LIEMERS_CENTER}
-        zoom={DEFAULT_ZOOM}
-        className="h-full w-full min-h-[300px]"
-        minZoom={MIN_ZOOM_NETHERLANDS}
-        maxBounds={NETHERLANDS_BOUNDS}
-      >
-        <MapControls showZoom />
-        <MapRegion
-          data={regionMapData as unknown as GeoJSON.FeatureCollection}
-          fillColor="#801007"
-          fillOpacity={0.15}
-        />
-        {clubs.map((club) => (
-          <MapMarker
-            key={club.id}
-            longitude={club.lng}
-            latitude={club.lat}
-          >
-            <MarkerContent />
-            <MarkerPopup closeButton>
-              <div className="space-y-2 min-w-[200px] max-w-[280px]">
-                <div className="flex items-center gap-3">
-                  {club.logo && (
-                    <div className="relative h-10 w-10 overflow-hidden rounded-md bg-background shrink-0">
-                      <Image
-                        src={club.logo}
-                        alt={`${club.name ?? clubNames[club.id] ?? club.id} logo`}
-                        fill
-                        className="object-contain p-1"
-                      />
-                    </div>
-                  )}
-                  <h3 className="font-heading font-semibold text-base">
-                    {club.name ?? clubNames[club.id] ?? club.id}
-                  </h3>
-                </div>
-                
-                <div className="space-y-1 text-sm">
-                  {club.oprichtingsjaar && (
-                    <p className="text-muted-foreground">
-                      <span className="font-medium">Opgericht:</span> {club.oprichtingsjaar}
-                    </p>
-                  )}
-                  
-                  {club.aantal_leden !== undefined && (
-                    <p className="text-muted-foreground">
-                      <span className="font-medium">Leden:</span> {club.aantal_leden}
-                      {club.leden_datum && (
-                        <span className="text-xs"> (peildatum: {club.leden_datum})</span>
-                      )}
-                    </p>
-                  )}
-                  
-                  {club.klasse_veld && (
-                    <p className="text-muted-foreground">
-                      <span className="font-medium">Veld:</span> {club.klasse_veld}
-                    </p>
-                  )}
-                  
-                  {club.klasse_zaal && (
-                    <p className="text-muted-foreground">
-                      <span className="font-medium">Zaal:</span> {club.klasse_zaal}
-                    </p>
-                  )}
-                  
-                  {club.website && (
-                    <p className="pt-1">
-                      <a
-                        href={club.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm font-medium text-primary underline-offset-4 hover:underline"
-                      >
-                        Bezoek website →
-                      </a>
-                    </p>
-                  )}
-                </div>
-              </div>
-            </MarkerPopup>
-          </MapMarker>
-        ))}
-      </Map>
+    <div className="p-5 space-y-4">
+      <div className="flex items-center gap-3">
+        {club.logo && (
+          <div className="relative h-12 w-12 overflow-hidden rounded-md bg-muted shrink-0">
+            <Image
+              src={club.logo}
+              alt={`${name} logo`}
+              fill
+              className="object-contain p-1"
+            />
+          </div>
+        )}
+        <h2 className="font-heading font-semibold text-lg leading-tight">{name}</h2>
+      </div>
+
+      <div className="space-y-2 text-sm">
+        {club.oprichtingsjaar && (
+          <div className="flex justify-between gap-2">
+            <span className="text-muted-foreground">Opgericht</span>
+            <span className="font-medium">{club.oprichtingsjaar}</span>
+          </div>
+        )}
+        {club.aantal_leden !== undefined && (
+          <div className="flex justify-between gap-2">
+            <span className="text-muted-foreground">
+              Leden
+              {club.leden_datum && (
+                <span className="text-xs"> ({club.leden_datum})</span>
+              )}
+            </span>
+            <span className="font-medium">{club.aantal_leden}</span>
+          </div>
+        )}
+        {club.klasse_veld && (
+          <div className="flex justify-between gap-2">
+            <span className="text-muted-foreground">Veld</span>
+            <span className="font-medium">{club.klasse_veld}</span>
+          </div>
+        )}
+        {club.klasse_zaal && (
+          <div className="flex justify-between gap-2">
+            <span className="text-muted-foreground">Zaal</span>
+            <span className="font-medium">{club.klasse_zaal}</span>
+          </div>
+        )}
+      </div>
+
+      {club.website && (
+        <a
+          href={club.website}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+        >
+          Bezoek website →
+        </a>
+      )}
+    </div>
+  );
+}
+
+export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
+  const [selectedClub, setSelectedClub] = useState<ClubMapEntry | null>(null);
+
+  return (
+    <Card className="h-full w-full overflow-hidden rounded-none p-0 flex md:flex-row gap-0 border-1">
+      <div className="flex-1 min-w-0">
+        <Map
+          center={LIEMERS_CENTER}
+          zoom={DEFAULT_ZOOM}
+          className="h-full w-full min-h-[300px]"
+          minZoom={MIN_ZOOM_NETHERLANDS}
+          maxBounds={NETHERLANDS_BOUNDS}
+        >
+          <MapControls showZoom />
+          <MapRegion
+            data={regionMapData as unknown as GeoJSON.FeatureCollection}
+            fillColor="#801007"
+            fillOpacity={0.15}
+          />
+          {clubs.map((club) => (
+            <MapMarker
+              key={club.id}
+              longitude={club.lng}
+              latitude={club.lat}
+              onClick={() => setSelectedClub(club)}
+            >
+              <MarkerContent />
+            </MapMarker>
+          ))}
+        </Map>
+      </div>
+
+      <div className="w-full md:w-72 shrink-0 border-t md:border-l md:border-t-0 bg-background overflow-y-auto">
+        {selectedClub ? (
+          <ClubSidebar club={selectedClub} clubNames={clubNames} />
+        ) : (
+          <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted-foreground">
+            Klik op een club op de kaart voor meer informatie
+          </div>
+        )}
+      </div>
     </Card>
   );
 }

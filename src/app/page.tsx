@@ -1,5 +1,6 @@
 import { getPageContent, getAllClubs } from "@/lib/content";
 import { Hero } from "@/components/hero";
+import { ClubMap } from "@/components/club-map";
 import { NewsFeed } from "@/components/news-feed";
 import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
 import { ContentSection } from "@/components/content-section";
@@ -35,12 +36,19 @@ export default async function HomePage() {
     <>
       {/* Hero Section */}
       <Hero
-        clubs={mapClubs}
-        clubNames={clubNames}
-        introTitle={page.frontmatter.title}
         introHtml={page.content}
         id="intro"
       />
+
+      {/* Kaart sectie */}
+      <section id="clubs" className="py-16 bg-slate-50">
+        <div className="container">
+          <h2 className="text-2xl font-bold text-slate-800 mb-8">Clubs in de Liemers</h2>
+          <div className="h-125 w-full">
+            <ClubMap clubs={mapClubs} clubNames={clubNames} />
+          </div>
+        </div>
+      </section>
 
       <NewsFeed
         id="nieuws"

@@ -16,9 +16,7 @@ const doeMeeLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 bg-secondary text-secondary-foreground" role="contentinfo">
-      <div className="h-1.5 w-full bg-primary" />
-
+    <footer className="mt-16 bg-slate-100" role="contentinfo">
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
@@ -34,7 +32,7 @@ export function Footer() {
                 <span className="block">De Liemers</span>
               </span>
             </Link>
-            <p className="max-w-xs text-sm text-white/75">
+            <p className="max-w-xs text-sm">
               Samen bouwen we aan een sterk bid voor het WK Korfbal 2027 in de regio Liemers.
             </p>
           </div>
@@ -48,7 +46,7 @@ export function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-white/80 transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="text-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     {label}
                   </Link>
@@ -66,7 +64,7 @@ export function Footer() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className="text-sm text-white/80 transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                    className="text-sm transition hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
                   >
                     {label}
                   </Link>
@@ -79,7 +77,7 @@ export function Footer() {
             <h3 className="font-heading text-sm font-semibold uppercase tracking-[0.14em] text-primary">
               Contact
             </h3>
-            <ul className="mt-4 space-y-3 text-sm text-white/80">
+            <ul className="mt-4 space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 text-primary" aria-hidden />
                 <span>Regio De Liemers, Gelderland</span>
@@ -100,7 +98,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/15 pt-5 text-xs sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} WK Korfbal 2027 Bid Liemers.</p>
           <p>Alle rechten voorbehouden.</p>
         </div>

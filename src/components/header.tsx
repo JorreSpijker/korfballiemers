@@ -168,7 +168,7 @@ export function Header() {
   return (
     <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="w-full rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="w-full rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
       role="banner"
     >
       <div className="flex h-16 items-center px-4">
