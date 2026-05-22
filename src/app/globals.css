@@ -166,3 +166,7 @@ html {
 .container {
   @apply max-w-7xl mx-auto px-4;
 }
+
+.btn {
+  @apply inline-flex text-sm font-medium text-white bg-primary underline-offset-4 hover:bg-primary/80 hover:underline w-fit px-4 py-2 rounded-sm transition-colors duration-200;
+}

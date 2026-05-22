@@ -34,7 +34,7 @@ function ClubSidebar({
   const name = club.name ?? clubNames[club.id] ?? club.id;
 
   return (
-    <div className="p-5 space-y-4">
+    <div className="p-5 space-y-4 flex flex-col h-full">
       <div className="flex items-center gap-3">
         {club.logo && (
           <div className="relative h-12 w-12 overflow-hidden rounded-md bg-muted shrink-0">
@@ -80,13 +80,18 @@ function ClubSidebar({
           </div>
         )}
       </div>
+      {club.description && (
+      <div className="border-t pt-4">
+          <p className="text-sm text-slate-600">{club.description}</p>
+      </div>
+        )}
 
       {club.website && (
         <a
           href={club.website}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block text-sm font-medium text-primary underline-offset-4 hover:underline"
+          className="btn mt-auto"
         >
           Bezoek website →
         </a>

@@ -10,4 +10,5 @@ export interface ClubMapEntry {
   klasse_veld?: string;
   klasse_zaal?: string;
   website?: string | null;
+  description?: string | null;
 }
