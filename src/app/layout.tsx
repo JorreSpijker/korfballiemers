@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Work_Sans, Bitter } from "next/font/google";
+import { Work_Sans, Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -9,8 +9,8 @@ const workSans = Work_Sans({
   subsets: ["latin"],
 });
 
-const bitter = Bitter({
-  variable: "--font-bitter",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -26,9 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="nl" className={`${workSans.variable} ${bitter.variable}`}>
+    <html lang="nl" className={`${workSans.variable} ${inter.variable}`}>
       <body
-        className="antialiased min-h-screen flex flex-col bg-blue-50"
+        className="antialiased min-h-screen flex flex-col bg-white"
       >
         <Header />
         <main className="flex-1 -mt-[66px]">{children}</main>

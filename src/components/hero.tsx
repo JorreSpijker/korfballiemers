@@ -16,7 +16,7 @@ export function Hero({ clubs, clubNames, introTitle, introHtml, id }: HeroProps)
       <div className="flex flex-col lg:flex-row h-full">
         {/* Intro - Links (op container-grid) */}
         <div className="w-full lg:w-1/2">
-          <div className="w-full max-w-[646px] ml-auto mr-30 py-12 lg:py-16 lg:flex lg:flex-col lg:justify-center mt-18 mb-10 h-full">
+          <div className="w-full max-w-[646px] ml-20 lg:ml-auto mr-30 py-12 lg:py-16 lg:flex lg:flex-col lg:justify-center mt-18 mb-10 h-full">
             <article className="space-y-4">
               <div
                 className="prose prose-neutral max-w-none text-slate-700"

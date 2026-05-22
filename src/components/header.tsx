@@ -15,11 +15,35 @@ import {
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
+const WK_DATE = new Date("2027-10-15");
+
+function Countdown() {
+  const [days, setDays] = useState<number | null>(null);
+
+  useEffect(() => {
+    const calc = () => {
+      const diff = WK_DATE.getTime() - Date.now();
+      setDays(Math.ceil(diff / (1000 * 60 * 60 * 24)));
+    };
+    calc();
+  }, []);
+
+  if (days === null) return null;
+
+  return (
+    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500 ml-4 inline-flex h-fit">
+      {days} dagen tot het WK
+    </span>
+  );
+}
+
 const navItems = [
-  { href: "#nieuws", label: "Nieuws" },
-  { href: "#vrijwilligers", label: "Vrijwilligers" },
-  { href: "#sponsor-worden", label: "Sponsor worden" },
-  { href: "#contact", label: "Contact" },
+  { href: "/nieuws", label: "Nieuws" },
+  { href: "/wk2027", label: "WK 2027" },
+  { href: "/over", label: "Wie zijn wij" },
+  { href: "/sponsor-worden", label: "Sponsor worden" },
+  { href: "/vrijwilligers", label: "Vrijwilligers" },
+  { href: "/contact", label: "Contact" },
 ] as const;
 
 function NavLinks({
@@ -34,8 +58,8 @@ function NavLinks({
   onLinkClick?: () => void;
 }) {
   const linkClass = isMobile
-    ? "block px-4 py-3 text-lg font-medium transition-colors pb-3"
-    : "px-3 py-2 text-sm font-medium transition-colors pb-2";
+    ? "block px-4 py-3 text-lg font-medium transition-colors pb-3 font-heading"
+    : "px-3 py-2 text-base font-medium transition-colors pb-2";
 
   const scrollToSection = (href: string) => {
     if (typeof window === "undefined" || !href.startsWith("#")) {
@@ -144,7 +168,7 @@ export function Header() {
   return (
     <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="w-fit rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="w-full rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
       role="banner"
     >
       <div className="flex h-16 items-center px-4">
@@ -169,12 +193,16 @@ export function Header() {
           </div>
 
         {/* Desktop nav */}
-        <nav
-          className="ml-[140px] hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
-          aria-label="Hoofdnavigatie"
-        >
-          <NavLinks pathname={pathname} activeSection={activeSection} />
-        </nav>
+
+        <div className="w-full flex justify-between items-center">
+          <nav
+            className="ml-[140px] hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
+            aria-label="Hoofdnavigatie"
+          >
+            <NavLinks pathname={pathname} activeSection={activeSection} />
+          </nav>
+          <Countdown />
+        </div>
 
         {/* Mobile menu */}
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
