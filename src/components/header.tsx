@@ -175,7 +175,7 @@ export function Header() {
   return (
     <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="w-fit rounded-sm shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      className="w-full lg:w-fit rounded-sm shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
       role="banner"
     >
       <div className="flex h-16 items-center px-4">
@@ -203,7 +203,7 @@ export function Header() {
 
         <div className="w-full flex justify-between items-center">
           <nav
-            className="ml-[140px] hidden items-center gap-1 sm:gap-2 md:flex mx-auto"
+            className="ml-[140px] hidden items-center gap-1 sm:gap-2 lg:flex mx-auto"
             aria-label="Hoofdnavigatie"
           >
             <NavLinks pathname={pathname} activeSection={activeSection} />
@@ -213,7 +213,7 @@ export function Header() {
 
         {/* Mobile menu */}
         <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild className="md:hidden ml-auto">
+          <SheetTrigger asChild className="lg:hidden ml-auto">
             <Button
               variant="ghost"
               size="icon"
