@@ -51,5 +51,13 @@
     "klasse_zaal": "1e klasse",
     "website": "https://www.dezwaluwen.nl",
     "description": "KV de Zwaluwen is al sinds 1956 een geliefde vereniging in Zevenaar. Klein genoeg om iedereen te kennen, groot genoeg om samen iets moois te maken. Van het veld tot de kantine: we maken onze club met z'n allen. Bij ons staat spelplezier voorop — we zijn en blijven een plek waar je thuis komt."
+  },
+  {
+    "id": "triominos",
+    "name": "Triominos",
+    "logo": "/club-logos/logo-triominos.svg",
+    "lat": 51.94550933772079,
+    "lng": 6.0077171118164605,
+    "description": "Welkom in de sporthal waar het allemaal gaat gebeuren."
   }
 ]

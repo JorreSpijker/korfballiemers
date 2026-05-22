@@ -14,8 +14,8 @@ import type { ClubMapEntry } from "@/types/clubs-map";
 import regionMapData from "@/data/region-map.json";
 import type { GeoJSON } from "geojson";
 
-const LIEMERS_CENTER: [number, number] = [6.08, 51.93];
-const DEFAULT_ZOOM = 10;
+const LIEMERS_CENTER: [number, number] = [6.08, 51.96];
+const DEFAULT_ZOOM = 10.6;
 const NETHERLANDS_BOUNDS: [number, number, number, number] = [3.3, 50.5, 7.3, 53.7];
 const MIN_ZOOM_NETHERLANDS = 5;
 
@@ -104,12 +104,12 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
   const [selectedClub, setSelectedClub] = useState<ClubMapEntry | null>(null);
 
   return (
-    <Card className="h-full w-full overflow-hidden rounded-none p-0 flex md:flex-row gap-0 border-1">
+    <Card className="h-full w-full overflow-hidden rounded-none p-0 flex md:flex-row gap-0 border">
       <div className="flex-1 min-w-0">
         <Map
           center={LIEMERS_CENTER}
           zoom={DEFAULT_ZOOM}
-          className="h-full w-full min-h-[300px]"
+          className="h-full w-full min-h-75"
           minZoom={MIN_ZOOM_NETHERLANDS}
           maxBounds={NETHERLANDS_BOUNDS}
         >
@@ -126,7 +126,18 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
               latitude={club.lat}
               onClick={() => setSelectedClub(club)}
             >
-              <MarkerContent />
+              <MarkerContent>
+                {club.logo ? (
+                  <div className={`relative ${club.id === 'triominos' ? 'h-16 w-16' : 'h-8 w-8'} overflow-hidden rounded-full border-2 border-white bg-white shadow-lg`}>
+                    <Image
+                      src={club.logo}
+                      alt={club.name ?? club.id}
+                      fill
+                      className="object-contain p-0.5"
+                    />
+                  </div>
+                ) : undefined}
+              </MarkerContent>
             </MapMarker>
           ))}
         </Map>
