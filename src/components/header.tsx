@@ -48,7 +48,7 @@ const navItems = [
   { href: "/nieuws", label: "Nieuws" },
   { href: "/wk2027", label: "WK 2027" },
   { href: "/over", label: "Wie zijn wij" },
-  { href: "/sponsor-worden", label: "Sponsor worden" },
+  { href: "/sponsoren", label: "Sponsor worden" },
   { href: "/vrijwilligers", label: "Vrijwilligers" },
   { href: "/contact", label: "Contact" },
 ] as const;
