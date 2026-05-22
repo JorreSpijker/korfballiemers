@@ -17,18 +17,18 @@ export function Hero({ introHtml, id }: HeroProps) {
               dangerouslySetInnerHTML={{ __html: introHtml }}
             />
           </article>
-          <div className="mt-10 flex justify-center lg:justify-start">
-            <Image
-              src="/liemers_heart.svg"
-              alt="Het Liemers-logo"
-              width={64}
-              height={64}
-              className="h-auto max-w-[64px]"
-            />
-          </div>
         </div>
       </div>
 
+      <div className="absolute bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] z-1">
+        <Image
+          src="/liemers_heart.svg"
+          alt="Het Liemers-logo"
+          width={64}
+          height={64}
+          className="h-auto max-w-[64px]"
+        />
+      </div>
       {/* Afbeelding - buiten container, flush rechts */}
       <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block">
         <Image

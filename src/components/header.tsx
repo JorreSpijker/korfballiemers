@@ -31,8 +31,8 @@ function Countdown() {
   if (days === null) return null;
 
   return (
-    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500 ml-4 inline-flex h-fit">
-      {days} dagen tot het WK
+    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500 ml-4 inline-flex h-fit gap-1 items-center">
+      <strong className="text-sm">{days}</strong> dagen tot het WK
     </span>
   );
 }
