@@ -170,3 +170,39 @@ html {
 .btn {
   @apply inline-flex text-sm font-medium text-white bg-primary underline-offset-4 hover:bg-primary/80 hover:underline w-fit px-4 py-2 rounded-sm transition-colors duration-200;
 }
+
+/* Keyframes: lifelike rhythm (quick strong beat, quick smaller beat, rest) */
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  12% {
+    transform: scale(1.16);
+    animation-timing-function: cubic-bezier(0.3, 0.2, 0.1, 1);
+  }
+  22% {
+    transform: scale(1.02);
+    animation-timing-function: cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  32% {
+    transform: scale(1.12);
+    animation-timing-function: cubic-bezier(0.3, 0.2, 0.1, 1);
+  }
+  45% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.8s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-heartbeat {
+    animation: none;
+  }
+}

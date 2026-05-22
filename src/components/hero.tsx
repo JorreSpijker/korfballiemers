@@ -7,10 +7,10 @@ interface HeroProps {
 
 export function Hero({ introHtml, id }: HeroProps) {
   return (
-    <section id={id} className="bg-muted/20 h-[50vh] relative">
+    <section id={id} className="bg-muted/20 min-h-[50vh] relative">
       <div className="container h-full flex items-center">
         {/* Intro - Links, binnen container */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center h-ful pt-40 pr-10">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center h-ful pt-40 pb-20 pr-10">
           <article className="space-y-4">
             <div
               className="prose prose-neutral max-w-none text-slate-700"
@@ -20,7 +20,7 @@ export function Hero({ introHtml, id }: HeroProps) {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] z-1">
+      <div className="absolute bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] z-1 animate-heartbeat">
         <Image
           src="/liemers_heart.svg"
           alt="Het Liemers-logo"
