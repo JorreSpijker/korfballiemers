@@ -8,7 +8,7 @@ interface HeroProps {
 
 export function Hero({ introHtml, id }: HeroProps) {
   return (
-    <section id={id} className="bg-muted/20 min-h-[50vh] relative">
+    <section id={id} className="bg-muted/20 relative">
       <div className="w-full relative overflow-hidden">
         <Pattern />
         <div className="container h-full flex items-center z-1 relative">
