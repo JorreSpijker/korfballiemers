@@ -111,7 +111,7 @@ function NavLinks({
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               isActive
                 ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground"
+                : "text-muted-foreground hover:bg-slate-500 hover:text-white rounded-sm"
             )}
           >
             {label}
@@ -175,11 +175,11 @@ export function Header() {
   return (
     <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="w-full rounded-2xl shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      className="w-full rounded-sm shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
       role="banner"
     >
       <div className="flex h-16 items-center px-4">
-          <div className="logo-container border-t-none z-navigation rounded-b-2xl ml-4 border border-solid border-neutral-20 bg-white px-2 py-2 shadow-blue lg:absolute lg:-top-7 lg:left-2 lg:border xl:left-4 h-30">
+          <div className="logo-container border-t-none z-navigation rounded-b-xl ml-4 border border-solid border-neutral-20 bg-white px-2 py-2 shadow-blue lg:absolute lg:-top-7 lg:left-2 lg:border xl:left-4 h-30">
             <Link
               href="/"
               className="flex flex-col items-center gap-1 font-semibold text-lg transition-colors flex justify-center h-full"
