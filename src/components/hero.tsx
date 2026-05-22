@@ -11,19 +11,19 @@ export function Hero({ introHtml, id }: HeroProps) {
     <section id={id} className="bg-muted/20 min-h-[50vh] relative">
       <div className="w-full relative overflow-hidden">
         <Pattern />
-        <div className="container h-full flex items-center">
+        <div className="container h-full flex items-center z-1 relative">
           {/* Intro - Links, binnen container */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center h-ful pt-40 pb-20 pr-10">
             <article className="space-y-4">
               <div
-                className="prose prose-neutral max-w-none text-slate-700"
+                className="prose prose-neutral max-w-none text-slate-700 text-lg"
                 dangerouslySetInnerHTML={{ __html: introHtml }}
               />
             </article>
           </div>
         </div>
         {/* Afbeelding - buiten container, flush rechts */}
-        <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block">
+        <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block z-1">
           <Image
             src="/hero.JPG"
             alt="Hero afbeelding"

@@ -3,6 +3,8 @@ import { readdirSync } from "fs";
 import { join } from "path";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import { Pattaya } from "next/font/google";
+import { Pattern } from "@/components/pattern";
 
 const EXCLUDED_SLUGS = new Set(["home"]);
 
@@ -42,23 +44,26 @@ export default async function SlugPage({
   if (!page) notFound();
 
   return (
-    <article className="container px-4 py-12 mt-24">
-      <div className="mx-auto max-w-3xl space-y-8">
-        <header>
-          <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
-            {page.frontmatter.title}
-          </h1>
-          {page.frontmatter.excerpt && (
-            <p className="mt-2 text-lg text-muted-foreground">
-              {page.frontmatter.excerpt}
-            </p>
-          )}
-        </header>
-        <div
-          className="prose prose-neutral dark:prose-invert max-w-none"
-          dangerouslySetInnerHTML={{ __html: page.content }}
-        />
-      </div>
-    </article>
+    <section>
+      <Pattern />
+        <article className="container px-4 py-12 mt-24">
+          <div className="mx-auto max-w-3xl space-y-8">
+            <header>
+              <h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
+                {page.frontmatter.title}
+              </h1>
+              {page.frontmatter.excerpt && (
+                <p className="mt-2 text-lg text-muted-foreground">
+                  {page.frontmatter.excerpt}
+                </p>
+              )}
+            </header>
+            <div
+              className="prose prose-neutral dark:prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: page.content }}
+            />
+          </div>
+        </article>
+    </section>
   );
 }
