@@ -47,7 +47,7 @@ export default async function NewsDetailPage({
             </Link>
           </nav>
           <header>
-            {post.frontmatter.image && <Image src={post.frontmatter.image} alt={post.frontmatter.title} className="rounded-lg mb-2" width={800} height={400} />}
+            {post.frontmatter.image && <Image src={post.frontmatter.image} alt={post.frontmatter.title ?? ""} className="rounded-lg mb-2" width={800} height={400} />}
             <time
               dateTime={post.frontmatter.date ?? ""}
               className="text-sm text-muted-foreground"
