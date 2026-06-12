@@ -28,11 +28,11 @@ export default function RootLayout({
   return (
     <html lang="nl" className={`${workSans.variable} ${inter.variable}`}>
       <body
-        className="antialiased min-h-screen flex flex-col bg-white"
+        className="antialiased min-h-screen flex flex-col bg-white border-10 border-primary"
       >
-        <Header />
+        {/* <Header /> */}
         <main className="flex-1 -mt-[66px]">{children}</main>
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

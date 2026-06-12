@@ -1,136 +1,68 @@
-import { getPageContent, getAllClubs } from "@/lib/content";
-import { Hero } from "@/components/hero";
-import { ClubMap } from "@/components/club-map";
-import { NewsFeed } from "@/components/news-feed";
-import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
-import { ContentSection } from "@/components/content-section";
-import { Button } from "@/components/ui/button";
-import clubsMapData from "@/data/clubs-map.json";
-import type { ClubMapEntry } from "@/types/clubs-map";
+import Image from "next/image";
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Pattern } from "@/components/pattern";
+import { Countdown } from "@/components/countdown";
 
 export const metadata: Metadata = {
-  title: "Home | WK Korfbal 2027 Bid Liemers",
+  title: "Binnenkort online | WK Korfbal 2027 Bid Liemers",
   description:
-    "De regio Liemers dient een bid in om het Wereldkampioenschap Korfbal 2027 te organiseren.",
+    "De website van Korfbal in de Liemers is binnenkort beschikbaar.",
 };
 
-export default async function HomePage() {
-  const page = await getPageContent("home");
-  const clubs = await getAllClubs();
-  const mapClubs = clubsMapData as ClubMapEntry[];
-  const clubNames = Object.fromEntries(
-    clubs.map((c) => [c.frontmatter.id ?? c.slug, c.frontmatter.name ?? c.slug])
-  );
-
-  if (!page) {
-    return (
-      <div className="container px-4 py-12">
-        <p>Pagina niet gevonden.</p>
-      </div>
-    );
-  }
-
+export default function HomePage() {
   return (
-    <>
-      {/* Hero Section */}
-      <Hero
-        introHtml={page.content}
-        id="intro"
-      />
+    <section className="relative min-h-[calc(100vh-66px)] flex items-center bg-muted/20 overflow-hidden">
+      <Pattern />
 
-      {/* Kaart sectie */}
-      <section id="clubs" className="py-16 bg-slate-50">
-        <div className="container">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8">Clubs in de Liemers</h2>
-          <div className="h-125 w-full">
-            <ClubMap clubs={mapClubs} clubNames={clubNames} />
-          </div>
+      <div className="container relative z-10 flex flex-col items-center text-center py-24 gap-8">
+        {/* Logo */}
+
+
+        {/* Tag */}
+        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary border border-primary/20">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
+          </span>
+          In ontwikkeling
+        </span>
+
+        {/* Headline */}
+        <div className="space-y-4 max-w-2xl">
+          <h1 className="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl font-heading">
+            Binnenkort online
+          </h1>
+          <p className="text-lg text-slate-600 leading-relaxed">
+            Op deze website kun je alle informatie vinden over het WK Korfbal 2027 in de Liemers. We zijn druk bezig met het bouwen van de site.
+            Tot snel!
+          </p>
+          <Countdown />
         </div>
-      </section>
 
-      <NewsFeed
-        id="nieuws"
-        limit={6}
-        title="Laatste nieuws"
-      />
+        {/* Divider met hart */}
+        <div className="flex items-center gap-4 w-full max-w-xs">
+          <div className="flex-1 h-px bg-slate-200" />
+          <Image
+            src="/liemers_heart.svg"
+            alt="Liemers hart"
+            width={28}
+            height={28}
+            className="opacity-60"
+          />
+          <div className="flex-1 h-px bg-slate-200" />
+        </div>
 
-      <SponsorLogoBar id="sponsors" />
-
-      <ContentSection
-        id="vrijwilligers"
-        title="Samen bouwen aan WK Korfbal 2027"
-        intro="De bid-regio Liemers werkt met clubs, vrijwilligers en partners aan een sterk en gastvrij toernooi."
-      >
-        <p className="text-slate-700">
-          Wil je bijdragen met jouw club, organisatie of als vrijwilliger? Lees
-          meer over hoe je kunt helpen en welke activiteiten eraan komen.
+        {/* Contact */}
+        <p className="text-sm text-muted-foreground">
+          Vragen?{" "}
+          <a
+            href="mailto:info@korfballiemers.nl"
+            className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+          >
+            info@korfballiemers.nl
+          </a>
         </p>
-        <Button asChild size="lg">
-          <Link href="/vrijwilligers">Bekijk hoe je kunt helpen</Link>
-        </Button>
-      </ContentSection>
-       <ContentSection
-        id="sponsor-worden"
-        title="Sponsor worden"
-        intro="Wil je bijdragen aan het WK Korfbal 2027? Word sponsor en steun het toernooi."
-        className="bg-slate-50"
-      >
-        <p className="text-slate-700">
-          Sponsor worden?
-        </p>
-        <Button asChild size="lg">
-          <Link href="#contact">Neem contact op</Link>
-        </Button>
-      </ContentSection>
-
-      <ContentSection
-        id="contact"
-        title="Contactformulier"
-        intro="Heb je een vraag of wil je meedoen? Stuur ons een bericht."
-        className="bg-slate-50"
-      >
-        <form className="space-y-4" action="#" method="post">
-          <div className="space-y-1">
-            <label htmlFor="name" className="text-sm font-medium text-slate-700">
-              Naam
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <div className="space-y-1">
-            <label htmlFor="email" className="text-sm font-medium text-slate-700">
-              E-mailadres
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <div className="space-y-1">
-            <label htmlFor="message" className="text-sm font-medium text-slate-700">
-              Bericht
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={5}
-              required
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <Button type="submit">Verstuur bericht</Button>
-        </form>
-      </ContentSection>
-    </>
+      </div>
+    </section>
   );
 }
