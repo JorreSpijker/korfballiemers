@@ -59,7 +59,7 @@ export default function HomePage() {
             href="mailto:info@korfballiemers.nl"
             className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
           >
-            info@korfballiemers.nl
+            info@.nl
           </a>
         </p>
       </div>
