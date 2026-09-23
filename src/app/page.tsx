@@ -51,17 +51,6 @@ export default function HomePage() {
           />
           <div className="flex-1 h-px bg-slate-200" />
         </div>
-
-        {/* Contact */}
-        <p className="text-sm text-muted-foreground">
-          Vragen?{" "}
-          <a
-            href="mailto:info@korfballiemers.nl"
-            className="text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
-          >
-            info@.nl
-          </a>
-        </p>
       </div>
     </section>
   );
