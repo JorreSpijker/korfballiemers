@@ -9,6 +9,7 @@ import clubsMapData from "@/data/clubs-map.json";
 import type { ClubMapEntry } from "@/types/clubs-map";
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Home | WK Korfbal 2027 Bid Liemers",
@@ -53,11 +54,19 @@ export default async function HomePage() {
       />
 
       {/* Kaart sectie */}
-      <section id="over" className="py-16 bg-slate-50">
+      <section id="over" className="relative overflow-hidden py-16 bg-slate-50">
         <div className="container">
           <h2 className="text-2xl font-bold text-secondary mb-8">Clubs in de Liemers</h2>
-          <div className="h-125 w-full">
+          <div className="relative h-125 w-full">
             <ClubMap clubs={mapClubs} clubNames={clubNames} />
+            <Image
+              src="/icon.svg"
+              alt=""
+              width={210}
+              height={210}
+              aria-hidden
+              className="pointer-events-none absolute -left-14 top-0 z-10 -scale-x-100 opacity-[0.7]"
+            />
           </div>
         </div>
       </section>

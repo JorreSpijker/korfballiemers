@@ -155,9 +155,9 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
             >
               <MarkerContent>
                 {club.logo ? (
-                  <div className="flex -space-x-2">
+                  <div className="flex flex-col -space-y-3">
                     {toArray(club.logo).map((logo) => (
-                      <div key={logo} className={`relative ${club.id === 'triominos' ? 'h-16 w-16' : 'h-8 w-8'} overflow-hidden rounded-full border-2 border-white bg-white shadow-lg`}>
+                      <div key={logo} className={`relative ${club.id === 'triominos' ? 'h-22 w-22' : 'h-12 w-12'} overflow-hidden rounded-full border-2 border-white bg-white shadow-lg`}>
                         <Image
                           src={logo}
                           alt={club.name ?? club.id}
