@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 const sponsors = [
   { name: "Sponsor 1", logo: "/sponsors/sponsor-1.svg" },
@@ -17,9 +18,9 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
   const loopedSponsors = [...sponsors, ...sponsors];
 
   return (
-    <section id={id} className="bg-muted/20">
+    <section id={id} className="bg-slate-50">
       <div className="container mx-auto px-4 py-20">
-        <h2 className="font-heading mb-5 flex items-center justify-center gap-2 text-center font-semibold uppercase tracking-[0.16em] text-slate-500">
+        <h2 className="font-heading mb-4 flex items-center gap-2 text-2xl font-bold tracking-tight sm:text-3xl">
           Trots op onze sponsoren
           <span className="inline-flex">
             <Image
@@ -32,15 +33,15 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
           </span>
         </h2>
 
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white to-transparent" />
+        <div className="relative overflow-hidden py-4">
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-50 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-50 to-transparent" />
 
           <div className="sponsor-track flex w-max items-center gap-6">
             {loopedSponsors.map((sponsor, index) => (
               <div
                 key={`${sponsor.name}-${index}`}
-                className="flex h-24 w-52 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-4"
+                className="flex h-24 w-52 shrink-0 items-center justify-center rounded-sm bg-white p-4 shadow-sm transition hover:shadow-lg"
               >
                 <Image
                   src={sponsor.logo}
@@ -53,6 +54,10 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
             ))}
           </div>
         </div>
+
+        <Button asChild className="mt-4">
+          <a href="mailto:info@korfbalindeliemers.nl?subject=Sponsor%20worden">Sponsor worden</a>
+        </Button>
       </div>
     </section>
   );

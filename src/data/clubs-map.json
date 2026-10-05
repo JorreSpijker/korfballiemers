@@ -1,29 +1,24 @@
 [
   {
-    "id": "wesstar",
-    "name": "Wesstar",
-    "logo": "/club-logos/logo-wesstar.png",
-    "lat": 51.94437770119193,
-    "lng": 5.9830657579109845,
-    "oprichtingsjaar": 1986,
-    "aantal_leden": 47,
-    "leden_datum": "01-12-2025",
-    "klasse_veld": "3e klasse",
-    "klasse_zaal": "3e klasse",
-    "website": "https://www.wesstar.nl"
-  },
-  {
-    "id": "duko",
-    "name": "Duko",
-    "logo": "/club-logos/logo-duko.png",
+    "id": "duko_wesstar",
+    "name": "Duko/Wesstar",
+    "logo": 
+      ["/club-logos/logo-duko.png",
+      "/club-logos/logo-wesstar.png"
+    ],
     "lat": 51.94376701193088,
     "lng": 6.030838300019142,
-    "oprichtingsjaar": 1978,
-    "aantal_leden": 85,
+    "oprichtingsjaar": "1978 / 1986",
+    "aantal_leden": "85 / 47",
     "leden_datum": "01-12-2025",
-    "klasse_veld": "3e klasse",
+    "klasse_veld": "2e klasse",
     "klasse_zaal": "2e klasse",
-    "website": "https://www.dukoduiven.nl"
+    "aantal_seniorenteams": 7,
+    "aantal_jeugdteams": 2,
+    "website": [
+      "https://www.dukoduiven.nl",
+      "https://www.wesstar.nl"
+    ]
   },
   {
     "id": "rivalen",
@@ -34,8 +29,10 @@
     "oprichtingsjaar": 1960,
     "aantal_leden": 56,
     "leden_datum": "01-12-2025",
-    "klasse_veld": "4e klasse",
+    "klasse_veld": "3e klasse",
     "klasse_zaal": "2e klasse",
+    "aantal_seniorenteams": 3,
+    "aantal_jeugdteams": 1,
     "website": "https://www.rivalen.nl"
   },
   {
@@ -47,8 +44,10 @@
     "oprichtingsjaar": 1956,
     "aantal_leden": 191,
     "leden_datum": "01-12-2025",
-    "klasse_veld": "1e klasse",
-    "klasse_zaal": "1e klasse",
+    "klasse_veld": "3e klasse",
+    "klasse_zaal": "2e klasse",
+    "aantal_seniorenteams": 5,
+    "aantal_jeugdteams": 8,
     "website": "https://www.dezwaluwen.nl",
     "description": "KV de Zwaluwen is al sinds 1956 een geliefde vereniging in Zevenaar. Klein genoeg om iedereen te kennen, groot genoeg om samen iets moois te maken. Van het veld tot de kantine: we maken onze club met z'n allen. Bij ons staat spelplezier voorop — we zijn en blijven een plek waar je thuis komt."
   },

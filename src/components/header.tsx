@@ -38,19 +38,17 @@ function Countdown() {
   }, []);
 
   return (
-    <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-500 ml-4 inline-flex h-fit gap-1 items-center">
+    <span className="rounded bg-samen-goud/20 px-2 py-1 text-xs font-medium text-secondary ml-4 inline-flex h-fit gap-1 items-center">
       <strong className="text-sm tabular-nums">{displayed}</strong> dagen tot het WK
     </span>
   );
 }
 
 const navItems = [
-  { href: "/nieuws", label: "Nieuws" },
-  { href: "/wk2027", label: "WK 2027" },
-  { href: "/over", label: "Wie zijn wij" },
-  { href: "/sponsoren", label: "Sponsor worden" },
-  { href: "/vrijwilligers", label: "Vrijwilligers" },
-  { href: "/contact", label: "Contact" },
+  { href: "#wk2027", label: "WK 2027" },
+  { href: "#over", label: "Wie zijn wij" },
+  { href: "#nieuws", label: "Nieuws" },
+  { href: "#sponsors", label: "Sponsor worden" },
 ] as const;
 
 function NavLinks({
@@ -87,7 +85,7 @@ function NavLinks({
     event: MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    if (href.startsWith("#")) {
+    if (href.startsWith("#") && pathname === "/") {
       event.preventDefault();
       scrollToSection(href);
     }
@@ -98,20 +96,18 @@ function NavLinks({
   return (
     <>
       {navItems.map(({ href, label }) => {
-        const isActive = href.startsWith("#")
-          ? activeSection === href
-          : pathname.startsWith(href);
+        const isActive = pathname === "/" && activeSection === href;
         return (
           <Link
             key={href}
-            href={href}
+            href={pathname === "/" ? href : `/${href}`}
             onClick={(event) => handleNavClick(event, href)}
             className={cn(
               linkClass,
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
               isActive
                 ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:bg-slate-500 hover:text-white rounded-sm"
+                : "text-muted-foreground hover:bg-secondary hover:text-white rounded-sm"
             )}
           >
             {label}
@@ -186,16 +182,13 @@ export function Header() {
               aria-label="Naar homepage"
             >
               <Image
-                src="/korfbal-logo.svg"
-                alt="Korfbal in De Liemers logo"
-                width={42}
-                height={42}
+                src="/logo.svg"
+                alt="LiemersCity Korfbal logo"
+                width={168}
+                height={99}
+                className="h-10 w-auto lg:h-[72px]"
                 priority
               />
-              <span className="flex flex-col items-center text-sm leading-tight text-secondary">
-                <span>LiemersCity</span>
-                <span>Korfbal</span>
-              </span>
             </Link>
           </div>
 
@@ -203,7 +196,7 @@ export function Header() {
 
         <div className="w-full flex justify-between items-center">
           <nav
-            className="ml-[140px] hidden items-center gap-1 sm:gap-2 lg:flex mx-auto"
+            className="ml-[180px] hidden items-center gap-1 sm:gap-2 lg:flex mx-auto"
             aria-label="Hoofdnavigatie"
           >
             <NavLinks pathname={pathname} activeSection={activeSection} />

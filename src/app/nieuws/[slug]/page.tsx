@@ -40,7 +40,7 @@ export default async function NewsDetailPage({
         <div className="mx-auto max-w-3xl space-y-8">
           <nav aria-label="Breadcrumb">
             <Link
-              href="/nieuws"
+              href="/#nieuws"
               className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground"
             >
               ← Terug naar nieuws

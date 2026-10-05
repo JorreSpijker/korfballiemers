@@ -16,8 +16,20 @@ export const metadata: Metadata = {
     "De regio Liemers dient een bid in om het Wereldkampioenschap Korfbal 2027 te organiseren.",
 };
 
+function Prose({ html }: { html: string }) {
+  return (
+    <div
+      className="prose prose-neutral max-w-none"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
 export default async function HomePage() {
   const page = await getPageContent("home");
+  const [over, vrijwilligers, sponsoren, contact] = await Promise.all(
+    ["over", "vrijwilligers", "sponsoren", "contact"].map(getPageContent)
+  );
   const clubs = await getAllClubs();
   const mapClubs = clubsMapData as ClubMapEntry[];
   const clubNames = Object.fromEntries(
@@ -41,9 +53,9 @@ export default async function HomePage() {
       />
 
       {/* Kaart sectie */}
-      <section id="clubs" className="py-16 bg-slate-50">
+      <section id="over" className="py-16 bg-slate-50">
         <div className="container">
-          <h2 className="text-2xl font-bold text-slate-800 mb-8">Clubs in de Liemers</h2>
+          <h2 className="text-2xl font-bold text-secondary mb-8">Clubs in de Liemers</h2>
           <div className="h-125 w-full">
             <ClubMap clubs={mapClubs} clubNames={clubNames} />
           </div>
@@ -54,43 +66,18 @@ export default async function HomePage() {
         id="nieuws"
         limit={6}
         title="Laatste nieuws"
+        showAllLink={false}
       />
 
       <SponsorLogoBar id="sponsors" />
 
-      <ContentSection
-        id="vrijwilligers"
-        title="Samen bouwen aan WK Korfbal 2027"
-        intro="De bid-regio Liemers werkt met clubs, vrijwilligers en partners aan een sterk en gastvrij toernooi."
-      >
-        <p className="text-slate-700">
-          Wil je bijdragen met jouw club, organisatie of als vrijwilliger? Lees
-          meer over hoe je kunt helpen en welke activiteiten eraan komen.
-        </p>
-        <Button asChild size="lg">
-          <Link href="/vrijwilligers">Bekijk hoe je kunt helpen</Link>
-        </Button>
-      </ContentSection>
-       <ContentSection
-        id="sponsor-worden"
-        title="Sponsor worden"
-        intro="Wil je bijdragen aan het WK Korfbal 2027? Word sponsor en steun het toernooi."
-        className="bg-slate-50"
-      >
-        <p className="text-slate-700">
-          Sponsor worden?
-        </p>
-        <Button asChild size="lg">
-          <Link href="#contact">Neem contact op</Link>
-        </Button>
-      </ContentSection>
-
-      <ContentSection
+      {/* <ContentSection
         id="contact"
         title="Contactformulier"
         intro="Heb je een vraag of wil je meedoen? Stuur ons een bericht."
         className="bg-slate-50"
       >
+        {contact && <Prose html={contact.content} />}
         <form className="space-y-4" action="#" method="post">
           <div className="space-y-1">
             <label htmlFor="name" className="text-sm font-medium text-slate-700">
@@ -130,7 +117,7 @@ export default async function HomePage() {
           </div>
           <Button type="submit">Verstuur bericht</Button>
         </form>
-      </ContentSection>
+      </ContentSection> */}
     </>
   );
 }

@@ -7,9 +7,18 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Ruimte voor sticky header bij ankerlinks */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-liemers-groen: var(--liemers-groen);
+  --color-energie-groen: var(--energie-groen);
+  --color-actie-blauw: var(--actie-blauw);
+  --color-samen-goud: var(--samen-goud);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
@@ -54,16 +63,22 @@ html {
 }
 
 :root {
+  /* Merkkleuren */
+  --liemers-groen: #0B1F1F;
+  --energie-groen: #01B846;
+  --actie-blauw: #0154F2;
+  --samen-goud: #D2AF6B;
+
   --radius: 0.625rem;
   --background: oklch(1 0 0);
-  --foreground: oklch(20.8% 0.042 265.755);
+  --foreground: var(--liemers-groen);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: #801007;
+  --primary: var(--actie-blauw);
   --primary-foreground: oklch(98.5% 0 0);
-  --secondary: oklch(14.71% 0.051 264.44); /* Dark Blue #0A1C3C */
+  --secondary: var(--liemers-groen);
   --secondary-foreground: oklch(98.5% 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -72,7 +87,7 @@ html {
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --ring: var(--actie-blauw);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -95,9 +110,9 @@ html {
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #801007;
+  --primary: var(--actie-blauw);
   --primary-foreground: oklch(98.5% 0 0);
-  --secondary: oklch(14.71% 0.051 264.44); /* Dark Blue #0A1C3C */
+  --secondary: var(--liemers-groen);
   --secondary-foreground: oklch(98.5% 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -160,7 +175,7 @@ html {
 }
 
 .font-heading {
-  @apply text-slate-800;
+  @apply text-secondary;
 }
 
 .container {

@@ -83,7 +83,7 @@ export function NewsFeed({
     <div className={containerClass}>
       <div className="mb-8 flex items-end justify-between gap-4 pb-4">
         <div>
-          <h2 className="font-heading mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-slate-900">
+          <h2 className="font-heading mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-secondary">
             {title}
           </h2>
         </div>
@@ -128,13 +128,13 @@ export function NewsFeed({
                   >
                     {formatDate(item.date)}
                   </time>
-                  <h3 className="font-heading text-lg font-semibold leading-tight text-slate-900">
+                  <h3 className="font-heading text-lg font-semibold leading-tight text-secondary">
                     <Link href={`/nieuws/${item.slug}`} className="hover:text-primary">
                       {item.title}
                     </Link>
                   </h3>
                   {item.excerpt && (
-                    <p className="text-sm text-slate-600">{item.excerpt}</p>
+                    <p className="text-slate-600 text-base">{item.excerpt}</p>
                   )}
                   <div className="mt-3 pt-3">
                     <Link
