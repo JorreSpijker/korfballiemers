@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 
 const sponsors = [
   { name: "Sponsor 1", logo: "/sponsors/sponsor-1.svg" },
@@ -15,49 +14,35 @@ type SponsorLogoBarProps = {
 };
 
 export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
-  const loopedSponsors = [...sponsors, ...sponsors];
-
   return (
-    <section id={id} className="bg-slate-50">
-      <div className="container mx-auto px-4 py-20">
-        <h2 className="font-heading mb-4 flex items-center gap-2 text-2xl font-bold tracking-tight sm:text-3xl">
+    <section id={id} className="surface-light bg-white">
+      <div className="container py-24">
+        <h2 className="font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">
           Trots op onze sponsoren
-          <span className="inline-flex">
-            <Image
-              src="/liemers_heart.svg"
-              alt="Liemers hart"
-              width={24}
-              height={24}
-              className="h-6 w-auto"
-            />
-          </span>
         </h2>
 
-        <div className="relative overflow-hidden py-4">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-slate-50 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-slate-50 to-transparent" />
-
-          <div className="sponsor-track flex w-max items-center gap-6">
-            {loopedSponsors.map((sponsor, index) => (
-              <div
-                key={`${sponsor.name}-${index}`}
-                className="flex h-24 w-52 shrink-0 items-center justify-center rounded-sm bg-white p-4 shadow-sm transition hover:shadow-lg"
-              >
-                <Image
-                  src={sponsor.logo}
-                  alt={sponsor.name}
-                  width={170}
-                  height={70}
-                  className="h-auto max-h-14 w-auto object-contain grayscale transition duration-300 hover:grayscale-0"
-                />
-              </div>
-            ))}
-          </div>
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
+          {sponsors.map((sponsor) => (
+            <div
+              key={sponsor.name}
+              className="flex h-24 items-center justify-center rounded-lg border border-[#0F1A17]/[0.08] bg-[#F4F6F5] p-4"
+            >
+              <Image
+                src={sponsor.logo}
+                alt={sponsor.name}
+                width={170}
+                height={70}
+                className="h-auto max-h-14 w-auto object-contain grayscale transition duration-300 hover:grayscale-0"
+              />
+            </div>
+          ))}
+          <a
+            href="mailto:info@korfbalindeliemers.nl?subject=Sponsor%20worden"
+            className="flex h-24 items-center justify-center gap-2 rounded-lg bg-actie-blauw font-bold text-white transition-colors hover:bg-actie-blauw/85 hover:text-white"
+          >
+            Sponsor worden →
+          </a>
         </div>
-
-        <Button asChild className="mt-4">
-          <a href="mailto:info@korfbalindeliemers.nl?subject=Sponsor%20worden">Sponsor worden</a>
-        </Button>
       </div>
     </section>
   );

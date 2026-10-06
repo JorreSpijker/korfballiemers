@@ -81,37 +81,37 @@ export function NewsFeed({
 
   const content = (
     <div className={containerClass}>
-      <div className="mb-8 flex items-end justify-between gap-4 pb-4">
+      <div className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <h2 className="font-heading mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-secondary">
+          <h2 className="font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
             {title}
           </h2>
         </div>
         {showAllLink && (
           <Link
             href="/nieuws"
-            className="text-sm font-semibold text-primary transition hover:text-primary/80"
+            className="text-sm font-semibold transition"
           >
             Bekijk alles
           </Link>
         )}
       </div>
 
-      {loading && <p className="text-sm text-slate-500">Nieuws wordt geladen...</p>}
+      {loading && <p className="text-sm text-muted-foreground">Nieuws wordt geladen...</p>}
 
-      {error && <p className="text-sm text-red-600">{error}</p>}
+      {error && <p className="text-sm text-destructive">{error}</p>}
 
       {!loading && !error && !hasItems && (
-        <p className="text-sm text-slate-500">Nog geen nieuwsberichten beschikbaar.</p>
+        <p className="text-sm text-muted-foreground">Nog geen nieuwsberichten beschikbaar.</p>
       )}
 
       {!loading && !error && hasItems && (
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
             <li key={item.slug}>
-              <article className="flex h-full flex-col overflow-hidden rounded-sm bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+              <article className="flex h-full flex-col overflow-hidden rounded-[10px] border bg-card transition hover:-translate-y-0.5 hover:border-white/20">
                 {item.image && (
-                  <div className="relative h-48 w-full">
+                  <div className="relative h-[200px] w-full bg-muted">
                     <Image
                       src={item.image}
                       alt={item.title}
@@ -121,27 +121,27 @@ export function NewsFeed({
                     />
                   </div>
                 )}
-                <div className="flex flex-1 flex-col gap-3 px-5 py-6">
+                <div className="flex flex-1 flex-col gap-3 p-6">
                   <time
-                    className="text-xs font-medium uppercase tracking-wide text-slate-500"
+                    className="text-[13px] font-semibold text-energie-groen-licht"
                     dateTime={item.date}
                   >
                     {formatDate(item.date)}
                   </time>
-                  <h3 className="font-heading text-lg font-semibold leading-tight text-secondary">
-                    <Link href={`/nieuws/${item.slug}`} className="hover:text-primary">
+                  <h3 className="font-heading m-0 text-xl font-bold leading-[1.25]">
+                    <Link href={`/nieuws/${item.slug}`} className="text-white hover:text-link-hover">
                       {item.title}
                     </Link>
                   </h3>
                   {item.excerpt && (
-                    <p className="text-slate-600 text-base">{item.excerpt}</p>
+                    <p className="m-0 text-[15px] text-muted-foreground">{item.excerpt}</p>
                   )}
-                  <div className="mt-3 pt-3">
+                  <div className="mt-auto border-t border-white/[0.08] pt-3">
                     <Link
                       href={`/nieuws/${item.slug}`}
-                      className="inline-flex items-center text-sm font-semibold text-primary transition hover:text-primary/80"
+                      className="inline-flex min-h-11 items-center font-bold transition"
                     >
-                      Lees bericht
+                      Lees bericht →
                     </Link>
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export function NewsFeed({
   );
 
   return (
-    <section id={id} className="relative bg-white px-6 py-20 sm:px-10">
+    <section id={id} className="relative border-y border-white/[0.08] bg-surface py-26">
       {content}
     </section>
   );

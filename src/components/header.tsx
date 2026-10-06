@@ -38,9 +38,10 @@ function Countdown() {
   }, []);
 
   return (
-    <span className="rounded bg-samen-goud/20 px-2 py-1 text-xs font-medium text-secondary ml-4 inline-flex h-fit gap-1 items-center">
-      <strong className="text-sm tabular-nums">{displayed}</strong> dagen tot het WK
-    </span>
+    <p className="m-0 hidden sm:flex items-center gap-2.5 text-sm text-foreground/75">
+      <span className="h-2 w-2 rounded-full bg-energie-groen shadow-[0_0_0_4px_rgb(34_178_76/0.2)]" aria-hidden />
+      <strong className="font-heading text-lg text-white tabular-nums">{displayed}</strong> dagen tot het WK
+    </p>
   );
 }
 
@@ -63,8 +64,8 @@ function NavLinks({
   onLinkClick?: () => void;
 }) {
   const linkClass = isMobile
-    ? "block px-4 py-3 text-lg font-medium transition-colors pb-3 font-heading"
-    : "px-3 py-2 text-base font-medium transition-colors pb-2";
+    ? "block px-4 py-3 text-lg font-medium transition-colors rounded-md"
+    : "px-[18px] py-2.5 text-[15px] transition-colors rounded-full";
 
   const scrollToSection = (href: string) => {
     if (typeof window === "undefined" || !href.startsWith("#")) {
@@ -104,10 +105,10 @@ function NavLinks({
             onClick={(event) => handleNavClick(event, href)}
             className={cn(
               linkClass,
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               isActive
-                ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:bg-secondary hover:text-white rounded-sm"
+                ? "bg-accent font-semibold text-white hover:text-white"
+                : "font-medium text-foreground hover:bg-white/5 hover:text-white"
             )}
           >
             {label}
@@ -169,72 +170,68 @@ export function Header() {
   }, []);
 
   return (
-    <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="w-full lg:w-fit lg:-ml-[34px] rounded-sm shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      className="sticky top-0 z-50 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75"
       role="banner"
     >
-      <div className="flex h-16 items-center px-4">
-          <div className="logo-container border-t-none z-navigation rounded-b-xl lg:ml-4 border border-solid border-neutral-20 bg-white px-2 py-2 shadow-blue lg:absolute lg:-top-7 lg:left-2 lg:border xl:left-4 h-30">
-            <Link
-              href="/"
-              className="flex flex-col items-center gap-1 font-semibold text-lg transition-colors flex justify-center h-full"
-              aria-label="Naar homepage"
-            >
-              <Image
-                src="/logo.svg"
-                alt="LiemersCity Korfbal logo"
-                width={168}
-                height={99}
-                className="h-10 w-auto lg:h-[72px]"
-                priority
-              />
-            </Link>
-          </div>
+      <div className="container flex flex-wrap items-center justify-between gap-4 py-5">
+        <Link
+          href="/"
+          className="flex items-center"
+          aria-label="Naar homepage"
+        >
+          <Image
+            src="/logo.svg"
+            alt="LiemersCity Korfbal logo"
+            width={168}
+            height={99}
+            className="h-12 w-auto"
+            priority
+          />
+        </Link>
 
         {/* Desktop nav */}
+        <nav
+          className="hidden items-center gap-1 rounded-full border bg-white/[0.03] p-1 lg:flex"
+          aria-label="Hoofdnavigatie"
+        >
+          <NavLinks pathname={pathname} activeSection={activeSection} />
+        </nav>
 
-        <div className="w-full flex justify-between items-center">
-          <nav
-            className="ml-[180px] hidden items-center gap-1 sm:gap-2 lg:flex mx-auto"
-            aria-label="Hoofdnavigatie"
-          >
-            <NavLinks pathname={pathname} activeSection={activeSection} />
-          </nav>
+        <div className="flex items-center gap-4">
           <Countdown />
-        </div>
 
-        {/* Mobile menu */}
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild className="lg:hidden ml-auto">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Open menu"
-              aria-expanded={mobileOpen}
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-            <SheetHeader>
-              <SheetTitle className="sr-only">Navigatie</SheetTitle>
-            </SheetHeader>
-            <nav
-              className="flex flex-col gap-1 mt-6"
-              aria-label="Mobiele navigatie"
-            >
-              <NavLinks
-                pathname={pathname}
-                isMobile
-                onLinkClick={() => setMobileOpen(false)}
-                activeSection={activeSection}
-              />
-            </nav>
-          </SheetContent>
-        </Sheet>
+          {/* Mobile menu */}
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Open menu"
+                aria-expanded={mobileOpen}
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Navigatie</SheetTitle>
+              </SheetHeader>
+              <nav
+                className="flex flex-col gap-1 mt-6 px-2"
+                aria-label="Mobiele navigatie"
+              >
+                <NavLinks
+                  pathname={pathname}
+                  isMobile
+                  onLinkClick={() => setMobileOpen(false)}
+                  activeSection={activeSection}
+                />
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
-    </div>
   );
 }

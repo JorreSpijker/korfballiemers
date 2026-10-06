@@ -34,14 +34,14 @@ export default async function NewsDetailPage({
   if (!post) notFound();
 
   return (
-    <section>
+    <section className="relative">
       <Pattern />
-      <article className="container px-4 py-12 mt-24">
+      <article className="container relative py-16">
         <div className="mx-auto max-w-3xl space-y-8">
           <nav aria-label="Breadcrumb">
             <Link
               href="/#nieuws"
-              className="text-sm text-muted-foreground underline-offset-4 hover:text-foreground"
+              className="text-sm text-muted-foreground underline-offset-4 hover:text-white"
             >
               ← Terug naar nieuws
             </Link>
@@ -50,7 +50,7 @@ export default async function NewsDetailPage({
             {post.frontmatter.image && <Image src={post.frontmatter.image} alt={post.frontmatter.title ?? ""} className="rounded-lg mb-2" width={800} height={400} />}
             <time
               dateTime={post.frontmatter.date ?? ""}
-              className="text-sm text-muted-foreground"
+              className="text-[13px] font-semibold text-energie-groen-licht"
             >
               {post.frontmatter.date
                 ? new Date(post.frontmatter.date).toLocaleDateString("nl-NL", {
@@ -60,13 +60,13 @@ export default async function NewsDetailPage({
                   })
                 : ""}
             </time>
-            <h1 className="font-heading mt-1 text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="font-heading mt-1 text-3xl font-bold leading-[1.1] sm:text-[44px]">
               {post.frontmatter.title}
             </h1>
           </header>
           {/* <Image src={post.image} alt={post.frontmatter.title} className="rounded-lg" /> */}
           <div
-            className="prose prose-neutral dark:prose-invert max-w-none"
+            className="prose prose-invert max-w-none prose-headings:font-heading prose-a:text-link"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </div>

@@ -45,18 +45,45 @@ export default async function HomePage() {
     );
   }
 
+  // Eerste alinea in de hero, de rest in de WK-sectie
+  const introEnd = page.content.indexOf("</p>") + "</p>".length;
+  const introHtml = page.content.slice(0, introEnd);
+  const wkHtml = page.content.slice(introEnd);
+
   return (
     <>
       {/* Hero Section */}
       <Hero
-        introHtml={page.content}
+        introHtml={introHtml}
         id="intro"
       />
 
+      {/* WK 2027 */}
+      <section id="wk2027" className="surface-light bg-white">
+        <div className="container flex flex-wrap gap-14 py-22">
+          <div className="min-w-0 flex-[1_1_340px]">
+            <h2 className="font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
+              Een impuls voor korfbal in onze regio
+            </h2>
+            <div className="mt-6 flex h-1 w-24" aria-hidden>
+              <span className="flex-1 bg-energie-groen" />
+              <span className="flex-1 bg-actie-blauw" />
+            </div>
+          </div>
+          <div
+            className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-[18px] text-lg [&_p]:m-0"
+            dangerouslySetInnerHTML={{ __html: wkHtml }}
+          />
+        </div>
+      </section>
+
       {/* Kaart sectie */}
-      <section id="over" className="relative overflow-hidden py-16 bg-slate-50">
+      <section id="over" className="surface-light relative overflow-hidden py-24 bg-[#EEF2EF]">
         <div className="container">
-          <h2 className="text-2xl font-bold text-secondary mb-8">Clubs in de Liemers</h2>
+          <p className="mb-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-energie-groen-donker">
+            Wie zijn wij
+          </p>
+          <h2 className="font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">Clubs in de Liemers</h2>
           <div className="relative h-125 w-full">
             <ClubMap clubs={mapClubs} clubNames={clubNames} />
             <Image

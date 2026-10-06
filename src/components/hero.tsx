@@ -8,40 +8,50 @@ interface HeroProps {
 
 export function Hero({ introHtml, id }: HeroProps) {
   return (
-    <section id={id} className="bg-muted/20 relative">
-      <div className="w-full relative overflow-hidden">
-        <Pattern />
-        <div className="container h-full flex items-center z-1 relative">
-          {/* Intro - Links, binnen container */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center h-ful pt-40 pb-20 pr-10">
-            <article className="space-y-4">
-              <div
-                className="prose prose-neutral max-w-none text-slate-700 text-lg"
-                dangerouslySetInnerHTML={{ __html: introHtml }}
-              />
-            </article>
+    <section id={id} className="relative overflow-hidden border-y border-white/[0.08]">
+      <Pattern />
+      <div className="container relative flex flex-wrap items-stretch gap-14">
+        <div className="flex min-w-0 flex-[1_1_520px] flex-col gap-5 pt-18 pb-16">
+          <h1 className="m-0 font-heading text-5xl font-extrabold uppercase leading-[0.95] tracking-[-0.01em] text-white sm:text-[68px]">
+            Samen sterker in de{" "}
+            <span className="bg-gradient-to-r from-energie-groen to-[#3D7BFF] bg-clip-text text-transparent">
+              Liemers
+            </span>
+          </h1>
+          <div
+            className="max-w-[540px] text-lg text-foreground [&_p]:m-0"
+            dangerouslySetInnerHTML={{ __html: introHtml }}
+          />
+          <div className="flex flex-wrap gap-3 pt-2">
+            <a
+              href="#over"
+              className="inline-flex min-h-12 items-center rounded-md bg-actie-blauw px-6 font-bold text-white transition-colors hover:bg-actie-blauw/85 hover:text-white"
+            >
+              Bekijk de clubs
+            </a>
+            <a
+              href="#nieuws"
+              className="inline-flex min-h-12 items-center rounded-md border border-white/25 px-6 font-semibold text-white transition-colors hover:bg-white/5 hover:text-white"
+            >
+              Laatste nieuws
+            </a>
           </div>
         </div>
-        {/* Afbeelding - buiten container, flush rechts */}
-        <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block z-1">
+        <div className="relative min-h-[420px] min-w-0 flex-[1_1_460px]">
           <Image
             src="/hero.JPG"
-            alt="Hero afbeelding"
+            alt="Korfbalwedstrijd: spelers in groen en geel springen naar de bal bij de korf"
             fill
-            className="object-cover"
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            className="object-cover object-[17%_50%]"
             priority
           />
+          <div className="absolute inset-x-0 bottom-0 flex h-1" aria-hidden>
+            <span className="flex-1 bg-energie-groen" />
+            <span className="flex-1 bg-actie-blauw" />
+          </div>
         </div>
       </div>
-      <div className="absolute bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] z-1 animate-heartbeat">
-          <Image
-            src="/liemers_heart.svg"
-            alt="Het Liemers-logo"
-            width={64}
-            height={64}
-            className="h-auto max-w-[64px]"
-          />
-        </div>
     </section>
   );
 }

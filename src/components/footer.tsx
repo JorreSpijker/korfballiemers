@@ -5,14 +5,14 @@ import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
 const brandColors = ["bg-energie-groen", "bg-actie-blauw"];
 
 const linkClass =
-  "text-sm text-white/75 transition hover:text-samen-goud focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-samen-goud rounded-sm";
+  "text-sm text-foreground/75 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm";
 
 const headingClass =
-  "font-heading text-xs font-semibold uppercase tracking-[0.18em] text-samen-goud!";
+  "text-xs font-bold uppercase tracking-[0.18em] text-samen-goud";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-secondary text-white/75" role="contentinfo">
+    <footer className="relative overflow-hidden bg-surface-deep text-foreground/75" role="contentinfo">
       <div className="flex h-1.5" aria-hidden>
         {brandColors.map((color) => (
           <span key={color} className={`flex-1 ${color}`} />
@@ -29,27 +29,27 @@ export function Footer() {
       />
 
       <div className="container relative mx-auto px-4">
-        <div className="grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-12">
-          <div className="space-y-5 lg:col-span-9">
-            <Link href="/" className="inline-flex rounded-md bg-white p-3 shadow-lg" aria-label="Naar homepage">
+        <div className="flex flex-wrap justify-between gap-10 pt-14 pb-12">
+          <div className="flex max-w-[380px] flex-col gap-[18px]">
+            <Link href="/" className="inline-flex self-start rounded-lg bg-white px-4 py-3" aria-label="Naar homepage">
               <Image
                 src="/logo.svg"
                 alt="LiemersCity Korfbal"
                 width={168}
                 height={99}
-                className="h-16 w-auto"
+                className="h-12 w-auto"
               />
             </Link>
-            <p className="max-w-sm text-sm leading-relaxed">
+            <p className="m-0 text-[15px] text-foreground/72">
               Samen bouwen we aan de korfbalsport in de Liemers.
             </p>
           </div>
 
-          <div className="lg:col-span-3">
+          <div>
             <h3 className={headingClass}>Contact</h3>
-            <ul className="mt-4 space-y-3 text-sm">
+            <ul className="mt-4 space-y-3 text-[15px] text-foreground/78">
               <li className="flex items-center gap-3">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-energie-groen">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-energie-groen-licht">
                   <MapPin className="h-4 w-4" aria-hidden />
                 </span>
                 <span>Regio De Liemers, Gelderland</span>
@@ -66,11 +66,11 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-white/10 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t py-6 text-[13px] text-foreground/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} LiemersCity Korfbal</p>
           <a
             href="#top"
-            className="inline-flex items-center gap-1.5 transition hover:text-samen-goud"
+            className="inline-flex items-center gap-1.5 text-foreground/75 transition hover:text-white"
           >
             Terug naar boven
             <ArrowUp className="h-3.5 w-3.5" aria-hidden />
