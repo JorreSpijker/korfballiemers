@@ -52,3 +52,14 @@ Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: dcaderiu
 ## Verificatie
 - `tsc` en `eslint` schoon; `next build` slaagt.
 - Lokaal met keys: lege velden geven fouten per veld, een geldige inzending komt aan in de inbox, en een fout token geeft een nette melding.
+
+---
+
+# Plan: extra transities
+
+1. **Glijdende menu-indicator** (desktop): één absolute pill in de hoofdnavigatie schuift (`transform` + `width`, 300ms ease-out-quint) naar de actieve link. Positie gemeten via `ref`; een `ResizeObserver` meet opnieuw na font-load of resize. Mobiel menu blijft zoals het is.
+2. **Sectiekoppen**: h2's van WK, Clubs, Nieuws, Sponsors en Contact onthullen met een clip-path-wipe van links, gekoppeld aan scroll (`animation-timeline: view()`). Zonder support of met reduced motion: direct zichtbaar.
+3. **Kaart**: clubpins vallen gespreid in na het laden van de kaart, schalen bij hover, en de geselecteerde club krijgt een blauwe ring. De zijbalk met clubinfo komt bij elke wissel opnieuw binnen.
+4. **Footer**: het logovlak tilt bij hover; de pijl bij "Terug naar boven" schuift omhoog.
+
+Verificatie: `tsc`, `eslint`, `next build`.

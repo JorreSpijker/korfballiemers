@@ -146,7 +146,7 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
             fillOpacity={0.15}
             strokeColor="#0154F2"
           />
-          {clubs.map((club) => (
+          {clubs.map((club, index) => (
             <MapMarker
               key={club.id}
               longitude={club.lng}
@@ -155,9 +155,12 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
             >
               <MarkerContent>
                 {club.logo ? (
-                  <div className="flex flex-col -space-y-3">
+                  <div
+                    className="anim-pin flex flex-col -space-y-3"
+                    style={{ "--d": `${200 + index * 90}ms` } as React.CSSProperties}
+                  >
                     {toArray(club.logo).map((logo) => (
-                      <div key={logo} className={`relative ${club.id === 'triominos' ? 'h-22 w-22' : 'h-12 w-12'} overflow-hidden rounded-full border-2 border-white bg-white shadow-lg`}>
+                      <div key={logo} className={`relative ${club.id === 'triominos' ? 'h-22 w-22' : 'h-12 w-12'} overflow-hidden rounded-full border-2 bg-white shadow-lg transition-[transform,border-color,box-shadow] duration-200 ease-(--ease-out-quint) motion-safe:hover:scale-110 ${selectedClub?.id === club.id ? 'border-actie-blauw shadow-[0_0_0_4px_rgb(29_91_240/0.3)]' : 'border-white'}`}>
                         <Image
                           src={logo}
                           alt={club.name ?? club.id}
@@ -176,7 +179,9 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
 
       <div className="w-full md:w-72 shrink-0 border-t md:border-l md:border-t-0 bg-background overflow-y-auto">
         {selectedClub ? (
-          <ClubSidebar club={selectedClub} clubNames={clubNames} />
+          <div key={selectedClub.id} className="anim-rise h-full">
+            <ClubSidebar club={selectedClub} clubNames={clubNames} />
+          </div>
         ) : (
           <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted-foreground">
             Klik op een club op de kaart voor meer informatie

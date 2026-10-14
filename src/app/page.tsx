@@ -63,7 +63,7 @@ export default async function HomePage() {
       <section id="wk2027" className="surface-light bg-white">
         <div className="container flex flex-wrap gap-14 py-22">
           <div className="min-w-0 flex-[1_1_340px]">
-            <h2 className="font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
+            <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
               Een impuls voor korfbal in onze regio
             </h2>
             <div className="reveal-grow mt-6 flex h-1 w-24" aria-hidden>
@@ -84,7 +84,7 @@ export default async function HomePage() {
           <p className="mb-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-energie-groen-donker">
             Wie zijn wij
           </p>
-          <h2 className="font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">Clubs in de Liemers</h2>
+          <h2 className="reveal-heading font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">Clubs in de Liemers</h2>
           <div className="relative h-125 w-full">
             <ClubMap clubs={mapClubs} clubNames={clubNames} />
             <Image

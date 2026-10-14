@@ -17,7 +17,7 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
   return (
     <section id={id} className="surface-light bg-white">
       <div className="container py-24">
-        <h2 className="font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">
+        <h2 className="reveal-heading font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">
           Trots op onze sponsoren
         </h2>
 

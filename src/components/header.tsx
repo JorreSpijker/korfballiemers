@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -66,7 +66,7 @@ function NavLinks({
 }) {
   const linkClass = isMobile
     ? "block px-4 py-3 text-lg font-medium transition-colors rounded-md"
-    : "px-[18px] py-2.5 text-[15px] transition-colors rounded-full";
+    : "relative px-[18px] py-2.5 text-[15px] transition-colors duration-300 rounded-full";
 
   const scrollToSection = (href: string) => {
     if (typeof window === "undefined" || !href.startsWith("#")) {
@@ -104,11 +104,12 @@ function NavLinks({
             key={href}
             href={pathname === "/" ? href : `/${href}`}
             onClick={(event) => handleNavClick(event, href)}
+            data-active={isActive || undefined}
             className={cn(
               linkClass,
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               isActive
-                ? "bg-accent font-semibold text-white hover:text-white"
+                ? cn("font-semibold text-white hover:text-white", isMobile && "bg-accent")
                 : "font-medium text-foreground hover:bg-white/5 hover:text-white"
             )}
           >
@@ -124,6 +125,24 @@ export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>(navItems[0].href);
+  const navRef = useRef<HTMLElement>(null);
+  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+
+  // Meet de actieve link opnieuw bij wissel, resize en font-load
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const measure = () => {
+      const active = nav.querySelector<HTMLElement>("[data-active]");
+      setIndicator(active ? { left: active.offsetLeft, width: active.offsetWidth } : null);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, [activeSection, pathname]);
 
   useEffect(() => {
     const sectionIds = navItems
@@ -193,9 +212,19 @@ export function Header() {
 
         {/* Desktop nav */}
         <nav
-          className="hidden items-center gap-1 rounded-full border bg-white/[0.03] p-1 lg:flex"
+          ref={navRef}
+          className="relative hidden items-center gap-1 rounded-full border bg-white/[0.03] p-1 lg:flex"
           aria-label="Hoofdnavigatie"
         >
+          <span
+            aria-hidden
+            className="absolute inset-y-1 left-0 rounded-full bg-accent transition-[transform,width,opacity] duration-300 ease-(--ease-out-quint)"
+            style={{
+              transform: `translateX(${indicator?.left ?? 0}px)`,
+              width: indicator?.width ?? 0,
+              opacity: indicator ? 1 : 0,
+            }}
+          />
           <NavLinks pathname={pathname} activeSection={activeSection} />
         </nav>
 

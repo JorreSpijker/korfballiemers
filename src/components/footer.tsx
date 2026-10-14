@@ -31,7 +31,7 @@ export function Footer() {
       <div className="container relative mx-auto px-4">
         <div className="flex flex-wrap justify-between gap-10 pt-14 pb-12">
           <div className="flex max-w-[380px] flex-col gap-[18px]">
-            <Link href="/" className="inline-flex self-start rounded-lg bg-white px-4 py-3" aria-label="Naar homepage">
+            <Link href="/" className="inline-flex self-start rounded-lg bg-white px-4 py-3 transition-[transform,box-shadow] duration-300 ease-(--ease-out-quint) motion-safe:hover:-translate-y-1 hover:shadow-[0_16px_32px_-16px_rgb(0_0_0/0.8)]" aria-label="Naar homepage">
               <Image
                 src="/logo.svg"
                 alt="LiemersCity Korfbal"
@@ -70,10 +70,10 @@ export function Footer() {
           <p>© {new Date().getFullYear()} LiemersCity Korfbal</p>
           <a
             href="#top"
-            className="inline-flex items-center gap-1.5 text-foreground/75 transition hover:text-white"
+            className="group inline-flex items-center gap-1.5 text-foreground/75 transition hover:text-white"
           >
             Terug naar boven
-            <ArrowUp className="h-3.5 w-3.5" aria-hidden />
+            <ArrowUp className="h-3.5 w-3.5 transition-transform duration-200 ease-(--ease-out-quint) motion-safe:group-hover:-translate-y-1" aria-hidden />
           </a>
         </div>
       </div>

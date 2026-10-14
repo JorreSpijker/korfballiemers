@@ -271,6 +271,24 @@ section[id] {
   }
 }
 
+/* Negatieve insets zodat descenders en uitlopers niet worden afgeknipt */
+@keyframes heading-wipe {
+  from {
+    clip-path: inset(-20% 100% -20% 0);
+    transform: translateX(-12px);
+  }
+  to {
+    clip-path: inset(-20% -10% -20% -10%);
+  }
+}
+
+@keyframes pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.85);
+  }
+}
+
 @keyframes header-elevate {
   to {
     border-bottom-color: var(--border);
@@ -312,6 +330,10 @@ section[id] {
     transform-origin: left;
     animation: grow-x 900ms var(--ease-out-expo) var(--d, 0ms) both;
   }
+
+  .anim-pin {
+    animation: pin-drop 700ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
 }
 
 /* Scroll-reveals: zonder support blijft alles gewoon zichtbaar */
@@ -328,6 +350,12 @@ section[id] {
       animation: grow-x both var(--ease-out-quint);
       animation-timeline: view();
       animation-range: entry 40% cover 40%;
+    }
+
+    .reveal-heading {
+      animation: heading-wipe both var(--ease-out-quint);
+      animation-timeline: view();
+      animation-range: entry 30% cover 30%;
     }
   }
 }

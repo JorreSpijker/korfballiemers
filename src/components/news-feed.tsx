@@ -83,7 +83,7 @@ export function NewsFeed({
     <div className={containerClass}>
       <div className="mb-8 flex items-end justify-between gap-4">
         <div>
-          <h2 className="font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
+          <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
             {title}
           </h2>
         </div>

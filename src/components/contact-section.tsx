@@ -58,7 +58,7 @@ export function ContactSection({ id }: { id?: string }) {
       />
       <div className="container flex flex-wrap gap-14 py-24">
         <div className="min-w-0 flex-[1_1_340px]">
-          <h2 className="font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
+          <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
             Neem contact op
           </h2>
           <div className="reveal-grow mt-6 flex h-1 w-24" aria-hidden>
