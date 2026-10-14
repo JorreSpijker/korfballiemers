@@ -4,6 +4,7 @@ import { ClubMap } from "@/components/club-map";
 import { NewsFeed } from "@/components/news-feed";
 import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
 import { ContentSection } from "@/components/content-section";
+import { ContactSection } from "@/components/contact-section";
 import { Button } from "@/components/ui/button";
 import clubsMapData from "@/data/clubs-map.json";
 import type { ClubMapEntry } from "@/types/clubs-map";
@@ -65,7 +66,7 @@ export default async function HomePage() {
             <h2 className="font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
               Een impuls voor korfbal in onze regio
             </h2>
-            <div className="mt-6 flex h-1 w-24" aria-hidden>
+            <div className="reveal-grow mt-6 flex h-1 w-24" aria-hidden>
               <span className="flex-1 bg-energie-groen" />
               <span className="flex-1 bg-actie-blauw" />
             </div>
@@ -107,53 +108,7 @@ export default async function HomePage() {
 
       <SponsorLogoBar id="sponsors" />
 
-      {/* <ContentSection
-        id="contact"
-        title="Contactformulier"
-        intro="Heb je een vraag of wil je meedoen? Stuur ons een bericht."
-        className="bg-slate-50"
-      >
-        {contact && <Prose html={contact.content} />}
-        <form className="space-y-4" action="#" method="post">
-          <div className="space-y-1">
-            <label htmlFor="name" className="text-sm font-medium text-slate-700">
-              Naam
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              required
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <div className="space-y-1">
-            <label htmlFor="email" className="text-sm font-medium text-slate-700">
-              E-mailadres
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <div className="space-y-1">
-            <label htmlFor="message" className="text-sm font-medium text-slate-700">
-              Bericht
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={5}
-              required
-              className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-          </div>
-          <Button type="submit">Verstuur bericht</Button>
-        </form>
-      </ContentSection> */}
+      <ContactSection id="contact" />
     </>
   );
 }

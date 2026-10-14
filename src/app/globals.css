@@ -234,8 +234,119 @@ section[id] {
   animation: heartbeat 1.8s infinite;
 }
 
+/* Motion */
+:root {
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes zoom-settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+@keyframes header-elevate {
+  to {
+    border-bottom-color: var(--border);
+    box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.9);
+  }
+}
+
+/* Masker voor woorden die omhoog schuiven */
+.mask-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.mask-word > span {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-rise {
+    animation: rise-in 700ms var(--ease-out-quint) var(--d, 0ms) both;
+  }
+
+  .mask-word > span {
+    animation: word-up 800ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  .anim-wipe {
+    animation: wipe-in 1000ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  .anim-zoom {
+    animation: zoom-settle 1400ms var(--ease-out-quint) var(--d, 0ms) both;
+  }
+
+  .anim-grow {
+    transform-origin: left;
+    animation: grow-x 900ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+}
+
+/* Scroll-reveals: zonder support blijft alles gewoon zichtbaar */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise-in both var(--ease-out-quint);
+      animation-timeline: view();
+      animation-range: entry calc(var(--i, 0) * 8%) entry calc(70% + var(--i, 0) * 8%);
+    }
+
+    .reveal-grow {
+      transform-origin: left;
+      animation: grow-x both var(--ease-out-quint);
+      animation-timeline: view();
+      animation-range: entry 40% cover 40%;
+    }
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .header-elevate {
+    animation: header-elevate linear both;
+    animation-timeline: scroll();
+    animation-range: 0 120px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-heartbeat {
     animation: none;
   }
+}
+
+/* reCAPTCHA-badge verborgen; verplichte tekst staat onder het contactformulier */
+.grecaptcha-badge {
+  visibility: hidden;
 }

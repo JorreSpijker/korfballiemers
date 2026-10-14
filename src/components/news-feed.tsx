@@ -107,17 +107,17 @@ export function NewsFeed({
 
       {!loading && !error && hasItems && (
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {items.map((item) => (
-            <li key={item.slug}>
-              <article className="flex h-full flex-col overflow-hidden rounded-[10px] border bg-card transition hover:-translate-y-0.5 hover:border-white/20">
+          {items.map((item, index) => (
+            <li key={item.slug} className="reveal" style={{ "--i": index % 3 } as React.CSSProperties}>
+              <article className="group flex h-full flex-col overflow-hidden rounded-[10px] border bg-card transition duration-300 ease-(--ease-out-quint) hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_24px_48px_-24px_rgb(0_0_0/0.9)]">
                 {item.image && (
-                  <div className="relative h-[200px] w-full bg-muted">
+                  <div className="relative h-[200px] w-full overflow-hidden bg-muted">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
+                      className="object-cover transition-transform duration-700 ease-(--ease-out-quint) motion-safe:group-hover:scale-105"
                     />
                   </div>
                 )}
@@ -139,9 +139,10 @@ export function NewsFeed({
                   <div className="mt-auto border-t border-white/[0.08] pt-3">
                     <Link
                       href={`/nieuws/${item.slug}`}
-                      className="inline-flex min-h-11 items-center font-bold transition"
+                      className="group/link inline-flex min-h-11 items-center gap-1.5 font-bold transition"
                     >
-                      Lees bericht →
+                      Lees bericht
+                      <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover/link:translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>

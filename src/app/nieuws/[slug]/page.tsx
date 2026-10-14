@@ -34,43 +34,58 @@ export default async function NewsDetailPage({
   if (!post) notFound();
 
   return (
-    <section className="relative">
-      <Pattern />
-      <article className="container relative py-16">
-        <div className="mx-auto max-w-3xl space-y-8">
-          <nav aria-label="Breadcrumb">
-            <Link
-              href="/#nieuws"
-              className="text-sm text-muted-foreground underline-offset-4 hover:text-white"
-            >
-              ← Terug naar nieuws
-            </Link>
-          </nav>
-          <header>
-            {post.frontmatter.image && <Image src={post.frontmatter.image} alt={post.frontmatter.title ?? ""} className="rounded-lg mb-2" width={800} height={400} />}
-            <time
-              dateTime={post.frontmatter.date ?? ""}
-              className="text-[13px] font-semibold text-energie-groen-licht"
-            >
-              {post.frontmatter.date
-                ? new Date(post.frontmatter.date).toLocaleDateString("nl-NL", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })
-                : ""}
-            </time>
-            <h1 className="font-heading mt-1 text-3xl font-bold leading-[1.1] sm:text-[44px]">
-              {post.frontmatter.title}
-            </h1>
-          </header>
-          {/* <Image src={post.image} alt={post.frontmatter.title} className="rounded-lg" /> */}
-          <div
-            className="prose prose-invert max-w-none prose-headings:font-heading prose-a:text-link"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+    <article>
+      <section className={`relative ${post.frontmatter.image ? "pb-40" : "pb-16"}`}>
+        <Pattern />
+        <div className="container relative pt-16">
+          <div className="mx-auto max-w-3xl space-y-8">
+            <nav aria-label="Breadcrumb" className="anim-rise">
+              <Link
+                href="/#nieuws"
+                className="text-sm text-muted-foreground underline-offset-4 hover:text-white"
+              >
+                ← Terug naar nieuws
+              </Link>
+            </nav>
+            <header className="anim-rise [--d:100ms]">
+              <time
+                dateTime={post.frontmatter.date ?? ""}
+                className="text-[13px] font-semibold text-energie-groen-licht"
+              >
+                {post.frontmatter.date
+                  ? new Date(post.frontmatter.date).toLocaleDateString("nl-NL", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })
+                  : ""}
+              </time>
+              <h1 className="font-heading mt-1 text-3xl font-bold leading-[1.1] sm:text-[44px]">
+                {post.frontmatter.title}
+              </h1>
+            </header>
+          </div>
         </div>
-      </article>
-    </section>
+      </section>
+      <section className="surface-light bg-white pb-20 pt-1">
+        <div className="container">
+          <div className="mx-auto max-w-3xl">
+            {post.frontmatter.image && (
+              <Image
+                src={post.frontmatter.image}
+                alt={post.frontmatter.title ?? ""}
+                className="anim-rise relative -mt-28 mb-12 w-full rounded-lg shadow-xl [--d:220ms]"
+                width={800}
+                height={400}
+              />
+            )}
+            <div
+              className={`prose prose-lg max-w-none leading-[1.7] prose-headings:font-heading prose-headings:text-liemers-groen prose-p:text-liemers-groen prose-li:text-liemers-groen prose-strong:text-liemers-groen prose-a:text-actie-blauw ${post.frontmatter.image ? "" : "pt-12"}`}
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </div>
+        </div>
+      </section>
+    </article>
   );
 }

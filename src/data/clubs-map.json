@@ -18,7 +18,8 @@
     "website": [
       "https://www.dukoduiven.nl",
       "https://www.wesstar.nl"
-    ]
+    ],
+    "description": "DUKO uit Duiven en Wesstar uit Westervoort bundelen hun krachten in een fusie. Beide korfbalverenigingen staan voor sportiviteit, plezier en gezelligheid. Samen willen ze korfbal voor jong en oud toegankelijk houden. Door de samenwerking ontstaat een sterke vereniging met meer mogelijkheden. Zo bouwen ze samen aan een gezonde toekomst voor het korfbal in de regio."
   },
   {
     "id": "rivalen",
@@ -33,7 +34,8 @@
     "klasse_zaal": "2e klasse",
     "aantal_seniorenteams": 3,
     "aantal_jeugdteams": 1,
-    "website": "https://www.rivalen.nl"
+    "website": "https://www.rivalen.nl",
+    "description": "KV Rivalen is een gezellige korfbalvereniging uit Doesburg waar plezier, sportiviteit en teamwork centraal centraal. De club biedt korfbal voor jong en oud. Naast wedstrijden organiseert Rivalen veel gezellige activiteiten voor haar leden."
   },
   {
     "id": "zwaluwen",

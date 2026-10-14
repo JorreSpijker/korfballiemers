@@ -32,7 +32,7 @@ export default function RootLayout({
         id="top"
         className="antialiased min-h-screen flex flex-col bg-background text-[17px] leading-[1.6]"
       >
-        <div className="flex h-1" aria-hidden>
+        <div className="anim-grow flex h-1" aria-hidden>
           <span className="flex-1 bg-energie-groen" />
           <span className="flex-1 bg-actie-blauw" />
         </div>

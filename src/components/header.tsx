@@ -50,6 +50,7 @@ const navItems = [
   { href: "#over", label: "Wie zijn wij" },
   { href: "#nieuws", label: "Nieuws" },
   { href: "#sponsors", label: "Sponsor worden" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 function NavLinks({
@@ -171,13 +172,13 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75"
+      className="header-elevate sticky top-0 z-50 border-b border-transparent bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75"
       role="banner"
     >
       <div className="container flex flex-wrap items-center justify-between gap-4 py-5">
         <Link
           href="/"
-          className="flex items-center"
+          className="flex items-center rounded-lg bg-white px-3 py-1.5"
           aria-label="Naar homepage"
         >
           <Image
@@ -185,7 +186,7 @@ export function Header() {
             alt="LiemersCity Korfbal logo"
             width={168}
             height={99}
-            className="h-12 w-auto"
+            className="h-10 w-auto"
             priority
           />
         </Link>
