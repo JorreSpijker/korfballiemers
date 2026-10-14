@@ -1,6 +1,6 @@
 "use server";
 
-const CONTACT_EMAIL = "dcaderiusvanveen@gmail.com";
+const CONTACT_EMAIL = "liemerscitykorfbal@gmail.com";
 // Werkt zonder geverifieerd domein; vervang door eigen adres zodra het domein in Resend is geverifieerd
 const FROM = "Contactformulier Liemers <onboarding@resend.dev>";
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

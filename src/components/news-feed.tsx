@@ -155,7 +155,7 @@ export function NewsFeed({
   );
 
   return (
-    <section id={id} className="relative border-y border-white/[0.08] bg-surface py-26">
+    <section id={id} className="relative border-y border-white/[0.08] bg-surface py-16 sm:py-26">
       {content}
     </section>
   );

@@ -237,6 +237,7 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
+                className="size-11"
                 aria-label="Open menu"
                 aria-expanded={mobileOpen}
               >

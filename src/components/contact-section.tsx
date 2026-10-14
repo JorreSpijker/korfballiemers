@@ -61,7 +61,7 @@ export function ContactSection({ id }: { id?: string }) {
         strategy="lazyOnload"
         onReady={renderWidget}
       />
-      <div className="container flex flex-wrap gap-14 py-24">
+      <div className="container flex flex-wrap gap-10 py-16 sm:gap-14 sm:py-24">
         <div className="min-w-0 flex-[1_1_340px]">
           <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
             Neem contact op

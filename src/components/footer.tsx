@@ -70,7 +70,7 @@ export function Footer() {
           <p>© {new Date().getFullYear()} LiemersCity Korfbal</p>
           <a
             href="#top"
-            className="group inline-flex items-center gap-1.5 text-foreground/75 transition hover:text-white"
+            className="group inline-flex min-h-11 items-center gap-1.5 text-foreground/75 transition hover:text-white"
           >
             Terug naar boven
             <ArrowUp className="h-3.5 w-3.5 transition-transform duration-200 ease-(--ease-out-quint) motion-safe:group-hover:-translate-y-1" aria-hidden />

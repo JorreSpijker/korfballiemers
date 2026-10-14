@@ -32,7 +32,7 @@ Doel: moderner en speelser, maar beheerst (zie PRODUCT.md). Geen libraries; alle
 
 # Plan: contactformulier
 
-Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: dcaderiusvanveen@gmail.com. Hosting: Vercel.
+Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: liemerscitykorfbal@gmail.com. Hosting: Vercel.
 
 ## Aanpak
 - **Server Action** `src/app/actions/contact.ts`: valideert naam, e-mail en bericht, controleert het reCAPTCHA-token bij Google (`siteverify`) en verstuurt de mail via de Resend REST API (`fetch`, geen extra dependency). `replyTo` = afzender.
@@ -46,7 +46,7 @@ Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: dcaderiu
 - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
 
 ## Let op
-- Zonder geverifieerd domein in Resend kan alleen vanaf `onboarding@resend.dev` gemaild worden, en alleen naar het e-mailadres van het Resend-account. Maak het Resend-account dus aan met dcaderiusvanveen@gmail.com, of verifieer een domein en pas `FROM` aan.
+- Zonder geverifieerd domein in Resend kan alleen vanaf `onboarding@resend.dev` gemaild worden, en alleen naar het e-mailadres van het Resend-account. Maak het Resend-account dus aan met liemerscitykorfbal@gmail.com, of verifieer een domein en pas `FROM` aan.
 - reCAPTCHA v2-sleutels (selectievakje) aanmaken op https://www.google.com/recaptcha/admin. Domeinen: het productiedomein, `localhost` en het Vercel-previewdomein.
 
 ## Verificatie
@@ -77,3 +77,17 @@ Nieuw component `src/components/club-map-showcase.tsx`, nieuwe sectie in `page.t
 - **Pins**: logo-cirkels met een naamlabel bij hover of selectie, een groene ring en pulserende halo bij de geselecteerde club. Ze vallen gespreid binnen.
 
 Verificatie: `tsc`, `eslint`, `next build`.
+
+---
+
+# Plan: sponsors uit JSON + responsive-ronde
+
+## Sponsors
+- `src/data/sponsors.json`: lege array `[]`. Velden per sponsor: `name`, `logo`.
+- `sponsor-logo-bar.tsx` leest de JSON. Bij 0 sponsors: kop en intro met alleen de knop "Sponsor worden". Bij sponsors: het bestaande raster.
+- De placeholder-SVG's in `public/sponsors/` worden dan niet meer gebruikt (niet verwijderd, wel gemeld).
+
+## Responsive-ronde
+- Headless Chrome-screenshots op 375, 768, 1024 en 1440px van de homepage en een nieuwsbericht.
+- Problemen per breedte opsporen (overflow, krappe padding, te grote koppen, tap-targets) en gericht oplossen.
+- Na de fixes opnieuw screenshots maken ter controle.

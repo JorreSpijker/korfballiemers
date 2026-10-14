@@ -80,7 +80,7 @@ export default async function NewsDetailPage({
               />
             )}
             <div
-              className={`prose prose-lg max-w-none leading-[1.7] prose-headings:font-heading prose-headings:text-liemers-groen prose-p:text-liemers-groen prose-li:text-liemers-groen prose-strong:text-liemers-groen prose-a:text-actie-blauw ${post.frontmatter.image ? "" : "pt-12"}`}
+              className={`prose prose-lg max-w-none leading-[1.7] prose-headings:font-heading prose-headings:text-liemers-groen prose-p:text-liemers-groen prose-li:text-liemers-groen prose-strong:text-liemers-groen prose-a:text-actie-blauw [&_blockquote_p]:before:content-none [&_blockquote_p]:after:content-none ${post.frontmatter.image ? "" : "pt-12"}`}
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
           </div>

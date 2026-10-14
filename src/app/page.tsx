@@ -61,7 +61,7 @@ export default async function HomePage() {
 
       {/* WK 2027 */}
       <section id="wk2027" className="surface-light bg-white">
-        <div className="container flex flex-wrap gap-14 py-22">
+        <div className="container flex flex-wrap gap-8 py-16 sm:gap-14 sm:py-22">
           <div className="min-w-0 flex-[1_1_340px]">
             <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
               Een impuls voor korfbal in onze regio
@@ -79,7 +79,7 @@ export default async function HomePage() {
       </section>
 
       {/* Kaart sectie */}
-      <section id="over" className="surface-light relative overflow-hidden py-24 bg-[#EEF2EF]">
+      <section id="over" className="surface-light relative overflow-hidden py-16 bg-[#EEF2EF] sm:py-24">
         <div className="container">
           <p className="mb-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-energie-groen-donker">
             Wie zijn wij

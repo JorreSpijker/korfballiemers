@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronDown, RotateCcw } from "lucide-react";
 import {
@@ -28,17 +28,31 @@ function toArray(value?: string | string[] | null): string[] {
 }
 
 // Zonder `essential` springt MapLibre direct bij prefers-reduced-motion
-function FlyToClub({ club }: { club: ClubMapEntry | null }) {
+function FlyToClub({ club, clubs }: { club: ClubMapEntry | null; clubs: ClubMapEntry[] }) {
   const { map } = useMap();
+  const firstRun = useRef(true);
 
   useEffect(() => {
-    map?.flyTo({
-      center: club ? [club.lng, club.lat] : LIEMERS_CENTER,
-      zoom: club ? CLUB_ZOOM : DEFAULT_ZOOM,
-      duration: 1400,
-      curve: 1.6,
-    });
-  }, [map, club]);
+    if (!map) return;
+    const duration = firstRun.current ? 0 : 1400;
+    firstRun.current = false;
+
+    if (club) {
+      map.flyTo({ center: [club.lng, club.lat], zoom: CLUB_ZOOM, duration, curve: 1.6 });
+      return;
+    }
+
+    // Overzicht: alle clubs in beeld, ook op smalle schermen
+    const lngs = clubs.map((c) => c.lng);
+    const lats = clubs.map((c) => c.lat);
+    map.fitBounds(
+      [
+        [Math.min(...lngs), Math.min(...lats)],
+        [Math.max(...lngs), Math.max(...lats)],
+      ],
+      { padding: 70, maxZoom: DEFAULT_ZOOM + 0.4, duration }
+    );
+  }, [map, club, clubs]);
 
   return null;
 }
@@ -174,7 +188,7 @@ export function ClubMapShowcase({ clubs, clubNames = {} }: ClubMapShowcaseProps)
                               href={website}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white transition-[border-color,background-color] duration-200 hover:border-energie-groen hover:bg-energie-groen/10 hover:text-white"
+                              className="group inline-flex items-center gap-1.5 rounded-full border border-white/15 px-4 py-2.5 text-sm font-semibold text-white transition-[border-color,background-color] duration-200 hover:border-energie-groen hover:bg-energie-groen/10 hover:text-white"
                             >
                               {new URL(website).hostname.replace(/^www\./, "")}
                               <span
@@ -207,7 +221,7 @@ export function ClubMapShowcase({ clubs, clubNames = {} }: ClubMapShowcaseProps)
           scrollZoom={false}
           className="h-full w-full rounded-2xl"
         >
-          <FlyToClub club={selectedClub} />
+          <FlyToClub club={selectedClub} clubs={clubs} />
           <MapControls showZoom />
           <MapRegion
             id="liemers-region-showcase"
@@ -269,7 +283,7 @@ export function ClubMapShowcase({ clubs, clubNames = {} }: ClubMapShowcaseProps)
           tabIndex={selectedClub ? 0 : -1}
           aria-hidden={!selectedClub}
           className={cn(
-            "absolute top-4 left-4 z-10 inline-flex items-center gap-2 rounded-full bg-[#0A0F0E]/85 px-4 py-2 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition-[opacity,transform] duration-300 ease-(--ease-out-quint) hover:bg-[#0A0F0E]",
+            "absolute top-4 left-4 z-10 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0A0F0E]/85 px-4 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition-[opacity,transform] duration-300 ease-(--ease-out-quint) hover:bg-[#0A0F0E]",
             selectedClub ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
           )}
         >
