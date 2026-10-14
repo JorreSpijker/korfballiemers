@@ -24,9 +24,9 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       response: token,
     }),
   });
-  const data = (await response.json()) as { success: boolean; score?: number; action?: string };
+  const data = (await response.json()) as { success: boolean };
 
-  return data.success && data.action === "contact" && (data.score ?? 0) >= 0.5;
+  return data.success;
 }
 
 export async function sendContactMessage(
@@ -50,10 +50,10 @@ export async function sendContactMessage(
     return { status: "error", errors, values };
   }
 
-  if (!(await verifyRecaptcha(String(formData.get("recaptchaToken") ?? "")))) {
+  if (!(await verifyRecaptcha(String(formData.get("g-recaptcha-response") ?? "")))) {
     return {
       status: "error",
-      message: "We konden niet controleren of je geen robot bent. Probeer het opnieuw.",
+      message: "Vink 'Ik ben geen robot' aan en probeer het opnieuw.",
       values,
     };
   }

@@ -10,8 +10,8 @@ export function Hero({ introHtml, id }: HeroProps) {
   return (
     <section id={id} className="relative overflow-hidden border-y border-white/[0.08]">
       <Pattern />
-      <div className="container relative flex flex-wrap items-stretch gap-14">
-        <div className="flex min-w-0 flex-[1_1_520px] flex-col gap-5 pt-18 pb-16">
+      <div className="container relative">
+        <div className="flex min-w-0 flex-col gap-5 pt-18 pb-16 lg:min-h-[min(780px,calc(100svh-6rem))] lg:w-1/2 lg:justify-center lg:gap-7 lg:py-28 lg:pr-20">
           <h1 className="m-0 font-heading text-5xl font-extrabold uppercase leading-[0.95] tracking-[-0.01em] text-white sm:text-[68px]">
             <span className="mask-word"><span>Samen</span></span>{" "}
             <span className="mask-word"><span className="[--d:60ms]">sterker</span></span>{" "}
@@ -42,19 +42,20 @@ export function Hero({ introHtml, id }: HeroProps) {
             </a>
           </div>
         </div>
-        <div className="anim-wipe relative min-h-[420px] min-w-0 flex-[1_1_460px] overflow-hidden [--d:150ms]">
-          <Image
-            src="/hero.JPG"
-            alt="Korfbalwedstrijd: spelers in groen en geel springen naar de bal bij de korf"
-            fill
-            sizes="(min-width: 1024px) 50vw, 100vw"
-            className="anim-zoom object-cover object-[17%_50%] [--d:150ms]"
-            priority
-          />
-          <div className="anim-grow absolute inset-x-0 bottom-0 flex h-1 [--d:700ms]" aria-hidden>
-            <span className="flex-1 bg-energie-groen" />
-            <span className="flex-1 bg-actie-blauw" />
-          </div>
+      </div>
+      {/* Afbeelding: op desktop flush rechts, de helft van de viewport */}
+      <div className="anim-wipe relative min-h-[420px] overflow-hidden [--d:150ms] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2">
+        <Image
+          src="/hero.JPG"
+          alt="Korfbalwedstrijd: spelers in groen en geel springen naar de bal bij de korf"
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="anim-zoom object-cover object-[17%_50%] [--d:150ms]"
+          priority
+        />
+        <div className="anim-grow absolute inset-x-0 bottom-0 flex h-1 [--d:700ms]" aria-hidden>
+          <span className="flex-1 bg-energie-groen" />
+          <span className="flex-1 bg-actie-blauw" />
         </div>
       </div>
     </section>

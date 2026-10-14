@@ -36,7 +36,7 @@ Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: dcaderiu
 
 ## Aanpak
 - **Server Action** `src/app/actions/contact.ts`: valideert naam, e-mail en bericht, controleert het reCAPTCHA-token bij Google (`siteverify`) en verstuurt de mail via de Resend REST API (`fetch`, geen extra dependency). `replyTo` = afzender.
-- **reCAPTCHA v3** (onzichtbaar, score-based): het token wordt bij het verzenden opgehaald met `grecaptcha.execute(..., { action: "contact" })`. De server accepteert alleen `success`, action `contact` en score ≥ 0.5. De badge is verborgen; de verplichte Google-tekst staat onder het formulier.
+- **reCAPTCHA v2** (vinkje "Ik ben geen robot"), expliciet gerenderd. De server controleert `g-recaptcha-response` via `siteverify`; na elke inzending volgt een reset. (Eerst v3, later op verzoek omgezet naar v2.)
 - **Client-component** `src/components/contact-section.tsx` met `useActionState`: verzendstatus, foutmelding per veld (`aria-invalid`/`aria-describedby`), bevestiging in `role="status"`. Ingevulde waarden blijven staan bij een fout.
 - In `src/app/page.tsx` vervangt deze sectie het uitgecommentarieerde oude formulier.
 
@@ -47,7 +47,7 @@ Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: dcaderiu
 
 ## Let op
 - Zonder geverifieerd domein in Resend kan alleen vanaf `onboarding@resend.dev` gemaild worden, en alleen naar het e-mailadres van het Resend-account. Maak het Resend-account dus aan met dcaderiusvanveen@gmail.com, of verifieer een domein en pas `FROM` aan.
-- reCAPTCHA v3-sleutels aanmaken op https://www.google.com/recaptcha/admin. Domeinen: het productiedomein, `localhost` en het Vercel-previewdomein.
+- reCAPTCHA v2-sleutels (selectievakje) aanmaken op https://www.google.com/recaptcha/admin. Domeinen: het productiedomein, `localhost` en het Vercel-previewdomein.
 
 ## Verificatie
 - `tsc` en `eslint` schoon; `next build` slaagt.

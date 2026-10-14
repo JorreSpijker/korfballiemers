@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { useActionState } from "react";
+import { useActionState, useRef } from "react";
 import { sendContactMessage, type ContactState } from "@/app/actions/contact";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
@@ -10,20 +10,10 @@ declare global {
   interface Window {
     grecaptcha?: {
       ready: (callback: () => void) => void;
-      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+      render: (container: HTMLElement, options: { sitekey: string }) => number;
+      reset: (widgetId?: number) => void;
     };
   }
-}
-
-// Leeg token als het script geblokkeerd is; de server weigert dat dan netjes
-function getRecaptchaToken(): Promise<string> {
-  const grecaptcha = window.grecaptcha;
-  if (!grecaptcha) return Promise.resolve("");
-  return new Promise((resolve) => {
-    grecaptcha.ready(() => {
-      grecaptcha.execute(SITE_KEY, { action: "contact" }).then(resolve, () => resolve(""));
-    });
-  });
 }
 
 const inputClass =
@@ -41,10 +31,24 @@ function FieldError({ id, error }: { id: string; error?: string }) {
 }
 
 export function ContactSection({ id }: { id?: string }) {
+  const widgetRef = useRef<HTMLDivElement>(null);
+  const widgetId = useRef<number | null>(null);
+
+  // Expliciet renderen, zodat het vinkje ook verschijnt na client-navigatie terug naar home
+  const renderWidget = () => {
+    const grecaptcha = window.grecaptcha;
+    grecaptcha?.ready(() => {
+      if (!widgetRef.current || widgetId.current !== null) return;
+      widgetId.current = grecaptcha.render(widgetRef.current, { sitekey: SITE_KEY });
+    });
+  };
+
   const [state, formAction, pending] = useActionState(
     async (prev: ContactState, formData: FormData) => {
-      formData.set("recaptchaToken", await getRecaptchaToken());
-      return sendContactMessage(prev, formData);
+      const result = await sendContactMessage(prev, formData);
+      // Een token is maar één keer geldig
+      window.grecaptcha?.reset(widgetId.current ?? undefined);
+      return result;
     },
     { status: "idle" }
   );
@@ -53,8 +57,9 @@ export function ContactSection({ id }: { id?: string }) {
   return (
     <section id={id} className="surface-light bg-[#EEF2EF]">
       <Script
-        src={`https://www.google.com/recaptcha/api.js?render=${SITE_KEY}`}
+        src="https://www.google.com/recaptcha/api.js?render=explicit&hl=nl"
         strategy="lazyOnload"
+        onReady={renderWidget}
       />
       <div className="container flex flex-wrap gap-14 py-24">
         <div className="min-w-0 flex-[1_1_340px]">
@@ -127,6 +132,8 @@ export function ContactSection({ id }: { id?: string }) {
             <FieldError id="contact-message-error" error={errors.message} />
           </div>
 
+          <div ref={widgetRef} className="min-h-[78px]" />
+
           <div className="flex flex-wrap items-center gap-4">
             <button
               type="submit"
@@ -146,16 +153,7 @@ export function ContactSection({ id }: { id?: string }) {
           </div>
 
           <p className="m-0 text-[13px] text-[#0F1A17]/65">
-            We gebruiken je gegevens alleen om je bericht te beantwoorden. Dit formulier is beveiligd
-            met reCAPTCHA; het{" "}
-            <a href="https://policies.google.com/privacy" className="text-actie-blauw underline">
-              privacybeleid
-            </a>{" "}
-            en de{" "}
-            <a href="https://policies.google.com/terms" className="text-actie-blauw underline">
-              voorwaarden
-            </a>{" "}
-            van Google zijn van toepassing.
+            We gebruiken je gegevens alleen om je bericht te beantwoorden.
           </p>
         </form>
       </div>

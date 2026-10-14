@@ -373,8 +373,3 @@ section[id] {
     animation: none;
   }
 }
-
-/* reCAPTCHA-badge verborgen; verplichte tekst staat onder het contactformulier */
-.grecaptcha-badge {
-  visibility: hidden;
-}
