@@ -15,7 +15,10 @@ export type ContactState = {
 };
 
 async function verifyRecaptcha(token: string): Promise<boolean> {
-  if (!token) return false;
+  if (!token) {
+    console.error("reCAPTCHA fout: geen token ontvangen");
+    return false;
+  }
 
   const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
     method: "POST",
@@ -24,7 +27,8 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       response: token,
     }),
   });
-  const data = (await response.json()) as { success: boolean };
+  const data = (await response.json()) as { success: boolean; "error-codes"?: string[] };
+  if (!data.success) console.error("reCAPTCHA fout", data["error-codes"]);
 
   return data.success;
 }
