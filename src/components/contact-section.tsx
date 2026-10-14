@@ -1,8 +1,10 @@
 "use client";
 
 import Script from "next/script";
-import { useActionState, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
+import { ChevronDown } from "lucide-react";
 import { sendContactMessage, type ContactState } from "@/app/actions/contact";
+import { CONTACT_SUBJECTS, isContactSubject, type ContactSubject } from "@/lib/contact-subjects";
 
 const SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY ?? "";
 
@@ -53,6 +55,22 @@ export function ContactSection({ id }: { id?: string }) {
     { status: "idle" }
   );
   const errors = state.errors ?? {};
+  const [subject, setSubject] = useState<ContactSubject>("algemeen");
+
+  // ?onderwerp= in de URL (links vanaf andere pagina's) en links met data-onderwerp zetten het onderwerp vooraf
+  useEffect(() => {
+    const fromUrl = new URLSearchParams(window.location.search).get("onderwerp");
+    // URL is pas in de browser bekend; als beginwaarde zou dit een hydration-mismatch geven
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (fromUrl && isContactSubject(fromUrl)) setSubject(fromUrl);
+
+    const handleClick = (event: MouseEvent) => {
+      const value = (event.target as Element | null)?.closest<HTMLElement>("[data-onderwerp]")?.dataset.onderwerp;
+      if (value && isContactSubject(value)) setSubject(value);
+    };
+    document.addEventListener("click", handleClick);
+    return () => document.removeEventListener("click", handleClick);
+  }, []);
 
   return (
     <section id={id} className="surface-light bg-[#EEF2EF]">
@@ -77,6 +95,31 @@ export function ContactSection({ id }: { id?: string }) {
         </div>
 
         <form action={formAction} noValidate className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-5">
+          <div className="flex flex-col gap-1.5">
+            <label htmlFor="contact-subject" className={labelClass}>
+              Onderwerp
+            </label>
+            <div className="relative">
+              <select
+                id="contact-subject"
+                name="subject"
+                value={subject}
+                onChange={(event) => setSubject(event.target.value as ContactSubject)}
+                className={`${inputClass} appearance-none pr-11`}
+              >
+                {Object.entries(CONTACT_SUBJECTS).map(([value, label]) => (
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                aria-hidden
+                className="pointer-events-none absolute top-1/2 right-4 h-4 w-4 -translate-y-1/2 text-[#0F1A17]/55"
+              />
+            </div>
+          </div>
+
           <div className="grid gap-5 sm:grid-cols-2">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="contact-name" className={labelClass}>

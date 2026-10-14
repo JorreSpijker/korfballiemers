@@ -7,7 +7,6 @@ type Sponsor = {
 };
 
 const sponsors = sponsorsData as Sponsor[];
-const SPONSOR_MAILTO = "mailto:info@korfbalindeliemers.nl?subject=Sponsor%20worden";
 
 type SponsorLogoBarProps = {
   id?: string;
@@ -28,7 +27,8 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
 
         {sponsors.length === 0 ? (
           <a
-            href={SPONSOR_MAILTO}
+            href="#contact"
+            data-onderwerp="sponsor"
             className="group inline-flex min-h-12 items-center gap-2 rounded-md bg-actie-blauw px-6 font-bold text-white transition-[background-color,transform] duration-200 ease-(--ease-out-quint) hover:bg-actie-blauw/85 hover:text-white motion-safe:active:scale-[0.97]"
           >
             Sponsor worden
@@ -52,7 +52,8 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
               </div>
             ))}
             <a
-              href={SPONSOR_MAILTO}
+              href="#contact"
+              data-onderwerp="sponsor"
               className="reveal group flex h-24 items-center justify-center gap-2 rounded-lg bg-actie-blauw font-bold text-white transition-[background-color,transform] duration-200 ease-(--ease-out-quint) hover:bg-actie-blauw/85 hover:text-white motion-safe:active:scale-[0.97]"
               style={{ "--i": sponsors.length } as React.CSSProperties}
             >

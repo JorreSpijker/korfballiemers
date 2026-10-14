@@ -39,6 +39,7 @@ Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: liemersc
 - **reCAPTCHA v2** (vinkje "Ik ben geen robot"), expliciet gerenderd. De server controleert `g-recaptcha-response` via `siteverify`; na elke inzending volgt een reset. (Eerst v3, later op verzoek omgezet naar v2.)
 - **Client-component** `src/components/contact-section.tsx` met `useActionState`: verzendstatus, foutmelding per veld (`aria-invalid`/`aria-describedby`), bevestiging in `role="status"`. Ingevulde waarden blijven staan bij een fout.
 - In `src/app/page.tsx` vervangt deze sectie het uitgecommentarieerde oude formulier.
+- **Onderwerp-select** (Algemene vraag, Sponsor worden, Vrijwilliger worden), gedeeld via `src/lib/contact-subjects.ts`. Links met `data-onderwerp` (de knoppen "Sponsor worden") gaan naar `#contact` en zetten het onderwerp vooraf. De server valideert het onderwerp; het staat in de onderwerpregel en de tekst van de mail.
 
 ## Environment variables (Vercel + lokaal, zelf instellen)
 - `RESEND_API_KEY`
@@ -91,3 +92,35 @@ Verificatie: `tsc`, `eslint`, `next build`.
 - Headless Chrome-screenshots op 375, 768, 1024 en 1440px van de homepage en een nieuwsbericht.
 - Problemen per breedte opsporen (overflow, krappe padding, te grote koppen, tap-targets) en gericht oplossen.
 - Na de fixes opnieuw screenshots maken ter controle.
+
+---
+
+# Plan: SEO
+
+Live: https://liemerscitykorfbal.nl (branch `main`). Test: https://korfballiemers.vercel.app (branch `development`).
+
+## Techniek
+1. `src/lib/site.ts`: `SITE_URL`, naam en een vlag voor previews (`VERCEL_ENV === "preview"`).
+2. `layout.tsx`: `metadataBase`, `title.template`, standaard-description, Open Graph en Twitter, `noindex` op previews.
+3. `app/robots.ts` (previews: alles disallow; live: allow, `/api/` uitgesloten, sitemap-link) en `app/sitemap.ts` met alle pagina's en nieuwsberichten.
+4. `app/opengraph-image.tsx`: gegenereerde deelafbeelding in huisstijl (1200×630). Nieuwsberichten gebruiken hun eigen afbeelding.
+5. Canonical URL per pagina.
+6. JSON-LD (`src/components/json-ld.tsx`): `Organization` en `SportsEvent` (15–17 oktober 2027, Sportcentrum Triominos, Duiven) op home en de WK-pagina; `NewsArticle` op nieuwsberichten.
+7. `NewsFeed` wordt een servercomponent: nieuws staat in de HTML.
+8. De kaart (MapLibre) laadt pas als hij bijna in beeld is; de clublijst blijft server-gerenderd.
+
+## Inhoud
+9. Title en description van home bijgewerkt (hostregio in plaats van bid). De hero-h1 krijgt "WK Korfbal 2027 in de Liemers" als eerste regel.
+10. Nieuwe pagina's, met tekst als markdown in `content/`:
+   - `/wk-korfbal-2027`: het WK in de Liemers, data, Triominos en links naar de speelsteden.
+   - `/wk-korfbal-2027/{doesburg,duiven,westervoort,zevenaar}`: per gemeente de club(s), de rol in het WK en een oproep tot actie.
+   - `/nieuws`: overzicht van alle berichten.
+   - `/vrijwilliger-worden` en `/sponsor-worden`: korte uitleg en een link naar het formulier met het juiste onderwerp.
+11. Het contactformulier leest `?onderwerp=` uit de URL, zodat links vanaf andere pagina's het onderwerp vooraf kunnen zetten.
+12. Interne links: in de footer een kolom "Ontdek", een link vanuit de WK-sectie en "Bekijk alles" bij het nieuws.
+
+## Alleen met feiten
+Alle tekst is gebaseerd op bestaande content (nieuws, clubdata). Wat niet bekend is (programma, wedstrijden, kaartverkoop) wordt niet verzonnen.
+
+## Zelf regelen
+Search Console en Bing, de sitemap indienen, backlinks (KNKV, gemeenten, clubs, Triominos, lokale media), en controleren dat `main` als Production deployt.

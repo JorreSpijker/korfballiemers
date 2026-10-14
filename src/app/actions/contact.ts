@@ -1,5 +1,7 @@
 "use server";
 
+import { CONTACT_SUBJECTS, isContactSubject } from "@/lib/contact-subjects";
+
 const CONTACT_EMAIL = "liemerscitykorfbal@gmail.com";
 // Werkt zonder geverifieerd domein; vervang door eigen adres zodra het domein in Resend is geverifieerd
 const FROM = "Contactformulier Liemers <onboarding@resend.dev>";
@@ -37,11 +39,16 @@ export async function sendContactMessage(
   _prev: ContactState,
   formData: FormData
 ): Promise<ContactState> {
+  const subject = String(formData.get("subject") ?? "");
   const values = {
     name: String(formData.get("name") ?? "").trim(),
     email: String(formData.get("email") ?? "").trim(),
     message: String(formData.get("message") ?? "").trim(),
   };
+
+  if (!isContactSubject(subject)) {
+    return { status: "error", message: "Kies een onderwerp.", values };
+  }
 
   const errors: ContactState["errors"] = {};
   if (!values.name) errors.name = "Vul je naam in.";
@@ -72,8 +79,8 @@ export async function sendContactMessage(
       from: FROM,
       to: CONTACT_EMAIL,
       reply_to: values.email,
-      subject: `Contactformulier: bericht van ${values.name}`,
-      text: `Naam: ${values.name}\nE-mail: ${values.email}\n\n${values.message}`,
+      subject: `${CONTACT_SUBJECTS[subject]}: bericht van ${values.name}`,
+      text: `Onderwerp: ${CONTACT_SUBJECTS[subject]}\nNaam: ${values.name}\nE-mail: ${values.email}\n\n${values.message}`,
     }),
   });
 

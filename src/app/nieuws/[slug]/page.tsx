@@ -4,6 +4,18 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { Pattern } from "@/components/pattern";
 import Image from "next/image";
+import { JsonLd } from "@/components/json-ld";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
+
+// Zoekmachines tonen ~160 tekens; afkappen op een woordgrens
+function toDescription(text = ""): string {
+  if (text.length <= 160) return text;
+  return `${text.slice(0, 157).replace(/\s+\S*$/, "")}…`;
+}
+
+function toIsoDate(date?: string): string | undefined {
+  return date ? new Date(date).toISOString().slice(0, 10) : undefined;
+}
 
 export async function generateStaticParams() {
   const posts = await getAllNewsPosts();
@@ -18,9 +30,19 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getNewsPostBySlug(slug);
   if (!post) return {};
+  const description = toDescription(post.frontmatter.excerpt);
+  // Nieuwstitels zijn al lang en bevatten het zoekwoord; geen achtervoegsel
   return {
-    title: `${post.frontmatter.title} | WK Korfbal 2027 Bid`,
-    description: post.frontmatter.excerpt,
+    title: { absolute: post.frontmatter.title ?? SITE_NAME },
+    description,
+    alternates: { canonical: `/nieuws/${slug}` },
+    openGraph: {
+      type: "article",
+      title: post.frontmatter.title,
+      description,
+      publishedTime: toIsoDate(post.frontmatter.date),
+      images: post.frontmatter.image ? [post.frontmatter.image] : undefined,
+    },
   };
 }
 
@@ -35,6 +57,18 @@ export default async function NewsDetailPage({
 
   return (
     <article>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "NewsArticle",
+          headline: post.frontmatter.title,
+          description: post.frontmatter.excerpt,
+          datePublished: toIsoDate(post.frontmatter.date),
+          image: post.frontmatter.image ? [`${SITE_URL}${post.frontmatter.image}`] : undefined,
+          mainEntityOfPage: `${SITE_URL}/nieuws/${slug}`,
+          publisher: { "@type": "Organization", name: SITE_NAME, logo: `${SITE_URL}/logo.svg` },
+        }}
+      />
       <section className={`relative ${post.frontmatter.image ? "pb-40" : "pb-16"}`}>
         <Pattern />
         <div className="container relative pt-16">

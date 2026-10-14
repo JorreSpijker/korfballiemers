@@ -9,13 +9,16 @@ import { Button } from "@/components/ui/button";
 import clubsMapData from "@/data/clubs-map.json";
 import type { ClubMapEntry } from "@/types/clubs-map";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/json-ld";
+import { organizationSchema, wkEventSchema } from "@/lib/structured-data";
 import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Home | WK Korfbal 2027 Bid Liemers",
+  title: { absolute: "LiemersCity Korfbal | Hostregio WK Korfbal 2027 in de Liemers" },
   description:
-    "De regio Liemers dient een bid in om het Wereldkampioenschap Korfbal 2027 te organiseren.",
+    "De Liemers (Doesburg, Duiven, Westervoort en Zevenaar) is hostregio van het WK Korfbal 2027. Van 15 t/m 17 oktober 2027 speelt de wereldtop hier.",
+  alternates: { canonical: "/" },
 };
 
 function Prose({ html }: { html: string }) {
@@ -53,6 +56,8 @@ export default async function HomePage() {
 
   return (
     <>
+      <JsonLd data={[organizationSchema, wkEventSchema]} />
+
       {/* Hero Section */}
       <Hero
         introHtml={introHtml}
@@ -71,10 +76,19 @@ export default async function HomePage() {
               <span className="flex-1 bg-actie-blauw" />
             </div>
           </div>
-          <div
-            className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-[18px] text-lg [&_p]:m-0"
-            dangerouslySetInnerHTML={{ __html: wkHtml }}
-          />
+          <div className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-6">
+            <div
+              className="flex flex-col gap-[18px] text-lg [&_p]:m-0"
+              dangerouslySetInnerHTML={{ __html: wkHtml }}
+            />
+            <Link
+              href="/wk-korfbal-2027"
+              className="group inline-flex items-center gap-2 self-start font-bold text-actie-blauw hover:text-actie-blauw"
+            >
+              Alles over het WK Korfbal 2027 in de Liemers
+              <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -103,7 +117,6 @@ export default async function HomePage() {
         id="nieuws"
         limit={6}
         title="Laatste nieuws"
-        showAllLink={false}
       />
 
       <SponsorLogoBar id="sponsors" />

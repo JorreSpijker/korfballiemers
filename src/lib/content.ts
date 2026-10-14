@@ -8,10 +8,12 @@ const contentDir = join(process.cwd(), "content");
 const pagesDir = join(contentDir, "pages");
 const newsDir = join(contentDir, "nieuws");
 const clubsDir = join(contentDir, "clubs");
+const speelstedenDir = join(contentDir, "speelsteden");
 
 export interface PageFrontmatter {
   title?: string;
   excerpt?: string;
+  description?: string;
 }
 
 export interface NewsPostFrontmatter extends PageFrontmatter {
@@ -40,6 +42,16 @@ export interface NewsPost extends PageContent {
 
 export interface Club extends PageContent {
   frontmatter: ClubFrontmatter;
+}
+
+export interface SpeelstadFrontmatter extends PageFrontmatter {
+  name: string;
+  /** ids uit src/data/clubs-map.json */
+  clubs?: string[];
+}
+
+export interface Speelstad extends PageContent {
+  frontmatter: SpeelstadFrontmatter;
 }
 
 async function markdownToHtml(markdown: string): Promise<string> {
@@ -123,4 +135,30 @@ export async function getClubBySlug(slug: string): Promise<Club | null> {
 export async function getNewsPostBySlug(slug: string): Promise<NewsPost | null> {
   const posts = await getAllNewsPosts();
   return posts.find((p) => p.slug === slug) ?? null;
+}
+
+export async function getAllSpeelsteden(): Promise<Speelstad[]> {
+  if (!existsSync(speelstedenDir)) return [];
+
+  const files = readdirSync(speelstedenDir)
+    .filter((f) => f.endsWith(".md"))
+    .sort();
+
+  const steden: Speelstad[] = [];
+  for (const file of files) {
+    const fileContents = readFileSync(join(speelstedenDir, file), "utf8");
+    const { data, content } = matter(fileContents);
+    steden.push({
+      slug: file.replace(/\.md$/, ""),
+      frontmatter: data as SpeelstadFrontmatter,
+      content: await markdownToHtml(content),
+    });
+  }
+
+  return steden;
+}
+
+export async function getSpeelstadBySlug(slug: string): Promise<Speelstad | null> {
+  const steden = await getAllSpeelsteden();
+  return steden.find((s) => s.slug === slug) ?? null;
 }

@@ -1,80 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import dynamic from "next/dynamic";
 import { ChevronDown, RotateCcw } from "lucide-react";
-import {
-  Map,
-  MapControls,
-  MapMarker,
-  MarkerContent,
-  MapRegion,
-  useMap,
-} from "@/components/ui/map";
+import { LogoStack, toArray } from "@/components/club-logo-stack";
 import { cn } from "@/lib/utils";
 import type { ClubMapEntry } from "@/types/clubs-map";
-import regionMapData from "@/data/region-map.json";
-import type { GeoJSON } from "geojson";
 
-const LIEMERS_CENTER: [number, number] = [6.08, 51.96];
-const DEFAULT_ZOOM = 10.6;
-const CLUB_ZOOM = 12.6;
-const NETHERLANDS_BOUNDS: [number, number, number, number] = [3.3, 50.5, 7.3, 53.7];
-const MIN_ZOOM_NETHERLANDS = 5;
-
-function toArray(value?: string | string[] | null): string[] {
-  if (!value) return [];
-  return Array.isArray(value) ? value : [value];
-}
-
-// Zonder `essential` springt MapLibre direct bij prefers-reduced-motion
-function FlyToClub({ club, clubs }: { club: ClubMapEntry | null; clubs: ClubMapEntry[] }) {
-  const { map } = useMap();
-  const firstRun = useRef(true);
-
-  useEffect(() => {
-    if (!map) return;
-    const duration = firstRun.current ? 0 : 1400;
-    firstRun.current = false;
-
-    if (club) {
-      map.flyTo({ center: [club.lng, club.lat], zoom: CLUB_ZOOM, duration, curve: 1.6 });
-      return;
-    }
-
-    // Overzicht: alle clubs in beeld, ook op smalle schermen
-    const lngs = clubs.map((c) => c.lng);
-    const lats = clubs.map((c) => c.lat);
-    map.fitBounds(
-      [
-        [Math.min(...lngs), Math.min(...lats)],
-        [Math.max(...lngs), Math.max(...lats)],
-      ],
-      { padding: 70, maxZoom: DEFAULT_ZOOM + 0.4, duration }
-    );
-  }, [map, club, clubs]);
-
-  return null;
-}
-
-function LogoStack({ club, size }: { club: ClubMapEntry; size: "sm" | "md" }) {
-  const name = club.name ?? club.id;
-  return (
-    <span className={cn("flex shrink-0", size === "sm" ? "-space-x-2.5" : "-space-x-3")}>
-      {toArray(club.logo).map((logo) => (
-        <span
-          key={logo}
-          className={cn(
-            "relative overflow-hidden rounded-full bg-white ring-2 ring-surface",
-            size === "sm" ? "h-10 w-10" : club.id === "triominos" ? "h-16 w-16" : "h-12 w-12"
-          )}
-        >
-          <Image src={logo} alt={`${name} logo`} fill sizes="64px" className="object-contain p-1" />
-        </span>
-      ))}
-    </span>
-  );
-}
+const ClubMapPane = dynamic(() => import("@/components/club-map-pane"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-[#0A0F0E]" />,
+});
 
 function Stat({ label, value }: { label: string; value?: string | number | null }) {
   if (value === undefined || value === null || value === "") return null;
@@ -93,11 +29,39 @@ interface ClubMapShowcaseProps {
 
 export function ClubMapShowcase({ clubs, clubNames = {} }: ClubMapShowcaseProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [outsideRegion, setOutsideRegion] = useState(false);
+  // Ophogen forceert terugvliegen, ook als er geen club geselecteerd was
+  const [resetKey, setResetKey] = useState(0);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const selectedClub = clubs.find((club) => club.id === selectedId) ?? null;
+  const showReset = selectedClub !== null || outsideRegion;
+
+  const resetToRegion = () => {
+    setSelectedId(null);
+    setResetKey((key) => key + 1);
+  };
 
   const toggle = (id: string) => setSelectedId((current) => (current === id ? null : id));
   const nameOf = (club: ClubMapEntry) => club.name ?? clubNames[club.id] ?? club.id;
+
+  // Kaart pas laden als hij bijna in beeld komt (scheelt zware JavaScript bij het laden)
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [mapVisible, setMapVisible] = useState(false);
+  useEffect(() => {
+    const el = mapRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setMapVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="surface-dark grid overflow-hidden rounded-2xl border border-white/10 bg-surface shadow-[0_32px_64px_-32px_rgb(15_26_23/0.55)] lg:h-[600px] lg:grid-cols-[380px_minmax(0,1fr)]">
@@ -211,84 +175,33 @@ export function ClubMapShowcase({ clubs, clubNames = {} }: ClubMapShowcaseProps)
       </div>
 
       {/* Kaart */}
-      <div className="relative order-1 h-[400px] min-w-0 lg:order-2 lg:h-full">
-        <Map
-          theme="dark"
-          center={LIEMERS_CENTER}
-          zoom={DEFAULT_ZOOM}
-          minZoom={MIN_ZOOM_NETHERLANDS}
-          maxBounds={NETHERLANDS_BOUNDS}
-          scrollZoom={false}
-          className="h-full w-full rounded-2xl"
-        >
-          <FlyToClub club={selectedClub} clubs={clubs} />
-          <MapControls showZoom />
-          <MapRegion
-            id="liemers-region-showcase"
-            data={regionMapData as unknown as GeoJSON.FeatureCollection}
-            fillColor="#22B24C"
-            fillOpacity={0.12}
-            strokeColor="#3CCB68"
-            strokeWidth={2}
-            strokeOpacity={0.9}
+      <div ref={mapRef} className="relative order-1 h-[400px] min-w-0 bg-[#0A0F0E] lg:order-2 lg:h-full">
+        {mapVisible && (
+          <ClubMapPane
+            clubs={clubs}
+            selectedClub={selectedClub}
+            selectedId={selectedId}
+            hoveredId={hoveredId}
+            resetKey={resetKey}
+            nameOf={nameOf}
+            onToggle={toggle}
+            onHover={setHoveredId}
+            onOutsideChange={setOutsideRegion}
           />
-          {clubs.map((club, index) => {
-            const selected = club.id === selectedId;
-            const active = selected || club.id === hoveredId;
-
-            return (
-              <MapMarker
-                key={club.id}
-                longitude={club.lng}
-                latitude={club.lat}
-                onClick={() => toggle(club.id)}
-                onMouseEnter={() => setHoveredId(club.id)}
-                onMouseLeave={() => setHoveredId(null)}
-              >
-                <MarkerContent>
-                  <div
-                    className="anim-pin relative flex flex-col items-center"
-                    style={{ "--d": `${250 + index * 110}ms` } as React.CSSProperties}
-                  >
-                    <div
-                      className={cn(
-                        "relative rounded-full transition-[transform,box-shadow] duration-300 ease-(--ease-out-quint)",
-                        active && "scale-110",
-                        selected
-                          ? "shadow-[0_0_0_3px_var(--energie-groen),0_0_0_9px_rgb(34_178_76/0.25)]"
-                          : "shadow-[0_10px_24px_-8px_rgb(0_0_0/0.8)]"
-                      )}
-                    >
-                      {selected && <span aria-hidden className="pin-pulse absolute inset-0 rounded-full" />}
-                      <LogoStack club={club} size="md" />
-                    </div>
-                    <span
-                      className={cn(
-                        "pointer-events-none absolute top-full mt-2.5 whitespace-nowrap rounded-full bg-[#0A0F0E]/90 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/10 backdrop-blur transition-[opacity,transform] duration-200 ease-(--ease-out-quint)",
-                        active ? "translate-y-0 opacity-100" : "-translate-y-1 opacity-0"
-                      )}
-                    >
-                      {nameOf(club)}
-                    </span>
-                  </div>
-                </MarkerContent>
-              </MapMarker>
-            );
-          })}
-        </Map>
+        )}
 
         <button
           type="button"
-          onClick={() => setSelectedId(null)}
-          tabIndex={selectedClub ? 0 : -1}
-          aria-hidden={!selectedClub}
+          onClick={resetToRegion}
+          tabIndex={showReset ? 0 : -1}
+          aria-hidden={!showReset}
           className={cn(
             "absolute top-4 left-4 z-10 inline-flex min-h-11 items-center gap-2 rounded-full bg-[#0A0F0E]/85 px-4 text-sm font-semibold text-white ring-1 ring-white/15 backdrop-blur transition-[opacity,transform] duration-300 ease-(--ease-out-quint) hover:bg-[#0A0F0E]",
-            selectedClub ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
+            showReset ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
           )}
         >
           <RotateCcw className="h-4 w-4" aria-hidden />
-          Hele regio
+          Terug naar regio
         </button>
       </div>
     </div>

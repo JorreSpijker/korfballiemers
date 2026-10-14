@@ -195,20 +195,29 @@ export function Header() {
       role="banner"
     >
       <div className="container flex flex-wrap items-center justify-between gap-4 py-5">
-        <Link
-          href="/"
-          className="flex items-center rounded-lg bg-white px-3 py-1.5"
-          aria-label="Naar homepage"
-        >
-          <Image
-            src="/logo.svg"
-            alt="LiemersCity Korfbal logo"
-            width={168}
-            height={99}
-            className="h-10 w-auto"
-            priority
-          />
-        </Link>
+        {/* Plaatshouder houdt de headerhoogte gelijk; het logolabel hangt eruit naar beneden */}
+        <div className="relative -mt-5 h-12 w-[144px] self-start lg:w-[164px]">
+          <Link
+            href="/"
+            className="anim-drop group absolute inset-x-0 top-0 flex flex-col overflow-hidden rounded-b-2xl [--d:150ms] bg-white shadow-[0_18px_36px_-14px_rgb(0_0_0/0.75)] ring-1 ring-black/5 transition-transform duration-300 ease-(--ease-out-quint) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-safe:hover:translate-y-0.5"
+            aria-label="Naar homepage"
+          >
+            <span className="flex justify-center px-4 pt-5 pb-5 lg:px-5 lg:pt-6 lg:pb-6">
+              <Image
+                src="/logo.svg"
+                alt="LiemersCity Korfbal logo"
+                width={168}
+                height={99}
+                className="h-16 w-auto lg:h-[72px]"
+                priority
+              />
+            </span>
+            <span className="flex h-1" aria-hidden>
+              <span className="flex-1 bg-energie-groen" />
+              <span className="flex-1 bg-actie-blauw" />
+            </span>
+          </Link>
+        </div>
 
         {/* Desktop nav */}
         <nav

@@ -1,16 +1,6 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-
-type NewsItem = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image?: string | null;
-};
+import { getAllNewsPosts } from "@/lib/content";
 
 type NewsFeedProps = {
   limit?: number;
@@ -29,83 +19,53 @@ function formatDate(date: string): string {
   });
 }
 
-export function NewsFeed({
+export async function NewsFeed({
   limit = 6,
-  title = "Laatste nieuws",
+  title,
   showAllLink = true,
   fullWidth = false,
   id,
 }: NewsFeedProps) {
-  const [items, setItems] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadNews() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch(`/api/nieuws?limit=${limit}`);
-        if (!response.ok) {
-          throw new Error("Kon nieuws niet ophalen");
-        }
-
-        const data = (await response.json()) as { news?: NewsItem[] };
-        if (active) {
-          setItems(data.news ?? []);
-        }
-      } catch {
-        if (active) {
-          setError("Nieuws ophalen is mislukt. Probeer later opnieuw.");
-        }
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
-      }
-    }
-
-    void loadNews();
-
-    return () => {
-      active = false;
-    };
-  }, [limit]);
-
-  const hasItems = useMemo(() => items.length > 0, [items]);
+  // Server-side: het nieuws staat direct in de HTML (goed voor zoekmachines)
+  const posts = await getAllNewsPosts();
+  const items = posts.slice(0, limit).map((post) => ({
+    slug: post.slug,
+    title: post.frontmatter.title ?? post.slug,
+    excerpt: post.frontmatter.excerpt ?? "",
+    // gray-matter levert YAML-datums als Date; ISO-datum voor <time dateTime>
+    date: post.frontmatter.date ? new Date(post.frontmatter.date).toISOString().slice(0, 10) : "",
+    image: post.frontmatter.image ?? null,
+  }));
 
   const containerClass = fullWidth ? "w-full" : "container mx-auto";
 
   const content = (
     <div className={containerClass}>
-      <div className="mb-8 flex items-end justify-between gap-4">
-        <div>
-          <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
-            {title}
-          </h2>
+      {(title || showAllLink) && (
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            {title && (
+              <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
+                {title}
+              </h2>
+            )}
+          </div>
+          {showAllLink && (
+            <Link
+              href="/nieuws"
+              className="text-sm font-semibold transition"
+            >
+              Bekijk alles
+            </Link>
+          )}
         </div>
-        {showAllLink && (
-          <Link
-            href="/nieuws"
-            className="text-sm font-semibold transition"
-          >
-            Bekijk alles
-          </Link>
-        )}
-      </div>
+      )}
 
-      {loading && <p className="text-sm text-muted-foreground">Nieuws wordt geladen...</p>}
-
-      {error && <p className="text-sm text-destructive">{error}</p>}
-
-      {!loading && !error && !hasItems && (
+      {items.length === 0 && (
         <p className="text-sm text-muted-foreground">Nog geen nieuwsberichten beschikbaar.</p>
       )}
 
-      {!loading && !error && hasItems && (
+      {items.length > 0 && (
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {items.map((item, index) => (
             <li key={item.slug} className="reveal" style={{ "--i": index % 3 } as React.CSSProperties}>

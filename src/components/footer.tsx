@@ -7,6 +7,17 @@ const brandColors = ["bg-energie-groen", "bg-actie-blauw"];
 const linkClass =
   "text-sm text-foreground/75 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm";
 
+const ontdekLinks = [
+  { href: "/wk-korfbal-2027", label: "WK Korfbal 2027" },
+  { href: "/wk-korfbal-2027/doesburg", label: "WK in Doesburg" },
+  { href: "/wk-korfbal-2027/duiven", label: "WK in Duiven" },
+  { href: "/wk-korfbal-2027/westervoort", label: "WK in Westervoort" },
+  { href: "/wk-korfbal-2027/zevenaar", label: "WK in Zevenaar" },
+  { href: "/nieuws", label: "Nieuws" },
+  { href: "/vrijwilliger-worden", label: "Vrijwilliger worden" },
+  { href: "/sponsor-worden", label: "Sponsor worden" },
+];
+
 const headingClass =
   "text-xs font-bold uppercase tracking-[0.18em] text-samen-goud";
 
@@ -45,6 +56,19 @@ export function Footer() {
             </p>
           </div>
 
+          <nav aria-label="Ontdek">
+            <h3 className={headingClass}>Ontdek</h3>
+            <ul className="mt-4 grid grid-cols-2 gap-x-8 gap-y-2.5 sm:grid-cols-1">
+              {ontdekLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className={linkClass}>
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
           <div>
             <h3 className={headingClass}>Contact</h3>
             <ul className="mt-4 space-y-3 text-[15px] text-foreground/78">
@@ -54,14 +78,18 @@ export function Footer() {
                 </span>
                 <span>Regio De Liemers, Gelderland</span>
               </li>
-              {/* <li className="flex items-center gap-3">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-energie-groen">
+              <li className="flex items-center gap-3">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/[0.06] text-energie-groen-licht">
                   <Mail className="h-4 w-4" aria-hidden />
                 </span>
-                <a className={linkClass} href="mailto:info@korfbalindeliemers.nl">
-                  info@liemerscitykorfbal.nl
-                </a>
-              </li> */}
+                <Link
+                  className="rounded-sm text-foreground/78 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  href="/#contact"
+                  data-onderwerp="algemeen"
+                >
+                  Stuur ons een bericht
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

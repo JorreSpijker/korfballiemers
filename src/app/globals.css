@@ -300,6 +300,12 @@ section[id] {
   }
 }
 
+@keyframes drop-in {
+  from {
+    transform: translateY(-105%);
+  }
+}
+
 @keyframes pin-drop {
   from {
     opacity: 0;
@@ -364,6 +370,11 @@ section[id] {
   .anim-grow {
     transform-origin: left;
     animation: grow-x 900ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  /* backwards: na afloop is transform weer vrij voor hover */
+  .anim-drop {
+    animation: drop-in 900ms var(--ease-out-expo) var(--d, 0ms) backwards;
   }
 
   .anim-pin {

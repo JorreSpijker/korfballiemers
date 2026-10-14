@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="7 8 50 50" role="img" aria-label="Speellocatie Triominos">
+  <defs>
+    <linearGradient id="goud" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E6CD96"/>
+      <stop offset="0.55" stop-color="#C9A96E"/>
+      <stop offset="1" stop-color="#9E7B42"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Oren -->
+  <path d="M19 15.5 H13.5 C12.5 24 16 29.5 21.5 29.5 M45 15.5 H50.5 C51.5 24 48 29.5 42.5 29.5" fill="none" stroke="#B8955A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Beker -->
+  <path d="M18 12 H46 V20 C46 30.5 40 37.5 32 38.5 C24 37.5 18 30.5 18 20 Z" fill="url(#goud)"/>
+  <rect x="17" y="10.5" width="30" height="3.5" rx="1.75" fill="#E6CD96"/>
+  <path d="M22 16 C22 26 25 32 29 35" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" opacity="0.35"/>
+
+  <!-- Ster -->
+  <polygon points="32,16.5 33.35,20.14 37.23,20.3 34.19,22.71 35.23,26.45 32,24.3 28.77,26.45 29.81,22.71 26.77,20.3 30.65,20.14" fill="#FFFFFF"/>
+
+  <!-- Steel en kraag -->
+  <rect x="30" y="38" width="4" height="7" fill="#B8955A"/>
+  <rect x="25.5" y="44" width="13" height="3.5" rx="1.5" fill="url(#goud)"/>
+
+  <!-- Voet met merkstreep -->
+  <rect x="20" y="47" width="24" height="8" rx="2" fill="#0B1F1F"/>
+  <rect x="23" y="50" width="9" height="2" rx="1" fill="#22B24C"/>
+  <rect x="32" y="50" width="9" height="2" rx="1" fill="#1D5BF0"/>
+</svg>
