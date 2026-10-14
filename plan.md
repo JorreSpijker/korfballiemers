@@ -63,3 +63,17 @@ Eigen sectie onderaan de homepage (`#contact`, na sponsors). Ontvanger: dcaderiu
 4. **Footer**: het logovlak tilt bij hover; de pijl bij "Terug naar boven" schuift omhoog.
 
 Verificatie: `tsc`, `eslint`, `next build`.
+
+---
+
+# Plan: kaart variant 2 (ter vergelijking, onder de huidige)
+
+Nieuw component `src/components/club-map-showcase.tsx`, nieuwe sectie in `page.tsx` direct onder "Clubs in de Liemers". Het origineel blijft ongewijzigd.
+
+- **Donkere sectie** met `Pattern`, kop en korte intro. Kaart en clublijst samen in één afgerond paneel.
+- **Donkere kaart** (Carto dark-matter). Regio in energie-groen met lichtgroene rand. Scroll-zoom uit (de pagina scrollt niet meer per ongeluk de kaart in), zoomknoppen blijven.
+- **Clublijst links** (op mobiel onder de kaart): per club logo's, naam, oprichtingsjaar en leden. Klik opent een accordeon met teams, klasse veld/zaal, beschrijving en website(s). Ingeklapte inhoud is `inert`.
+- **Kaart en lijst gekoppeld**: hover op een rij laat de pin oplichten en andersom. Selecteren laat de kaart naar de club vliegen (`flyTo`; MapLibre springt direct bij reduced motion). De knop "Hele regio" zoomt terug.
+- **Pins**: logo-cirkels met een naamlabel bij hover of selectie, een groene ring en pulserende halo bij de geselecteerde club. Ze vallen gespreid binnen.
+
+Verificatie: `tsc`, `eslint`, `next build`.

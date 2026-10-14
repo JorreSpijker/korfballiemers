@@ -136,6 +136,24 @@ section[id] {
   color: var(--foreground);
 }
 
+/* Donkere vlakken binnen een lichte sectie: zet de tokens terug naar :root */
+.surface-dark {
+  --background: #0A0F0E;
+  --foreground: #E6ECEA;
+  --card: #141D1B;
+  --card-foreground: #E6ECEA;
+  --popover: #141D1B;
+  --popover-foreground: #E6ECEA;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #0A0F0E;
+  --muted: #1C2725;
+  --muted-foreground: rgb(230 236 234 / 0.72);
+  --accent: rgb(230 236 234 / 0.08);
+  --accent-foreground: #FFFFFF;
+  --border: rgb(230 236 234 / 0.1);
+  --input: rgb(230 236 234 / 0.15);
+  color: var(--foreground);
+}
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -289,6 +307,23 @@ section[id] {
   }
 }
 
+@keyframes pin-pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+/* Halo rond geselecteerde kaartpin; onzichtbaar zonder animatie */
+.pin-pulse {
+  opacity: 0;
+  border: 2px solid var(--energie-groen);
+}
+
 @keyframes header-elevate {
   to {
     border-bottom-color: var(--border);
@@ -333,6 +368,10 @@ section[id] {
 
   .anim-pin {
     animation: pin-drop 700ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  .pin-pulse {
+    animation: pin-pulse 1.8s var(--ease-out-quint) infinite;
   }
 }
 

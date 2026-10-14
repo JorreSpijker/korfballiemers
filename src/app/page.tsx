@@ -1,6 +1,6 @@
 import { getPageContent, getAllClubs } from "@/lib/content";
 import { Hero } from "@/components/hero";
-import { ClubMap } from "@/components/club-map";
+import { ClubMapShowcase } from "@/components/club-map-showcase";
 import { NewsFeed } from "@/components/news-feed";
 import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
 import { ContentSection } from "@/components/content-section";
@@ -85,15 +85,15 @@ export default async function HomePage() {
             Wie zijn wij
           </p>
           <h2 className="reveal-heading font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">Clubs in de Liemers</h2>
-          <div className="relative h-125 w-full">
-            <ClubMap clubs={mapClubs} clubNames={clubNames} />
+          <div className="relative w-full overflow-hidden">
+            <ClubMapShowcase clubs={mapClubs} clubNames={clubNames} />
             <Image
               src="/icon.svg"
               alt=""
               width={210}
               height={210}
               aria-hidden
-              className="pointer-events-none absolute -left-14 top-0 z-10 -scale-x-100 opacity-[0.7]"
+              className="pointer-events-none absolute -right-14 top-3 z-10 opacity-[0.7]"
             />
           </div>
         </div>
