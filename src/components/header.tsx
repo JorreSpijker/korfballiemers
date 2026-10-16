@@ -199,7 +199,7 @@ export function Header() {
         <div className="relative -mt-5 h-12 w-[144px] self-start lg:w-[164px]">
           <Link
             href="/"
-            className="anim-drop group absolute inset-x-0 top-0 flex flex-col overflow-hidden rounded-b-2xl [--d:150ms] bg-white shadow-[0_18px_36px_-14px_rgb(0_0_0/0.75)] ring-1 ring-black/5 transition-transform duration-300 ease-(--ease-out-quint) focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring motion-safe:hover:translate-y-0.5"
+            className="anim-drop absolute inset-x-0 top-0 flex flex-col overflow-hidden rounded-b-2xl [--d:150ms] bg-white shadow-[0_18px_36px_-14px_rgb(0_0_0/0.75)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             aria-label="Naar homepage"
           >
             <span className="flex justify-center px-4 pt-5 pb-5 lg:px-5 lg:pt-6 lg:pb-6">
