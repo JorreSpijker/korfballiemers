@@ -17,11 +17,11 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
     <section id={id} className="surface-light bg-white">
       <div className="container py-16 sm:py-24">
         <h2 className="reveal-heading font-heading mb-5 text-4xl font-bold leading-[1.05] sm:text-[44px]">
-          {sponsors.length > 0 ? "Trots op onze sponsoren" : "Word onze eerste sponsor"}
+          {sponsors.length > 0 ? "Trots op onze sponsoren" : "Word onze sponsor"}
         </h2>
         <p className="mb-8 max-w-[620px] text-lg">
           Verbind je naam aan een sportevenement van wereldformaat, midden in de Liemers. Als sponsor
-          ben je zichtbaar bij spelers, supporters en inwoners uit de hele regio, en help je de
+          ben je zichtbaar bij spelers, supporters en inwoners uit de regio, en help je de
           korfbalclubs hier bouwen aan een sterke toekomst. Groot of klein: elke bijdrage telt.
         </p>
 

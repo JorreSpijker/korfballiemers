@@ -89,7 +89,7 @@ export function ContactSection({ id }: { id?: string }) {
             <span className="flex-1 bg-actie-blauw" />
           </div>
           <p className="mt-6 max-w-[420px] text-lg">
-            Vragen over het bid, of wil je meedoen als vrijwilliger of sponsor? Stuur ons een
+            Vragen of wil je meedoen als vrijwilliger of sponsor? Stuur ons een
             bericht, dan nemen we contact met je op.
           </p>
         </div>

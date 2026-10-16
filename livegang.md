@@ -1,0 +1,59 @@
+# Livegang
+
+Live: https://liemerscitykorfbal.nl (branch `main`, Vercel Production)
+Test: https://korfballiemers.vercel.app (branch `development`, Vercel Preview)
+
+## 1. Vóór de merge (op de testomgeving)
+
+- [x] `korfballiemers.vercel.app/robots.txt` toont `Disallow: /` (testomgeving wordt niet geïndexeerd)
+- [ ] Teksten van de speelsteden nalezen: `content/speelsteden/*.md`
+- [ ] Teksten van `content/pages/wk-korfbal-2027.md`, `vrijwilliger-worden.md` en `sponsor-worden.md` nalezen
+- [ ] Bevestigen dat Sportcentrum Triominos (Eltensestraat 4, Duiven) de WK-speellocatie is. Zo niet: `WK_VENUE` in `src/lib/site.ts` aanpassen
+- [ ] Contactformulier testen op de testomgeving (reCAPTCHA aanvinken, mail komt aan bij liemerscitykorfbal@gmail.com)
+
+## 2. Vercel (Production)
+
+- [ ] Settings → Environment Variables: deze drie staan aan voor **Production**:
+  - `RESEND_API_KEY`
+  - `RECAPTCHA_SECRET_KEY`
+  - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
+- [ ] `main` deployt als **Production** (Settings → Git → Production Branch = `main`)
+
+## 3. Externe diensten
+
+- [ ] reCAPTCHA-admin (https://www.google.com/recaptcha/admin): domein `liemerscitykorfbal.nl` toegevoegd aan de v2-sleutel
+- [ ] Resend-account aangemaakt met liemerscitykorfbal@gmail.com (zonder geverifieerd domein mailt Resend alleen naar het account-adres)
+
+## 4. Merge en deploy
+
+- [ ] `development` mergen naar `main` en pushen
+- [ ] Production-deploy in Vercel is geslaagd
+
+## 5. Na de livegang
+
+- [ ] `https://liemerscitykorfbal.nl/robots.txt` toont `Allow: /` en `Sitemap: https://liemerscitykorfbal.nl/sitemap.xml`
+- [ ] `https://liemerscitykorfbal.nl/sitemap.xml` toont alle pagina's
+- [ ] Contactformulier op live getest. Bij problemen: Vercel → Logs, zoek op `reCAPTCHA fout` of `Resend fout`
+- [ ] Deelafbeelding gecontroleerd, bijvoorbeeld een link in WhatsApp plakken of https://www.opengraph.xyz gebruiken
+- [ ] Structured data gecontroleerd met https://search.google.com/test/rich-results (home, `/wk-korfbal-2027` en een nieuwsbericht)
+
+## 6. Vindbaarheid (doorlopend)
+
+- [ ] Google Search Console: domein `liemerscitykorfbal.nl` toevoegen en verifiëren, sitemap indienen
+- [ ] Bing Webmaster Tools: site toevoegen (kan via import uit Search Console), sitemap indienen
+- [ ] Backlinks vragen bij:
+  - KNKV (pagina WK Korfbal 2027)
+  - Gemeenten Doesburg, Duiven, Westervoort en Zevenaar
+  - Clubsites: Duko, Wesstar, KV Rivalen, KV de Zwaluwen
+  - Sportcentrum Triominos
+  - Lokale media (De Gelderlander, Liemers Nieuws)
+- [ ] Regelmatig nieuws plaatsen met plaatsnamen erin
+
+## Opruimen (optioneel)
+
+Niet meer in gebruik, niet verwijderd:
+- `src/app/api/nieuws/route.ts` (nieuws wordt server-side gerenderd)
+- `src/components/club-map.tsx` (vervangen door `club-map-showcase.tsx`)
+- `public/club-logos/logo-triominos.svg` (vervangen door `triominos-locatie.svg`)
+- `public/sponsors/sponsor-1…6.svg` (sponsors komen uit `src/data/sponsors.json`)
+- Dummy-content in `content/pages/`: `contact.md`, `over.md`, `prose.md`, `sponsoren.md`, `vrijwilligers.md`, `wk2027.md`

@@ -13,4 +13,4 @@ Sportcentrum Triominos aan de Eltensestraat 4 in Duiven is de sporthal waar het 
 
 ## Korfbal in Duiven
 
-DUKO uit Duiven en Wesstar uit Westervoort bundelen hun krachten in Duko/Wesstar. Beide verenigingen staan voor sportiviteit, plezier en gezelligheid en willen korfbal toegankelijk houden voor jong en oud. Door de samenwerking ontstaat een sterke vereniging met meer mogelijkheden.
+Duko uit Duiven en Wesstar uit Westervoort zitten midden in een fusie tot Duko/Wesstar. Beide verenigingen staan voor sportiviteit, plezier en gezelligheid en willen korfbal toegankelijk houden voor jong en oud. Door de samenwerking ontstaat een sterke vereniging met meer mogelijkheden.
