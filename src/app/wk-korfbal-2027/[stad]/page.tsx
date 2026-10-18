@@ -4,10 +4,19 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllSpeelsteden, getSpeelstadBySlug } from "@/lib/content";
 import { ContactCta, PageShell, Prose } from "@/components/page-shell";
+import { PhotoGrid, clubPhotos } from "@/components/photo-book";
 import clubsMapData from "@/data/clubs-map.json";
 import type { ClubMapEntry } from "@/types/clubs-map";
 
 const clubs = clubsMapData as ClubMapEntry[];
+
+// Welke foto's (bestandsprefix) bij welke speelstad horen
+const fotoPrefixen: Record<string, string> = {
+  doesburg: "riv",
+  zevenaar: "zwa",
+  duiven: "duk",
+  westervoort: "wes",
+};
 
 function toArray(value?: string | string[] | null): string[] {
   if (!value) return [];
@@ -43,6 +52,7 @@ export default async function SpeelstadPage({ params }: { params: Promise<{ stad
     .map((id) => clubs.find((club) => club.id === id))
     .filter((club): club is ClubMapEntry => Boolean(club));
   const andereSteden = steden.filter((s) => s.slug !== stad);
+  const fotos = fotoPrefixen[stad] ? clubPhotos(fotoPrefixen[stad]) : [];
 
   return (
     <PageShell
@@ -87,6 +97,15 @@ export default async function SpeelstadPage({ params }: { params: Promise<{ stad
               </li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {fotos.length > 0 && (
+        <section aria-labelledby="fotos-titel" className="space-y-8">
+          <h2 id="fotos-titel" className="font-heading text-3xl font-bold">
+            Korfbal in {page.frontmatter.name}
+          </h2>
+          <PhotoGrid files={fotos} className="sm:grid-cols-3" />
         </section>
       )}
 

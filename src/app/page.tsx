@@ -3,6 +3,7 @@ import { Hero } from "@/components/hero";
 import { ClubMapShowcase } from "@/components/club-map-showcase";
 import { NewsFeed } from "@/components/news-feed";
 import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
+import { PhotoBook } from "@/components/photo-book";
 import { ContentSection } from "@/components/content-section";
 import { ContactSection } from "@/components/contact-section";
 import { Button } from "@/components/ui/button";
@@ -120,6 +121,8 @@ export default async function HomePage() {
       />
 
       <SponsorLogoBar id="sponsors" />
+
+      <PhotoBook id="fotos" />
 
       <ContactSection id="contact" />
     </>
