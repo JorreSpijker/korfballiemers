@@ -96,10 +96,11 @@ export async function getAllNewsPosts(): Promise<NewsPost[]> {
     });
   }
 
+  // gray-matter maakt van een YAML-datum een Date; vergelijken op tijdstempel
   return posts.sort((a, b) => {
-    const dateA = String(a.frontmatter.date ?? "");
-    const dateB = String(b.frontmatter.date ?? "");
-    return dateB.localeCompare(dateA);
+    const dateA = new Date(a.frontmatter.date ?? 0).getTime();
+    const dateB = new Date(b.frontmatter.date ?? 0).getTime();
+    return dateB - dateA;
   });
 }
 

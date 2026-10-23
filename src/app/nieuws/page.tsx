@@ -19,7 +19,7 @@ export default function NieuwsPage() {
         <Pattern />
         <div className="container relative pt-16 pb-10">
           <h1 className="anim-rise font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[52px]">
-            Nieuws over het WK Korfbal 2027
+            Nieuws over het WK Korfbal 2027 in de Liemers
           </h1>
         </div>
       </section>

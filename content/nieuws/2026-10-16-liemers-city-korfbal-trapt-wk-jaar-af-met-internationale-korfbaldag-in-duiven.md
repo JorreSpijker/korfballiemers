@@ -1,6 +1,6 @@
 ---
 title: "Liemers City Korfbal trapt WK-jaar af met internationale korfbaldag in Duiven"
-date: 2026-10-23
+date: 2026-10-16
 excerpt: Op zaterdag 31 oktober staat Sportcentrum Triominos in Duiven in het teken van internationaal korfbal. Duko/Wesstar, KV Rivalen en KV de Zwaluwen slaan de handen ineen om de regio De Liemers op de kaart te zetten als speelstad voor het WK Korfbal 2027 in Nederland.
 image: /triominos.jpg
 ---

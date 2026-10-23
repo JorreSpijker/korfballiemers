@@ -1,7 +1,7 @@
 ---
 title: "De Liemers kleurt korfbal-oranje: Doesburg, Duiven, Westervoort en Zevenaar hostregio voor voorronde WK Korfbal 2027"
 date: 2026-05-18
-excerpt: De Liemers maakt zich op voor een sportevenement van wereldformaat. Tijdens de kick-off in Rotterdam is bekendgemaakt dat regio de Liemers officieel is aangewezen als een van de hostregio’s voor het Wereldkampioenschap Korfbal in 2027. De gemeenten Doesburg, Duiven, Westervoort en Zevenaar trekken hierin gezamenlijk op om de wereldtop van het korfbal een warm welkom te heten.
+excerpt: De Liemers maakt zich op voor een sportevenement van wereldformaat. Tijdens de kick-off in Rotterdam is bekendgemaakt dat regio de Liemers officieel is aangewezen als een van de hostregio’s voor het Wereldkampioenschap Korfbal in 2027.
 image: /voorzitters-in-hal.jpeg
 ---
 

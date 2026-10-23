@@ -118,6 +118,7 @@ export default async function HomePage() {
         id="nieuws"
         limit={6}
         title="Laatste nieuws"
+        slider
       />
 
       <SponsorLogoBar id="sponsors" />
