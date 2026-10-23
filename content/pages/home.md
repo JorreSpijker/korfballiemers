@@ -2,6 +2,8 @@
 title: Home
 excerpt: 
 ---
-De korfbalverenigingen Wesstar, Duko, Rivalen, en de Zwaluwen slaan de handen ineen om gezamenlijk een bid uit te brengen voor het WK Korfbal 2027. Vanuit de regio De Liemers willen wij laten zien dat samenwerking tussen clubs niet alleen de organisatiekracht vergroot, maar ook bijdraagt aan een sterkere korfbalgemeenschap.
+De korfbalverenigingen Wesstar, Duko, Rivalen en de Zwaluwen slaan de handen ineen voor het WK Korfbal 2027. Vanuit de De Liemers gaan we gezamenlijk aan de slag om van het WK een sportief en verbindend evenement voor onze regio te maken.
 
-De Liemers is op korfbalgebied een krimpregio, waardoor het extra belangrijk is om de sport zichtbaar en aantrekkelijk te houden. Met deze bid willen we korfbal in de regio opnieuw op de kaart zetten. Zo maken we van het WK niet alleen een sportief evenement, maar ook een impuls voor de toekomst van korfbal in onze regio.
+In de regio en in onze directe omgeving merken we dat het aantal korfballers afneemt. Juist daarom biedt het WK een mooie kans om de sport opnieuw zichtbaar en aantrekkelijk te maken in onze regio. Door samen te werken laten we zien wat we als korfbalverenigingen kunnen bereiken.
+
+Met het WK Korfbal 2027 halen we niet alleen een bijzonder evenement naar De Liemers, maar creëren we ook een platform om als clubs samen te werken. 

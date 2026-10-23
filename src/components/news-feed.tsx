@@ -1,16 +1,6 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-
-type NewsItem = {
-  slug: string;
-  title: string;
-  excerpt: string;
-  date: string;
-  image?: string | null;
-};
+import { getAllNewsPosts } from "@/lib/content";
 
 type NewsFeedProps = {
   limit?: number;
@@ -29,119 +19,90 @@ function formatDate(date: string): string {
   });
 }
 
-export function NewsFeed({
+export async function NewsFeed({
   limit = 6,
-  title = "Laatste nieuws",
+  title,
   showAllLink = true,
   fullWidth = false,
   id,
 }: NewsFeedProps) {
-  const [items, setItems] = useState<NewsItem[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let active = true;
-
-    async function loadNews() {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch(`/api/nieuws?limit=${limit}`);
-        if (!response.ok) {
-          throw new Error("Kon nieuws niet ophalen");
-        }
-
-        const data = (await response.json()) as { news?: NewsItem[] };
-        if (active) {
-          setItems(data.news ?? []);
-        }
-      } catch {
-        if (active) {
-          setError("Nieuws ophalen is mislukt. Probeer later opnieuw.");
-        }
-      } finally {
-        if (active) {
-          setLoading(false);
-        }
-      }
-    }
-
-    void loadNews();
-
-    return () => {
-      active = false;
-    };
-  }, [limit]);
-
-  const hasItems = useMemo(() => items.length > 0, [items]);
+  // Server-side: het nieuws staat direct in de HTML (goed voor zoekmachines)
+  const posts = await getAllNewsPosts();
+  const items = posts.slice(0, limit).map((post) => ({
+    slug: post.slug,
+    title: post.frontmatter.title ?? post.slug,
+    excerpt: post.frontmatter.excerpt ?? "",
+    // gray-matter levert YAML-datums als Date; ISO-datum voor <time dateTime>
+    date: post.frontmatter.date ? new Date(post.frontmatter.date).toISOString().slice(0, 10) : "",
+    image: post.frontmatter.image ?? null,
+  }));
 
   const containerClass = fullWidth ? "w-full" : "container mx-auto";
 
   const content = (
     <div className={containerClass}>
-      <div className="mb-8 flex items-end justify-between gap-4 pb-4">
-        <div>
-          <h2 className="font-heading mt-2 text-2xl font-bold tracking-tight sm:text-3xl text-slate-900">
-            {title}
-          </h2>
+      {(title || showAllLink) && (
+        <div className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            {title && (
+              <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">
+                {title}
+              </h2>
+            )}
+          </div>
+          {showAllLink && (
+            <Link
+              href="/nieuws"
+              className="text-sm font-semibold transition"
+            >
+              Bekijk alles
+            </Link>
+          )}
         </div>
-        {showAllLink && (
-          <Link
-            href="/nieuws"
-            className="text-sm font-semibold text-primary transition hover:text-primary/80"
-          >
-            Bekijk alles
-          </Link>
-        )}
-      </div>
-
-      {loading && <p className="text-sm text-slate-500">Nieuws wordt geladen...</p>}
-
-      {error && <p className="text-sm text-red-600">{error}</p>}
-
-      {!loading && !error && !hasItems && (
-        <p className="text-sm text-slate-500">Nog geen nieuwsberichten beschikbaar.</p>
       )}
 
-      {!loading && !error && hasItems && (
+      {items.length === 0 && (
+        <p className="text-sm text-muted-foreground">Nog geen nieuwsberichten beschikbaar.</p>
+      )}
+
+      {items.length > 0 && (
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {items.map((item) => (
-            <li key={item.slug}>
-              <article className="flex h-full flex-col overflow-hidden rounded-sm bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-lg">
+          {items.map((item, index) => (
+            <li key={item.slug} className="reveal" style={{ "--i": index % 3 } as React.CSSProperties}>
+              <article className="group flex h-full flex-col overflow-hidden rounded-[10px] border bg-card transition duration-300 ease-(--ease-out-quint) hover:-translate-y-1 hover:border-white/20 hover:shadow-[0_24px_48px_-24px_rgb(0_0_0/0.9)]">
                 {item.image && (
-                  <div className="relative h-48 w-full">
+                  <div className="relative h-[200px] w-full overflow-hidden bg-muted">
                     <Image
                       src={item.image}
                       alt={item.title}
                       fill
                       sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover"
+                      className="object-cover transition-transform duration-700 ease-(--ease-out-quint) motion-safe:group-hover:scale-105"
                     />
                   </div>
                 )}
-                <div className="flex flex-1 flex-col gap-3 px-5 py-6">
+                <div className="flex flex-1 flex-col gap-3 p-6">
                   <time
-                    className="text-xs font-medium uppercase tracking-wide text-slate-500"
+                    className="text-[13px] font-semibold text-energie-groen-licht"
                     dateTime={item.date}
                   >
                     {formatDate(item.date)}
                   </time>
-                  <h3 className="font-heading text-lg font-semibold leading-tight text-slate-900">
-                    <Link href={`/nieuws/${item.slug}`} className="hover:text-primary">
+                  <h3 className="font-heading m-0 text-xl font-bold leading-[1.25]">
+                    <Link href={`/nieuws/${item.slug}`} className="text-white hover:text-link-hover">
                       {item.title}
                     </Link>
                   </h3>
                   {item.excerpt && (
-                    <p className="text-sm text-slate-600">{item.excerpt}</p>
+                    <p className="m-0 text-[15px] text-muted-foreground">{item.excerpt}</p>
                   )}
-                  <div className="mt-3 pt-3">
+                  <div className="mt-auto border-t border-white/[0.08] pt-3">
                     <Link
                       href={`/nieuws/${item.slug}`}
-                      className="inline-flex items-center text-sm font-semibold text-primary transition hover:text-primary/80"
+                      className="group/link inline-flex min-h-11 items-center gap-1.5 font-bold transition"
                     >
                       Lees bericht
+                      <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover/link:translate-x-1">→</span>
                     </Link>
                   </div>
                 </div>
@@ -154,7 +115,7 @@ export function NewsFeed({
   );
 
   return (
-    <section id={id} className="relative bg-white px-6 py-20 sm:px-10">
+    <section id={id} className="relative border-y border-white/[0.08] bg-surface py-16 sm:py-26">
       {content}
     </section>
   );

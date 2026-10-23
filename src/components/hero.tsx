@@ -8,40 +8,59 @@ interface HeroProps {
 
 export function Hero({ introHtml, id }: HeroProps) {
   return (
-    <section id={id} className="bg-muted/20 relative">
-      <div className="w-full relative overflow-hidden">
-        <Pattern />
-        <div className="container h-full flex items-center z-1 relative">
-          {/* Intro - Links, binnen container */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center h-ful pt-40 pb-20 pr-10">
-            <article className="space-y-4">
-              <div
-                className="prose prose-neutral max-w-none text-slate-700 text-lg"
-                dangerouslySetInnerHTML={{ __html: introHtml }}
-              />
-            </article>
+    <section id={id} className="relative overflow-hidden border-y border-white/[0.08]">
+      <Pattern />
+      <div className="container relative">
+        <div className="flex min-w-0 flex-col gap-5 pt-18 pb-16 lg:min-h-[min(780px,calc(100svh-6rem))] lg:w-1/2 lg:justify-center lg:gap-7 lg:py-28 lg:pr-12 xl:pr-20">
+          <h1 className="m-0 font-heading text-5xl font-extrabold uppercase leading-[0.95] tracking-[-0.01em] text-white sm:text-[68px]">
+            <span className="anim-rise mb-4 block font-sans text-lg font-bold normal-case tracking-normal text-energie-groen-licht sm:text-xl">
+              WK Korfbal 2027 in de Liemers
+            </span>
+            <span className="mask-word"><span>Samen</span></span>{" "}
+            <span className="mask-word"><span className="[--d:60ms]">sterker</span></span>{" "}
+            <span className="mask-word"><span className="[--d:120ms]">in</span></span>{" "}
+            <span className="mask-word"><span className="[--d:180ms]">de</span></span>{" "}
+            <span className="mask-word">
+              <span className="bg-gradient-to-r from-energie-groen to-[#3D7BFF] bg-clip-text text-transparent [--d:240ms]">
+                Liemers
+              </span>
+            </span>
+          </h1>
+          <div
+            className="anim-rise max-w-[540px] text-lg text-foreground [--d:420ms] [&_p]:m-0"
+            dangerouslySetInnerHTML={{ __html: introHtml }}
+          />
+          <div className="anim-rise flex flex-wrap gap-3 pt-2 [--d:540ms]">
+            <a
+              href="#over"
+              className="inline-flex min-h-12 items-center rounded-md bg-actie-blauw px-6 font-bold text-white transition-[color,background-color,transform] duration-200 ease-(--ease-out-quint) hover:bg-actie-blauw/85 hover:text-white motion-safe:active:scale-[0.97]"
+            >
+              Bekijk de clubs
+            </a>
+            <a
+              href="#nieuws"
+              className="inline-flex min-h-12 items-center rounded-md border border-white/25 px-6 font-semibold text-white transition-[color,background-color,border-color,transform] duration-200 ease-(--ease-out-quint) hover:border-white/50 hover:bg-white/5 hover:text-white motion-safe:active:scale-[0.97]"
+            >
+              Laatste nieuws
+            </a>
           </div>
         </div>
-        {/* Afbeelding - buiten container, flush rechts */}
-        <div className="absolute top-0 right-0 w-1/2 h-full hidden lg:block z-1">
-          <Image
-            src="/hero.JPG"
-            alt="Hero afbeelding"
-            fill
-            className="object-cover"
-            priority
-          />
+      </div>
+      {/* Afbeelding: op desktop flush rechts, de helft van de viewport */}
+      <div className="anim-wipe relative min-h-[420px] overflow-hidden [--d:150ms] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2">
+        <Image
+          src="/hero.JPG"
+          alt="Korfbalwedstrijd: spelers in groen en geel springen naar de bal bij de korf"
+          fill
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          className="anim-zoom object-cover object-[17%_50%] [--d:150ms]"
+          priority
+        />
+        <div className="anim-grow absolute inset-x-0 bottom-0 flex h-1 [--d:700ms]" aria-hidden>
+          <span className="flex-1 bg-energie-groen" />
+          <span className="flex-1 bg-actie-blauw" />
         </div>
       </div>
-      <div className="absolute bottom-0 left-[50%] -translate-x-[50%] translate-y-[50%] z-1 animate-heartbeat">
-          <Image
-            src="/liemers_heart.svg"
-            alt="Het Liemers-logo"
-            width={64}
-            height={64}
-            className="h-auto max-w-[64px]"
-          />
-        </div>
     </section>
   );
 }

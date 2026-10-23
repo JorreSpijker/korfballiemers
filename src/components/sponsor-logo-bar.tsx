@@ -1,58 +1,67 @@
 import Image from "next/image";
+import sponsorsData from "@/data/sponsors.json";
 
-const sponsors = [
-  { name: "Sponsor 1", logo: "/sponsors/sponsor-1.svg" },
-  { name: "Sponsor 2", logo: "/sponsors/sponsor-2.svg" },
-  { name: "Sponsor 3", logo: "/sponsors/sponsor-3.svg" },
-  { name: "Sponsor 4", logo: "/sponsors/sponsor-4.svg" },
-  { name: "Sponsor 5", logo: "/sponsors/sponsor-5.svg" },
-  { name: "Sponsor 6", logo: "/sponsors/sponsor-6.svg" },
-];
+type Sponsor = {
+  name: string;
+  logo: string;
+};
+
+const sponsors = sponsorsData as Sponsor[];
 
 type SponsorLogoBarProps = {
   id?: string;
 };
 
 export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
-  const loopedSponsors = [...sponsors, ...sponsors];
-
   return (
-    <section id={id} className="bg-muted/20">
-      <div className="container mx-auto px-4 py-20">
-        <h2 className="font-heading mb-5 flex items-center justify-center gap-2 text-center font-semibold uppercase tracking-[0.16em] text-slate-500">
-          Trots op onze sponsoren
-          <span className="inline-flex">
-            <Image
-              src="/liemers_heart.svg"
-              alt="Liemers hart"
-              width={24}
-              height={24}
-              className="h-6 w-auto"
-            />
-          </span>
+    <section id={id} className="surface-light bg-white">
+      <div className="container py-16 sm:py-24">
+        <h2 className="reveal-heading font-heading mb-5 text-4xl font-bold leading-[1.05] sm:text-[44px]">
+          {sponsors.length > 0 ? "Trots op onze sponsoren" : "Word onze sponsor"}
         </h2>
+        <p className="mb-8 max-w-[620px] text-lg">
+          Verbind je naam aan een sportevenement van wereldformaat, midden in de Liemers. Als sponsor
+          ben je zichtbaar bij spelers, supporters en inwoners uit de regio, en help je de
+          korfbalclubs hier bouwen aan een sterke toekomst. Groot of klein: elke bijdrage telt.
+        </p>
 
-        <div className="relative overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-white to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-white to-transparent" />
-
-          <div className="sponsor-track flex w-max items-center gap-6">
-            {loopedSponsors.map((sponsor, index) => (
+        {sponsors.length === 0 ? (
+          <a
+            href="#contact"
+            data-onderwerp="sponsor"
+            className="group inline-flex min-h-12 items-center gap-2 rounded-md bg-actie-blauw px-6 font-bold text-white transition-[background-color,transform] duration-200 ease-(--ease-out-quint) hover:bg-actie-blauw/85 hover:text-white motion-safe:active:scale-[0.97]"
+          >
+            Sponsor worden
+            <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover:translate-x-1">→</span>
+          </a>
+        ) : (
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
+            {sponsors.map((sponsor, index) => (
               <div
-                key={`${sponsor.name}-${index}`}
-                className="flex h-24 w-52 shrink-0 items-center justify-center rounded-xl border border-slate-200 bg-white p-4"
+                key={sponsor.name}
+                className="reveal group flex h-24 items-center justify-center rounded-lg border border-[#0F1A17]/[0.08] bg-[#F4F6F5] p-4 transition duration-300 ease-(--ease-out-quint) hover:-translate-y-1 hover:bg-white hover:shadow-[0_16px_32px_-20px_rgb(15_26_23/0.45)]"
+                style={{ "--i": index } as React.CSSProperties}
               >
                 <Image
                   src={sponsor.logo}
                   alt={sponsor.name}
                   width={170}
                   height={70}
-                  className="h-auto max-h-14 w-auto object-contain grayscale transition duration-300 hover:grayscale-0"
+                  className="h-auto max-h-14 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0"
                 />
               </div>
             ))}
+            <a
+              href="#contact"
+              data-onderwerp="sponsor"
+              className="reveal group flex h-24 items-center justify-center gap-2 rounded-lg bg-actie-blauw font-bold text-white transition-[background-color,transform] duration-200 ease-(--ease-out-quint) hover:bg-actie-blauw/85 hover:text-white motion-safe:active:scale-[0.97]"
+              style={{ "--i": sponsors.length } as React.CSSProperties}
+            >
+              Sponsor worden
+              <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover:translate-x-1">→</span>
+            </a>
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

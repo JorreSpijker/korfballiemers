@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -14,15 +14,44 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { Countdown } from "@/components/countdown";
+
+const WK_DATE = new Date("2027-10-15");
+
+function Countdown() {
+  const [displayed, setDisplayed] = useState(0);
+
+  useEffect(() => {
+    const target = Math.ceil((WK_DATE.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    const duration = 1500;
+    const start = performance.now();
+    let raf: number;
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplayed(Math.round(eased * target));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  return (
+    <p className="m-0 hidden sm:flex items-center gap-2.5 text-sm text-foreground/75">
+      <span className="h-2 w-2 rounded-full bg-energie-groen shadow-[0_0_0_4px_rgb(34_178_76/0.2)]" aria-hidden />
+      <strong className="font-heading text-lg text-white tabular-nums">{displayed}</strong> dagen tot het WK
+    </p>
+  );
+}
 
 const navItems = [
-  { href: "/nieuws", label: "Nieuws" },
-  { href: "/wk2027", label: "WK 2027" },
-  { href: "/over", label: "Wie zijn wij" },
-  { href: "/sponsoren", label: "Sponsor worden" },
-  { href: "/vrijwilligers", label: "Vrijwilligers" },
-  { href: "/contact", label: "Contact" },
+  { href: "#wk2027", label: "WK 2027" },
+  { href: "#over", label: "Wie zijn wij" },
+  { href: "#nieuws", label: "Nieuws" },
+  { href: "#sponsors", label: "Sponsor worden" },
+  { href: "#fotos", label: "Foto's" },
+  { href: "#contact", label: "Contact" },
 ] as const;
 
 function NavLinks({
@@ -37,8 +66,8 @@ function NavLinks({
   onLinkClick?: () => void;
 }) {
   const linkClass = isMobile
-    ? "block px-4 py-3 text-lg font-medium transition-colors pb-3 font-heading"
-    : "px-3 py-2 text-base font-medium transition-colors pb-2";
+    ? "block px-4 py-3 text-lg font-medium transition-colors rounded-md"
+    : "relative px-[18px] py-2.5 text-[15px] transition-colors duration-300 rounded-full";
 
   const scrollToSection = (href: string) => {
     if (typeof window === "undefined" || !href.startsWith("#")) {
@@ -59,7 +88,7 @@ function NavLinks({
     event: MouseEvent<HTMLAnchorElement>,
     href: string
   ) => {
-    if (href.startsWith("#")) {
+    if (href.startsWith("#") && pathname === "/") {
       event.preventDefault();
       scrollToSection(href);
     }
@@ -70,20 +99,19 @@ function NavLinks({
   return (
     <>
       {navItems.map(({ href, label }) => {
-        const isActive = href.startsWith("#")
-          ? activeSection === href
-          : pathname.startsWith(href);
+        const isActive = pathname === "/" && activeSection === href;
         return (
           <Link
             key={href}
-            href={href}
+            href={pathname === "/" ? href : `/${href}`}
             onClick={(event) => handleNavClick(event, href)}
+            data-active={isActive || undefined}
             className={cn(
               linkClass,
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
               isActive
-                ? "border-b-2 border-primary text-primary"
-                : "text-muted-foreground hover:bg-slate-500 hover:text-white rounded-sm"
+                ? cn("font-semibold text-white hover:text-white", isMobile && "bg-accent")
+                : "font-medium text-foreground hover:bg-white/5 hover:text-white"
             )}
           >
             {label}
@@ -98,6 +126,24 @@ export function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>(navItems[0].href);
+  const navRef = useRef<HTMLElement>(null);
+  const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+
+  // Meet de actieve link opnieuw bij wissel, resize en font-load
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+
+    const measure = () => {
+      const active = nav.querySelector<HTMLElement>("[data-active]");
+      setIndicator(active ? { left: active.offsetLeft, width: active.offsetWidth } : null);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(nav);
+    return () => observer.disconnect();
+  }, [activeSection, pathname]);
 
   useEffect(() => {
     const sectionIds = navItems
@@ -145,75 +191,88 @@ export function Header() {
   }, []);
 
   return (
-    <div className="container mx-auto sticky top-6 z-50">
     <header
-      className="w-full lg:w-fit lg:-ml-[34px] rounded-sm shadow-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80"
+      className="header-elevate sticky top-0 z-50 border-b border-transparent bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75"
       role="banner"
     >
-      <div className="flex h-16 items-center px-4">
-          <div className="logo-container border-t-none z-navigation rounded-b-xl lg:ml-4 border border-solid border-neutral-20 bg-white px-2 py-2 shadow-blue lg:absolute lg:-top-7 lg:left-2 lg:border xl:left-4 h-30">
-            <Link
-              href="/"
-              className="flex flex-col items-center gap-1 font-semibold text-lg transition-colors flex justify-center h-full"
-              aria-label="Naar homepage"
-            >
+      <div className="container flex flex-wrap items-center justify-between gap-4 py-5">
+        {/* Plaatshouder houdt de headerhoogte gelijk; het logolabel hangt eruit naar beneden */}
+        <div className="relative -mt-5 h-12 w-[144px] self-start lg:w-[164px]">
+          <Link
+            href="/"
+            className="anim-drop absolute inset-x-0 top-0 flex flex-col overflow-hidden rounded-b-2xl [--d:150ms] bg-white shadow-[0_18px_36px_-14px_rgb(0_0_0/0.75)] ring-1 ring-black/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            aria-label="Naar homepage"
+          >
+            <span className="flex justify-center px-4 pt-5 pb-5 lg:px-5 lg:pt-6 lg:pb-6">
               <Image
-                src="/korfbal-logo.svg"
-                alt="Korfbal in De Liemers logo"
-                width={42}
-                height={42}
+                src="/logo.svg"
+                alt="LiemersCity Korfbal logo"
+                width={168}
+                height={99}
+                className="h-16 w-auto lg:h-[72px]"
                 priority
               />
-              <span className="flex flex-col items-center text-sm leading-tight text-secondary">
-                <span>LiemersCity</span>
-                <span>Korfbal</span>
-              </span>
-            </Link>
-          </div>
-
-        {/* Desktop nav */}
-
-        <div className="w-full flex justify-between items-center">
-          <nav
-            className="ml-[140px] hidden items-center gap-1 sm:gap-2 lg:flex mx-auto"
-            aria-label="Hoofdnavigatie"
-          >
-            <NavLinks pathname={pathname} activeSection={activeSection} />
-          </nav>
-          <Countdown />
+            </span>
+            <span className="flex h-1" aria-hidden>
+              <span className="flex-1 bg-energie-groen" />
+              <span className="flex-1 bg-actie-blauw" />
+            </span>
+          </Link>
         </div>
 
-        {/* Mobile menu */}
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild className="lg:hidden ml-auto">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="Open menu"
-              aria-expanded={mobileOpen}
-            >
-              <Menu className="h-5 w-5" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[280px] sm:w-[320px]">
-            <SheetHeader>
-              <SheetTitle className="sr-only">Navigatie</SheetTitle>
-            </SheetHeader>
-            <nav
-              className="flex flex-col gap-1 mt-6"
-              aria-label="Mobiele navigatie"
-            >
-              <NavLinks
-                pathname={pathname}
-                isMobile
-                onLinkClick={() => setMobileOpen(false)}
-                activeSection={activeSection}
-              />
-            </nav>
-          </SheetContent>
-        </Sheet>
+        {/* Desktop nav */}
+        <nav
+          ref={navRef}
+          className="relative hidden items-center gap-1 rounded-full border bg-white/[0.03] p-1 lg:flex"
+          aria-label="Hoofdnavigatie"
+        >
+          <span
+            aria-hidden
+            className="absolute inset-y-1 left-0 rounded-full bg-accent transition-[transform,width,opacity] duration-300 ease-(--ease-out-quint)"
+            style={{
+              transform: `translateX(${indicator?.left ?? 0}px)`,
+              width: indicator?.width ?? 0,
+              opacity: indicator ? 1 : 0,
+            }}
+          />
+          <NavLinks pathname={pathname} activeSection={activeSection} />
+        </nav>
+
+        <div className="flex items-center gap-4">
+          <Countdown />
+
+          {/* Mobile menu */}
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger asChild className="lg:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="size-11"
+                aria-label="Open menu"
+                aria-expanded={mobileOpen}
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Navigatie</SheetTitle>
+              </SheetHeader>
+              <nav
+                className="flex flex-col gap-1 mt-6 px-2"
+                aria-label="Mobiele navigatie"
+              >
+                <NavLinks
+                  pathname={pathname}
+                  isMobile
+                  onLinkClick={() => setMobileOpen(false)}
+                  activeSection={activeSection}
+                />
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
-    </div>
   );
 }

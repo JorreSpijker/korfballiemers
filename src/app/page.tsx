@@ -1,57 +1,129 @@
-import Image from "next/image";
+import { getPageContent, getAllClubs } from "@/lib/content";
+import { Hero } from "@/components/hero";
+import { ClubMapShowcase } from "@/components/club-map-showcase";
+import { NewsFeed } from "@/components/news-feed";
+import { SponsorLogoBar } from "@/components/sponsor-logo-bar";
+import { PhotoBook } from "@/components/photo-book";
+import { ContentSection } from "@/components/content-section";
+import { ContactSection } from "@/components/contact-section";
+import { Button } from "@/components/ui/button";
+import clubsMapData from "@/data/clubs-map.json";
+import type { ClubMapEntry } from "@/types/clubs-map";
 import type { Metadata } from "next";
-import { Pattern } from "@/components/pattern";
-import { Countdown } from "@/components/countdown";
+import { JsonLd } from "@/components/json-ld";
+import { organizationSchema, wkEventSchema } from "@/lib/structured-data";
+import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Binnenkort online | WK Korfbal 2027 Bid Liemers",
+  title: { absolute: "LiemersCity Korfbal | Hostregio WK Korfbal 2027 in de Liemers" },
   description:
-    "De website van Korfbal in de Liemers is binnenkort beschikbaar.",
+    "De Liemers (Doesburg, Duiven, Westervoort en Zevenaar) is hostregio van het WK Korfbal 2027. Van 15 t/m 17 oktober 2027 speelt de wereldtop hier.",
+  alternates: { canonical: "/" },
 };
 
-export default function HomePage() {
+function Prose({ html }: { html: string }) {
   return (
-    <section className="relative min-h-[calc(100vh-66px)] flex items-center bg-muted/20 overflow-hidden">
-      <Pattern />
+    <div
+      className="prose prose-neutral max-w-none"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
 
-      <div className="container relative z-10 flex flex-col items-center text-center py-24 gap-8">
-        {/* Logo */}
+export default async function HomePage() {
+  const page = await getPageContent("home");
+  const [over, vrijwilligers, sponsoren, contact] = await Promise.all(
+    ["over", "vrijwilligers", "sponsoren", "contact"].map(getPageContent)
+  );
+  const clubs = await getAllClubs();
+  const mapClubs = clubsMapData as ClubMapEntry[];
+  const clubNames = Object.fromEntries(
+    clubs.map((c) => [c.frontmatter.id ?? c.slug, c.frontmatter.name ?? c.slug])
+  );
 
-
-        {/* Tag */}
-        <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary border border-primary/20">
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-          </span>
-          In ontwikkeling
-        </span>
-
-        {/* Headline */}
-        <div className="space-y-4 max-w-2xl">
-          <h1 className="text-4xl font-bold tracking-tight text-slate-800 sm:text-5xl font-heading">
-            Binnenkort online
-          </h1>
-          <p className="text-lg text-slate-600 leading-relaxed">
-            Op deze website kun je alle informatie vinden over het WK Korfbal 2027 in de Liemers. We zijn druk bezig met het bouwen van de site.
-            Tot snel!
-          </p>
-          <Countdown />
-        </div>
-
-        {/* Divider met hart */}
-        <div className="flex items-center gap-4 w-full max-w-xs">
-          <div className="flex-1 h-px bg-slate-200" />
-          <Image
-            src="/liemers_heart.svg"
-            alt="Liemers hart"
-            width={28}
-            height={28}
-            className="opacity-60"
-          />
-          <div className="flex-1 h-px bg-slate-200" />
-        </div>
+  if (!page) {
+    return (
+      <div className="container px-4 py-12">
+        <p>Pagina niet gevonden.</p>
       </div>
-    </section>
+    );
+  }
+
+  // Eerste alinea in de hero, de rest in de WK-sectie
+  const introEnd = page.content.indexOf("</p>") + "</p>".length;
+  const introHtml = page.content.slice(0, introEnd);
+  const wkHtml = page.content.slice(introEnd);
+
+  return (
+    <>
+      <JsonLd data={[organizationSchema, wkEventSchema]} />
+
+      {/* Hero Section */}
+      <Hero
+        introHtml={introHtml}
+        id="intro"
+      />
+
+      {/* WK 2027 */}
+      <section id="wk2027" className="surface-light bg-white">
+        <div className="container flex flex-wrap gap-8 py-16 sm:gap-14 sm:py-22">
+          <div className="min-w-0 flex-[1_1_340px]">
+            <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
+              Een impuls voor korfbal in onze regio
+            </h2>
+            <div className="reveal-grow mt-6 flex h-1 w-24" aria-hidden>
+              <span className="flex-1 bg-energie-groen" />
+              <span className="flex-1 bg-actie-blauw" />
+            </div>
+          </div>
+          <div className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-6">
+            <div
+              className="flex flex-col gap-[18px] text-lg [&_p]:m-0"
+              dangerouslySetInnerHTML={{ __html: wkHtml }}
+            />
+            <Link
+              href="/wk-korfbal-2027"
+              className="group inline-flex items-center gap-2 self-start font-bold text-actie-blauw hover:text-actie-blauw"
+            >
+              Alles over het WK Korfbal 2027 in de Liemers
+              <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Kaart sectie */}
+      <section id="over" className="surface-light relative overflow-hidden py-16 bg-[#EEF2EF] sm:py-24">
+        <div className="container">
+          <p className="mb-2.5 text-[13px] font-bold uppercase tracking-[0.14em] text-energie-groen-donker">
+            Wie zijn wij
+          </p>
+          <h2 className="reveal-heading font-heading mb-8 text-4xl font-bold leading-[1.05] sm:text-[44px]">Clubs in de Liemers</h2>
+          <div className="relative w-full overflow-hidden">
+            <ClubMapShowcase clubs={mapClubs} clubNames={clubNames} />
+            <Image
+              src="/icon.svg"
+              alt=""
+              width={210}
+              height={210}
+              aria-hidden
+              className="pointer-events-none absolute -right-14 top-3 z-10 opacity-[0.7]"
+            />
+          </div>
+        </div>
+
+      <NewsFeed
+        id="nieuws"
+        limit={6}
+        title="Laatste nieuws"
+      />
+
+      <SponsorLogoBar id="sponsors" />
+
+      <PhotoBook id="fotos" />
+
+      <ContactSection id="contact" />
+    </>
   );
 }

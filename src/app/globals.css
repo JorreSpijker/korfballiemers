@@ -7,14 +7,29 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Ruimte voor sticky header bij ankerlinks */
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-liemers-groen: var(--liemers-groen);
+  --color-energie-groen: var(--energie-groen);
+  --color-actie-blauw: var(--actie-blauw);
+  --color-samen-goud: var(--samen-goud);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-inter);
-  --font-heading: var(--font-work-sans);
+  --color-energie-groen-licht: var(--energie-groen-licht);
+  --color-energie-groen-donker: var(--energie-groen-donker);
+  --color-link: var(--link);
+  --color-link-hover: var(--link-hover);
+  --color-surface: var(--surface);
+  --color-surface-deep: var(--surface-deep);
+  --font-sans: var(--font-manrope);
+  --font-mono: var(--font-manrope);
+  --font-heading: var(--font-oxanium);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -54,38 +69,90 @@ html {
 }
 
 :root {
+  /* Merkkleuren */
+  --liemers-groen: #0B1F1F;
+  --energie-groen: #22B24C;
+  --energie-groen-licht: #3CCB68;
+  --energie-groen-donker: #157A35;
+  --actie-blauw: #1D5BF0;
+  --samen-goud: #C9A96E;
+  --link: #6E9BFF;
+  --link-hover: #9DBBFF;
+
+  /* Donkere vlakken */
+  --surface: #0F1615;
+  --surface-deep: #060A09;
+
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(20.8% 0.042 265.755);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #801007;
-  --primary-foreground: oklch(98.5% 0 0);
-  --secondary: oklch(14.71% 0.051 264.44); /* Dark Blue #0A1C3C */
-  --secondary-foreground: oklch(98.5% 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: #0A0F0E;
+  --foreground: #E6ECEA;
+  --card: #141D1B;
+  --card-foreground: #E6ECEA;
+  --popover: #141D1B;
+  --popover-foreground: #E6ECEA;
+  --primary: var(--actie-blauw);
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #0A0F0E;
+  --muted: #1C2725;
+  --muted-foreground: rgb(230 236 234 / 0.72);
+  --accent: rgb(230 236 234 / 0.08);
+  --accent-foreground: #FFFFFF;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: rgb(230 236 234 / 0.1);
+  --input: rgb(230 236 234 / 0.15);
+  --ring: var(--actie-blauw);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #0F1615;
+  --sidebar-foreground: #E6ECEA;
+  --sidebar-primary: var(--actie-blauw);
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgb(230 236 234 / 0.08);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgb(230 236 234 / 0.1);
+  --sidebar-ring: var(--actie-blauw);
+}
+
+/* Lichte secties binnen het donkere design */
+.surface-light {
+  --background: oklch(1 0 0);
+  --foreground: #3A4744;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --secondary: #0F1A17;
+  --secondary-foreground: oklch(98.5% 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  color: var(--foreground);
+}
+
+/* Donkere vlakken binnen een lichte sectie: zet de tokens terug naar :root */
+.surface-dark {
+  --background: #0A0F0E;
+  --foreground: #E6ECEA;
+  --card: #141D1B;
+  --card-foreground: #E6ECEA;
+  --popover: #141D1B;
+  --popover-foreground: #E6ECEA;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #0A0F0E;
+  --muted: #1C2725;
+  --muted-foreground: rgb(230 236 234 / 0.72);
+  --accent: rgb(230 236 234 / 0.08);
+  --accent-foreground: #FFFFFF;
+  --border: rgb(230 236 234 / 0.1);
+  --input: rgb(230 236 234 / 0.15);
+  color: var(--foreground);
 }
 
 .dark {
@@ -95,9 +162,9 @@ html {
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: #801007;
+  --primary: var(--actie-blauw);
   --primary-foreground: oklch(98.5% 0 0);
-  --secondary: oklch(14.71% 0.051 264.44); /* Dark Blue #0A1C3C */
+  --secondary: var(--liemers-groen);
   --secondary-foreground: oklch(98.5% 0 0);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -132,6 +199,9 @@ html {
     @apply bg-background text-foreground;
     scroll-behavior: smooth;
   }
+  a {
+    @apply text-link hover:text-link-hover;
+  }
   .maplibregl-popup-content {
     @apply bg-transparent! shadow-none! p-0! rounded-none!;
   }
@@ -140,31 +210,12 @@ html {
   }
 }
 
-@keyframes sponsor-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.sponsor-track {
-  animation: sponsor-scroll 28s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .sponsor-track {
-    animation: none;
-  }
-}
-
 .font-heading {
-  @apply text-slate-800;
+  @apply text-secondary;
 }
 
 .container {
-  @apply max-w-7xl mx-auto px-4;
+  @apply max-w-[1280px] mx-auto px-4 sm:px-10;
 }
 
 .btn {
@@ -199,6 +250,172 @@ html {
 
 .animate-heartbeat {
   animation: heartbeat 1.8s infinite;
+}
+
+/* Motion */
+:root {
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+@keyframes word-up {
+  from {
+    transform: translateY(110%);
+  }
+}
+
+@keyframes wipe-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes zoom-settle {
+  from {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes grow-x {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Negatieve insets zodat descenders en uitlopers niet worden afgeknipt */
+@keyframes heading-wipe {
+  from {
+    clip-path: inset(-20% 100% -20% 0);
+    transform: translateX(-12px);
+  }
+  to {
+    clip-path: inset(-20% -10% -20% -10%);
+  }
+}
+
+@keyframes drop-in {
+  from {
+    transform: translateY(-105%);
+  }
+}
+
+@keyframes pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.85);
+  }
+}
+
+@keyframes pin-pulse {
+  from {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+/* Halo rond geselecteerde kaartpin; onzichtbaar zonder animatie */
+.pin-pulse {
+  opacity: 0;
+  border: 2px solid var(--energie-groen);
+}
+
+@keyframes header-elevate {
+  to {
+    border-bottom-color: var(--border);
+    box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.9);
+  }
+}
+
+/* Masker voor woorden die omhoog schuiven */
+.mask-word {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.mask-word > span {
+  display: inline-block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .anim-rise {
+    animation: rise-in 700ms var(--ease-out-quint) var(--d, 0ms) both;
+  }
+
+  .mask-word > span {
+    animation: word-up 800ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  .anim-wipe {
+    animation: wipe-in 1000ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  .anim-zoom {
+    animation: zoom-settle 1400ms var(--ease-out-quint) var(--d, 0ms) both;
+  }
+
+  .anim-grow {
+    transform-origin: left;
+    animation: grow-x 900ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  /* backwards: na afloop is transform weer vrij voor hover */
+  .anim-drop {
+    animation: drop-in 900ms var(--ease-out-expo) var(--d, 0ms) backwards;
+  }
+
+  .anim-pin {
+    animation: pin-drop 700ms var(--ease-out-expo) var(--d, 0ms) both;
+  }
+
+  .pin-pulse {
+    animation: pin-pulse 1.8s var(--ease-out-quint) infinite;
+  }
+}
+
+/* Scroll-reveals: zonder support blijft alles gewoon zichtbaar */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise-in both var(--ease-out-quint);
+      animation-timeline: view();
+      animation-range: entry calc(var(--i, 0) * 8%) entry calc(70% + var(--i, 0) * 8%);
+    }
+
+    .reveal-grow {
+      transform-origin: left;
+      animation: grow-x both var(--ease-out-quint);
+      animation-timeline: view();
+      animation-range: entry 40% cover 40%;
+    }
+
+    .reveal-heading {
+      animation: heading-wipe both var(--ease-out-quint);
+      animation-timeline: view();
+      animation-range: entry 30% cover 30%;
+    }
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .header-elevate {
+    animation: header-elevate linear both;
+    animation-timeline: scroll();
+    animation-range: 0 120px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

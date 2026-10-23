@@ -19,6 +19,11 @@ const DEFAULT_ZOOM = 10.6;
 const NETHERLANDS_BOUNDS: [number, number, number, number] = [3.3, 50.5, 7.3, 53.7];
 const MIN_ZOOM_NETHERLANDS = 5;
 
+function toArray(value?: string | string[] | null): string[] {
+  if (!value) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
 interface ClubMapProps {
   clubs: ClubMapEntry[];
   clubNames?: Record<string, string>;
@@ -32,20 +37,22 @@ function ClubSidebar({
   clubNames: Record<string, string>;
 }) {
   const name = club.name ?? clubNames[club.id] ?? club.id;
+  const logos = toArray(club.logo);
+  const websites = toArray(club.website);
 
   return (
     <div className="p-5 space-y-4 flex flex-col h-full">
       <div className="flex items-center gap-3">
-        {club.logo && (
-          <div className="relative h-12 w-12 overflow-hidden rounded-md bg-muted shrink-0">
+        {logos.map((logo) => (
+          <div key={logo} className="relative h-12 w-12 overflow-hidden rounded-md bg-muted shrink-0">
             <Image
-              src={club.logo}
+              src={logo}
               alt={`${name} logo`}
               fill
               className="object-contain p-1"
             />
           </div>
-        )}
+        ))}
         <h2 className="font-heading font-semibold text-lg leading-tight">{name}</h2>
       </div>
 
@@ -67,6 +74,18 @@ function ClubSidebar({
             <span className="font-medium">{club.aantal_leden}</span>
           </div>
         )}
+        {club.aantal_seniorenteams !== undefined && (
+          <div className="flex justify-between gap-2">
+            <span className="text-muted-foreground">Seniorenteams</span>
+            <span className="font-medium">{club.aantal_seniorenteams}</span>
+          </div>
+        )}
+        {club.aantal_jeugdteams !== undefined && (
+          <div className="flex justify-between gap-2">
+            <span className="text-muted-foreground">Jeugdteams</span>
+            <span className="font-medium">{club.aantal_jeugdteams}</span>
+          </div>
+        )}
         {club.klasse_veld && (
           <div className="flex justify-between gap-2">
             <span className="text-muted-foreground">Veld</span>
@@ -86,15 +105,22 @@ function ClubSidebar({
       </div>
         )}
 
-      {club.website && (
-        <a
-          href={club.website}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn mt-auto"
-        >
-          Bezoek website →
-        </a>
+      {websites.length > 0 && (
+        <div className="mt-auto flex flex-col gap-2">
+          {websites.map((website) => (
+            <a
+              key={website}
+              href={website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn"
+            >
+              {websites.length > 1
+                ? `Bezoek ${new URL(website).hostname.replace(/^www\./, "")} →`
+                : "Bezoek website →"}
+            </a>
+          ))}
+        </div>
       )}
     </div>
   );
@@ -116,10 +142,11 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
           <MapControls showZoom />
           <MapRegion
             data={regionMapData as unknown as GeoJSON.FeatureCollection}
-            fillColor="#801007"
+            fillColor="#0154F2"
             fillOpacity={0.15}
+            strokeColor="#0154F2"
           />
-          {clubs.map((club) => (
+          {clubs.map((club, index) => (
             <MapMarker
               key={club.id}
               longitude={club.lng}
@@ -128,13 +155,20 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
             >
               <MarkerContent>
                 {club.logo ? (
-                  <div className={`relative ${club.id === 'triominos' ? 'h-16 w-16' : 'h-8 w-8'} overflow-hidden rounded-full border-2 border-white bg-white shadow-lg`}>
-                    <Image
-                      src={club.logo}
-                      alt={club.name ?? club.id}
-                      fill
-                      className="object-contain p-0.5"
-                    />
+                  <div
+                    className="anim-pin flex flex-col -space-y-3"
+                    style={{ "--d": `${200 + index * 90}ms` } as React.CSSProperties}
+                  >
+                    {toArray(club.logo).map((logo) => (
+                      <div key={logo} className={`relative ${club.id === 'triominos' ? 'h-22 w-22' : 'h-12 w-12'} overflow-hidden rounded-full border-2 bg-white shadow-lg transition-[transform,border-color,box-shadow] duration-200 ease-(--ease-out-quint) motion-safe:hover:scale-110 ${selectedClub?.id === club.id ? 'border-actie-blauw shadow-[0_0_0_4px_rgb(29_91_240/0.3)]' : 'border-white'}`}>
+                        <Image
+                          src={logo}
+                          alt={club.name ?? club.id}
+                          fill
+                          className="object-contain p-0.5"
+                        />
+                      </div>
+                    ))}
                   </div>
                 ) : undefined}
               </MarkerContent>
@@ -145,7 +179,9 @@ export function ClubMap({ clubs, clubNames = {} }: ClubMapProps) {
 
       <div className="w-full md:w-72 shrink-0 border-t md:border-l md:border-t-0 bg-background overflow-y-auto">
         {selectedClub ? (
-          <ClubSidebar club={selectedClub} clubNames={clubNames} />
+          <div key={selectedClub.id} className="anim-rise h-full">
+            <ClubSidebar club={selectedClub} clubNames={clubNames} />
+          </div>
         ) : (
           <div className="flex h-full items-center justify-center p-6 text-center text-sm text-muted-foreground">
             Klik op een club op de kaart voor meer informatie
