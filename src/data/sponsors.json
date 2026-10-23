@@ -1,1 +1,5 @@
-[]
+[
+  { "name": "Royal Eijkelkamp", "logo": "/sponsors/eijkelkamp.svg", "url": "https://www.royaleijkelkamp.com/" },
+  { "name": "Ubbink", "logo": "/sponsors/ubbink.svg", "url": "https://www.ubbink.com/nl/" },
+  { "name": "Intersport Luising", "logo": "/sponsors/intersport.svg", "url": "https://intersport.nl/pages/winkel/intersport-luising" }
+]

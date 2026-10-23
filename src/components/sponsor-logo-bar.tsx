@@ -4,6 +4,7 @@ import sponsorsData from "@/data/sponsors.json";
 type Sponsor = {
   name: string;
   logo: string;
+  url: string;
 };
 
 const sponsors = sponsorsData as Sponsor[];
@@ -37,8 +38,12 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
         ) : (
           <div className="grid grid-cols-[repeat(auto-fit,minmax(190px,1fr))] gap-4">
             {sponsors.map((sponsor, index) => (
-              <div
+              <a
                 key={sponsor.name}
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                aria-label={`${sponsor.name} (opent in nieuw tabblad)`}
                 className="reveal group flex h-24 items-center justify-center rounded-lg border border-[#0F1A17]/[0.08] bg-[#F4F6F5] p-4 transition duration-300 ease-(--ease-out-quint) hover:-translate-y-1 hover:bg-white hover:shadow-[0_16px_32px_-20px_rgb(15_26_23/0.45)]"
                 style={{ "--i": index } as React.CSSProperties}
               >
@@ -47,9 +52,9 @@ export function SponsorLogoBar({ id }: SponsorLogoBarProps) {
                   alt={sponsor.name}
                   width={170}
                   height={70}
-                  className="h-auto max-h-14 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0"
+                  className="h-auto max-h-14 w-auto object-contain grayscale transition duration-300 group-hover:grayscale-0 group-focus-visible:grayscale-0"
                 />
-              </div>
+              </a>
             ))}
             <a
               href="#contact"

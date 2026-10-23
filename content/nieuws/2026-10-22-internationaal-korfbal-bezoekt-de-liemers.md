@@ -1,6 +1,6 @@
 ---
 title: "Internationaal korfbal bezoekt De Liemers"
-date: 2026-10-23
+date: 2026-10-22
 excerpt: Kick-off van het WK jaar met Olympisch Kampioen Maarten van der Weijden. Daarnaast komen het Duitse Phoenix 07 en Team USA & friends meespelen bij een vijfkamp.
 image: /kick-off-poster.jpg
 ---
