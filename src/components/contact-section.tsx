@@ -33,8 +33,24 @@ function FieldError({ id, error }: { id: string; error?: string }) {
 }
 
 export function ContactSection({ id }: { id?: string }) {
+  const sectionRef = useRef<HTMLElement>(null);
   const widgetRef = useRef<HTMLDivElement>(null);
   const widgetId = useRef<number | null>(null);
+  // reCAPTCHA pas laden als het formulier in de buurt komt, scheelt ~350 KB bij het openen van de pagina
+  const [loadRecaptcha, setLoadRecaptcha] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        setLoadRecaptcha(true);
+        observer.disconnect();
+      },
+      { rootMargin: "600px" }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   // Expliciet renderen, zodat het vinkje ook verschijnt na client-navigatie terug naar home
   const renderWidget = () => {
@@ -73,12 +89,14 @@ export function ContactSection({ id }: { id?: string }) {
   }, []);
 
   return (
-    <section id={id} className="surface-light bg-[#EEF2EF]">
-      <Script
-        src="https://www.google.com/recaptcha/api.js?render=explicit&hl=nl"
-        strategy="lazyOnload"
-        onReady={renderWidget}
-      />
+    <section id={id} ref={sectionRef} className="surface-light bg-[#EEF2EF]">
+      {loadRecaptcha && (
+        <Script
+          src="https://www.google.com/recaptcha/api.js?render=explicit&hl=nl"
+          strategy="lazyOnload"
+          onReady={renderWidget}
+        />
+      )}
       <div className="container flex flex-wrap gap-10 py-16 sm:gap-14 sm:py-24">
         <div className="min-w-0 flex-[1_1_340px]">
           <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.05] sm:text-[44px]">

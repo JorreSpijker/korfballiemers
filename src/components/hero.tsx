@@ -47,7 +47,7 @@ export function Hero({ introHtml, id }: HeroProps) {
         </div>
       </div>
       {/* Afbeelding: op desktop flush rechts, de helft van de viewport */}
-      <div className="anim-wipe relative min-h-[420px] overflow-hidden [--d:150ms] lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2">
+      <div className="relative min-h-[420px] overflow-hidden lg:absolute lg:inset-y-0 lg:right-0 lg:min-h-0 lg:w-1/2">
         <Image
           src="/hero.JPG"
           alt="Korfbalwedstrijd: spelers in groen en geel springen naar de bal bij de korf"
@@ -55,6 +55,8 @@ export function Hero({ introHtml, id }: HeroProps) {
           sizes="(min-width: 1024px) 50vw, 100vw"
           className="anim-zoom object-cover object-[17%_50%] [--d:150ms]"
           priority
+          fetchPriority="high"
+          quality={60}
         />
         <div className="anim-grow absolute inset-x-0 bottom-0 flex h-1 [--d:700ms]" aria-hidden>
           <span className="flex-1 bg-energie-groen" />

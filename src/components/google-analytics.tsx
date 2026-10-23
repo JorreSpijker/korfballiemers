@@ -18,7 +18,7 @@ gtag("consent", "default", {
 gtag("js", new Date());
 gtag("config", "${id}");`}
       </Script>
-      <Script src={`https://www.googletagmanager.com/gtag/js?id=${id}`} strategy="afterInteractive" />
+      <Script src={`https://www.googletagmanager.com/gtag/js?id=${id}`} strategy="lazyOnload" />
     </>
   );
 }

@@ -265,15 +265,16 @@ section[id] {
   }
 }
 
-@keyframes word-up {
+/* Alleen beweging, geen fade: tekst telt vanaf het eerste frame mee voor FCP */
+@keyframes slide-up {
   from {
-    transform: translateY(110%);
+    transform: translateY(18px);
   }
 }
 
-@keyframes wipe-in {
+@keyframes word-up {
   from {
-    clip-path: inset(0 100% 0 0);
+    transform: translateY(35%);
   }
 }
 
@@ -352,15 +353,11 @@ section[id] {
 
 @media (prefers-reduced-motion: no-preference) {
   .anim-rise {
-    animation: rise-in 700ms var(--ease-out-quint) var(--d, 0ms) both;
+    animation: slide-up 700ms var(--ease-out-quint) var(--d, 0ms) both;
   }
 
   .mask-word > span {
     animation: word-up 800ms var(--ease-out-expo) var(--d, 0ms) both;
-  }
-
-  .anim-wipe {
-    animation: wipe-in 1000ms var(--ease-out-expo) var(--d, 0ms) both;
   }
 
   .anim-zoom {
