@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPageContent } from "@/lib/content";
 import { ContactCta, PageShell, Prose } from "@/components/page-shell";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
 export async function generateMetadata(): Promise<Metadata> {
   const page = await getPageContent("vrijwilliger-worden");
@@ -18,6 +20,7 @@ export default async function VrijwilligerPage() {
 
   return (
     <PageShell title={page.frontmatter.title ?? ""} back={{ href: "/", label: "Terug naar home" }}>
+      <JsonLd data={breadcrumbSchema([{ name: "Vrijwilliger worden", path: "/vrijwilliger-worden" }])} />
       <Prose html={page.content} />
       <ContactCta
         onderwerp="vrijwilliger"

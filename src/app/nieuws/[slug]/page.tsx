@@ -6,6 +6,7 @@ import { Pattern } from "@/components/pattern";
 import Image from "next/image";
 import { JsonLd } from "@/components/json-ld";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
 // Zoekmachines tonen ~160 tekens; afkappen op een woordgrens
 function toDescription(text = ""): string {
@@ -58,16 +59,22 @@ export default async function NewsDetailPage({
   return (
     <article>
       <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "NewsArticle",
-          headline: post.frontmatter.title,
-          description: post.frontmatter.excerpt,
-          datePublished: toIsoDate(post.frontmatter.date),
-          image: post.frontmatter.image ? [`${SITE_URL}${post.frontmatter.image}`] : undefined,
-          mainEntityOfPage: `${SITE_URL}/nieuws/${slug}`,
-          publisher: { "@type": "Organization", name: SITE_NAME, logo: `${SITE_URL}/logo.svg` },
-        }}
+        data={[
+          {
+            "@context": "https://schema.org",
+            "@type": "NewsArticle",
+            headline: post.frontmatter.title,
+            description: post.frontmatter.excerpt,
+            datePublished: toIsoDate(post.frontmatter.date),
+            image: post.frontmatter.image ? [`${SITE_URL}${post.frontmatter.image}`] : undefined,
+            mainEntityOfPage: `${SITE_URL}/nieuws/${slug}`,
+            publisher: { "@type": "Organization", name: SITE_NAME, logo: `${SITE_URL}/logo.svg` },
+          },
+          breadcrumbSchema([
+            { name: "Nieuws", path: "/nieuws" },
+            { name: post.frontmatter.title ?? slug, path: `/nieuws/${slug}` },
+          ]),
+        ]}
       />
       <section className={`relative ${post.frontmatter.image ? "pb-40" : "pb-16"}`}>
         <Pattern />

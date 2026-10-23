@@ -4,6 +4,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllSpeelsteden, getSpeelstadBySlug } from "@/lib/content";
 import { ContactCta, PageShell, Prose } from "@/components/page-shell";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/structured-data";
 import { PhotoGrid, clubPhotos } from "@/components/photo-book";
 import clubsMapData from "@/data/clubs-map.json";
 import type { ClubMapEntry } from "@/types/clubs-map";
@@ -60,6 +62,12 @@ export default async function SpeelstadPage({ params }: { params: Promise<{ stad
       intro={page.frontmatter.description}
       back={{ href: "/wk-korfbal-2027", label: "WK Korfbal 2027 in de Liemers" }}
     >
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "WK Korfbal 2027", path: "/wk-korfbal-2027" },
+          { name: page.frontmatter.name ?? stad, path: `/wk-korfbal-2027/${stad}` },
+        ])}
+      />
       <Prose html={page.content} />
 
       {stadClubs.length > 0 && (

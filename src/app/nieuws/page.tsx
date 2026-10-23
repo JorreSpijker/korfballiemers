@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { NewsFeed } from "@/components/news-feed";
 import { Pattern } from "@/components/pattern";
+import { JsonLd } from "@/components/json-ld";
+import { breadcrumbSchema } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
   title: "Nieuws",
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export default function NieuwsPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "Nieuws", path: "/nieuws" }])} />
       <section className="relative">
         <Pattern />
         <div className="container relative pt-16 pb-10">

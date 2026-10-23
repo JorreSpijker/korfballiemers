@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { getAllSpeelsteden, getPageContent } from "@/lib/content";
 import { ContactCta, PageShell, Prose } from "@/components/page-shell";
 import { JsonLd } from "@/components/json-ld";
-import { wkEventSchema } from "@/lib/structured-data";
+import { breadcrumbSchema, wkEventSchema } from "@/lib/structured-data";
 import { WK_VENUE } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -26,7 +26,7 @@ export default async function WkPage() {
       intro="Van 15 t/m 17 oktober 2027 is De Liemers het hart van de internationale korfbalwereld."
       back={{ href: "/", label: "Terug naar home" }}
     >
-      <JsonLd data={wkEventSchema} />
+      <JsonLd data={[wkEventSchema, breadcrumbSchema([{ name: "WK Korfbal 2027", path: "/wk-korfbal-2027" }])]} />
 
       <dl className="grid gap-3 sm:grid-cols-3">
         {[
