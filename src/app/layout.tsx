@@ -3,7 +3,9 @@ import { Oxanium, Manrope } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-import { IS_PREVIEW, SITE_NAME, SITE_URL } from "@/lib/site";
+import { CookieBanner } from "@/components/cookie-banner";
+import { GoogleAnalytics } from "@/components/google-analytics";
+import { GA_ID, IS_PREVIEW, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const oxanium = Oxanium({
   variable: "--font-oxanium",
@@ -52,6 +54,12 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        {GA_ID && (
+          <>
+            <GoogleAnalytics id={GA_ID} />
+            <CookieBanner />
+          </>
+        )}
       </body>
     </html>
   );

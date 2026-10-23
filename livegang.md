@@ -10,6 +10,8 @@ Test: https://korfballiemers.vercel.app (branch `development`, Vercel Preview)
 - [ ] Teksten van `content/pages/wk-korfbal-2027.md`, `vrijwilliger-worden.md` en `sponsor-worden.md` nalezen
 - [ ] Bevestigen dat Sportcentrum Triominos (Eltensestraat 4, Duiven) de WK-speellocatie is. Zo niet: `WK_VENUE` in `src/lib/site.ts` aanpassen
 - [ ] Contactformulier testen op de testomgeving (reCAPTCHA aanvinken, mail komt aan bij liemerscitykorfbal@gmail.com)
+- [ ] Toestemming van de clubs voor de foto's in `public/photos/` (portretrecht, zeker bij jeugdspelers)
+- [ ] Privacyverklaring op de site: het contactformulier verwerkt naam/e-mail en gebruikt Google reCAPTCHA. Link in de footer en bij het formulier
 
 ## 2. Vercel (Production)
 
@@ -18,6 +20,14 @@ Test: https://korfballiemers.vercel.app (branch `development`, Vercel Preview)
   - `RECAPTCHA_SECRET_KEY`
   - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
 - [ ] `main` deployt als **Production** (Settings → Git → Production Branch = `main`)
+- [ ] Settings → Domains: `liemerscitykorfbal.nl` en `www.liemerscitykorfbal.nl` toegevoegd, `www` redirect naar het hoofddomein
+
+## 2b. Domein (DNS bij de registrar)
+
+- [ ] A-record `@` → het IP dat Vercel toont (Settings → Domains)
+- [ ] CNAME `www` → het adres dat Vercel toont
+- [ ] Bestaande MX-records niet weggooien als er mail op het domein draait
+- [ ] Vercel toont het domein als **Valid Configuration** en het SSL-certificaat is actief (https werkt zonder waarschuwing)
 
 ## 3. Externe diensten
 

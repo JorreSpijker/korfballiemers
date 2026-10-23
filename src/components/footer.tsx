@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUp, Mail, MapPin, Phone } from "lucide-react";
+import { CookieSettingsButton } from "@/components/cookie-banner";
+import { GA_ID } from "@/lib/site";
 
 const brandColors = ["bg-energie-groen", "bg-actie-blauw"];
 
@@ -95,7 +97,15 @@ export function Footer() {
         </div>
 
         <div className="flex flex-col gap-3 border-t py-6 text-[13px] text-foreground/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>© {new Date().getFullYear()} LiemersCity Korfbal</p>
+          <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+            <p>© {new Date().getFullYear()} LiemersCity Korfbal</p>
+            <Link href="/privacy" className="inline-flex min-h-11 items-center text-foreground/75 transition hover:text-white">
+              Privacy
+            </Link>
+            {GA_ID && (
+              <CookieSettingsButton className="inline-flex min-h-11 cursor-pointer items-center text-foreground/75 transition hover:text-white" />
+            )}
+          </div>
           <a
             href="#top"
             className="group inline-flex min-h-11 items-center gap-1.5 text-foreground/75 transition hover:text-white"
