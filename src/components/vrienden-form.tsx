@@ -110,14 +110,13 @@ export function VriendenForm() {
           </div>
           <div className="flex flex-col gap-1.5">
             <label htmlFor="vrienden-phone" className={labelClass}>
-              Telefoonnummer
+              Telefoonnummer (optioneel)
             </label>
             <input
               id="vrienden-phone"
               name="phone"
               type="tel"
               autoComplete="tel"
-              required
               maxLength={15}
               defaultValue={state.values?.phone}
               aria-invalid={!!errors.phone}

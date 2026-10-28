@@ -54,7 +54,7 @@ export async function sendVriendenAanmelding(
   if (!values.name) errors.name = "Vul je naam in.";
   else if (values.name.length > 100) errors.name = "Naam is te lang.";
   if (!EMAIL_PATTERN.test(values.email)) errors.email = "Vul een geldig e-mailadres in.";
-  if (!PHONE_PATTERN.test(values.phone)) errors.phone = "Vul een geldig telefoonnummer in.";
+  if (values.phone && !PHONE_PATTERN.test(values.phone)) errors.phone = "Vul een geldig telefoonnummer in.";
   if (!isVriendenOption(values.amount)) errors.amount = "Kies een bedrag.";
 
   if (Object.keys(errors).length > 0 || !isVriendenOption(values.amount)) {
