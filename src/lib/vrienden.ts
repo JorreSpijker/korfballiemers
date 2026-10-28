@@ -1,6 +1,11 @@
 // Gedeeld door het vriendenformulier (client) en de server action
 // Per bedrag een eigen Rabobank-betaalverzoek; de QR in public/ verwijst naar hetzelfde verzoek
 export const VRIENDEN_OPTIONS = {
+  "15": {
+    amount: 15,
+    payUrl: "https://betaalverzoek.rabobank.nl/betaalverzoek/?id=y4VGFQMETr28whtyBYd1jA",
+    qrSrc: "/vrienden-qr-15.png",
+  },
   "20": {
     amount: 20,
     payUrl: "https://betaalverzoek.rabobank.nl/betaalverzoek/?id=nJggJxrVRGqEqUeRic7rWQ",
