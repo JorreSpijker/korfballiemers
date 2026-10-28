@@ -125,6 +125,34 @@ export default async function HomePage() {
 
       <PhotoBook id="fotos" />
 
+      {/* Vrienden */}
+      <section id="vrienden" className="surface-light bg-white">
+        <div className="container flex flex-wrap gap-8 py-16 sm:gap-14 sm:py-22">
+          <div className="min-w-0 flex-[1_1_340px]">
+            <h2 className="reveal-heading font-heading m-0 text-4xl font-bold leading-[1.08] sm:text-[40px]">
+              Vrienden van LiemersCity Korfbal
+            </h2>
+            <div className="reveal-grow mt-6 flex h-1 w-24" aria-hidden>
+              <span className="flex-1 bg-energie-groen" />
+              <span className="flex-1 bg-actie-blauw" />
+            </div>
+          </div>
+          <div className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-6">
+            <p className="m-0 text-lg">
+              Steun het korfbal in de Liemers en help mee aan een onvergetelijk WK Korfbal 2027.
+              Als Vriend steun je ons met een eenmalige bijdrage van € 20 of € 50.
+            </p>
+            <Link
+              href="/vrienden-worden"
+              className="group inline-flex items-center gap-2 self-start font-bold text-actie-blauw hover:text-actie-blauw"
+            >
+              Word Vriend van LiemersCity Korfbal
+              <span aria-hidden className="inline-block transition-transform duration-200 ease-(--ease-out-quint) group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <ContactSection id="contact" />
     </>
   );

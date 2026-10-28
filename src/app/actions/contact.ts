@@ -1,6 +1,7 @@
 "use server";
 
 import { CONTACT_SUBJECTS, isContactSubject } from "@/lib/contact-subjects";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 const CONTACT_EMAIL = "liemerscitykorfbal@gmail.com";
 // Werkt zonder geverifieerd domein; vervang door eigen adres zodra het domein in Resend is geverifieerd
@@ -15,25 +16,6 @@ export type ContactState = {
   errors?: Partial<Record<Field, string>>;
   values?: Record<Field, string>;
 };
-
-async function verifyRecaptcha(token: string): Promise<boolean> {
-  if (!token) {
-    console.error("reCAPTCHA fout: geen token ontvangen");
-    return false;
-  }
-
-  const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-    method: "POST",
-    body: new URLSearchParams({
-      secret: process.env.RECAPTCHA_SECRET_KEY ?? "",
-      response: token,
-    }),
-  });
-  const data = (await response.json()) as { success: boolean; "error-codes"?: string[] };
-  if (!data.success) console.error("reCAPTCHA fout", data["error-codes"]);
-
-  return data.success;
-}
 
 export async function sendContactMessage(
   _prev: ContactState,

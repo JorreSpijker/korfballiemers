@@ -19,6 +19,7 @@ Test: https://korfballiemers.vercel.app (branch `development`, Vercel Preview)
   - `RESEND_API_KEY`
   - `RECAPTCHA_SECRET_KEY`
   - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY`
+  - `GOOGLE_SHEET_WEBHOOK_URL` (vriendenformulier, zie 3b)
 - [ ] `main` deployt als **Production** (Settings → Git → Production Branch = `main`)
 - [ ] Settings → Domains: `liemerscitykorfbal.nl` en `www.liemerscitykorfbal.nl` toegevoegd, `www` redirect naar het hoofddomein
 
@@ -33,6 +34,26 @@ Test: https://korfballiemers.vercel.app (branch `development`, Vercel Preview)
 
 - [ ] reCAPTCHA-admin (https://www.google.com/recaptcha/admin): domein `liemerscitykorfbal.nl` toegevoegd aan de v2-sleutel
 - [ ] Resend-account aangemaakt met liemerscitykorfbal@gmail.com (zonder geverifieerd domein mailt Resend alleen naar het account-adres)
+
+## 3b. Vrienden van LiemersCity Korfbal
+
+- [ ] QR-codes van de Rabobank-betaalverzoeken staan in `public/vrienden-qr-20.png` en `public/vrienden-qr-50.png`
+- [ ] Bedragen en betaallinks staan in `VRIENDEN_OPTIONS` in `src/lib/vrienden.ts`
+- [ ] Google Sheet aanmaken met liemerscitykorfbal@gmail.com, rij 1: `Datum | Naam | E-mail | Telefoon | Bedrag | Betaald`
+- [ ] In de Sheet: Extensies → Apps Script, deze code plakken en opslaan:
+
+  ```js
+  function doPost(e) {
+    const data = JSON.parse(e.postData.contents);
+    SpreadsheetApp.getActiveSheet().appendRow([
+      new Date(data.datum), data.naam, data.email, data.telefoon, Number(data.bedrag),
+    ]);
+    return ContentService.createTextOutput("ok");
+  }
+  ```
+
+- [ ] Implementeren → Nieuwe implementatie → Type: Web-app, Uitvoeren als: ik, Toegang: Iedereen. De web-app-URL is `GOOGLE_SHEET_WEBHOOK_URL` (in Vercel en `.env.local`)
+- [ ] Betalingen met de hand afvinken in de kolom `Betaald` (de site weet niet of er betaald is)
 
 ## 4. Merge en deploy
 

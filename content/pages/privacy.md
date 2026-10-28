@@ -9,7 +9,13 @@ LiemersCity Korfbal gaat zorgvuldig om met je gegevens. Op deze pagina lees je w
 
 Als je het contactformulier invult, ontvangen we je naam, e-mailadres en bericht per e-mail. We gebruiken deze gegevens alleen om je vraag of aanmelding te beantwoorden en bewaren ze niet langer dan nodig.
 
-Om spam tegen te gaan gebruikt het formulier Google reCAPTCHA. Google kan daarbij gegevens over je apparaat en gedrag op de pagina verwerken.
+## Vrienden van LiemersCity Korfbal
+
+Als je je aanmeldt als Vriend, ontvangen we je naam, e-mailadres, telefoonnummer en het bedrag van je bijdrage. We krijgen deze gegevens per e-mail en slaan ze op in een Google Sheet van LiemersCity Korfbal. We gebruiken ze alleen om je bijdrage te verwerken en contact met je te houden over de Vrienden.
+
+## Spambescherming
+
+Om spam tegen te gaan gebruiken de formulieren Google reCAPTCHA. Google kan daarbij gegevens over je apparaat en gedrag op de pagina verwerken.
 
 ## Cookies en Google Analytics
 

@@ -18,12 +18,12 @@ declare global {
   }
 }
 
-const inputClass =
+export const inputClass =
   "w-full rounded-md border border-[#0F1A17]/15 bg-white px-4 py-3 text-liemers-groen transition-[border-color,box-shadow] duration-200 ease-(--ease-out-quint) placeholder:text-[#0F1A17]/45 focus:border-actie-blauw focus:outline-none focus:ring-4 focus:ring-actie-blauw/15 aria-invalid:border-destructive";
 
-const labelClass = "text-sm font-semibold text-liemers-groen";
+export const labelClass = "text-sm font-semibold text-liemers-groen";
 
-function FieldError({ id, error }: { id: string; error?: string }) {
+export function FieldError({ id, error }: { id: string; error?: string }) {
   if (!error) return null;
   return (
     <p id={id} className="m-0 text-sm font-medium text-[#B42318]">
