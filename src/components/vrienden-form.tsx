@@ -134,7 +134,7 @@ export function VriendenForm() {
                 id="vrienden-amount"
                 name="amount"
                 required
-                defaultValue={state.values?.amount ?? "20"}
+                defaultValue={state.values?.amount ?? "50"}
                 aria-invalid={!!errors.amount}
                 aria-describedby={errors.amount ? "vrienden-amount-error" : undefined}
                 className={`${inputClass} appearance-none pr-11`}
