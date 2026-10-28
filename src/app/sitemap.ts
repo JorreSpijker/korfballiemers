@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
     { url: `${SITE_URL}/vrijwilliger-worden`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/sponsor-worden`, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE_URL}/vrienden-worden`, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${SITE_URL}/vrienden`, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.2 },
   ];
 }

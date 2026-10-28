@@ -88,6 +88,12 @@ export function ContactSection({ id }: { id?: string }) {
     return () => document.removeEventListener("click", handleClick);
   }, []);
 
+  // React reset het formulier na elke action; de select springt dan terug naar de eerste optie terwijl de state blijft
+  const selectRef = useRef<HTMLSelectElement>(null);
+  useEffect(() => {
+    if (selectRef.current) selectRef.current.value = subject;
+  }, [state, subject]);
+
   return (
     <section id={id} ref={sectionRef} className="surface-light bg-[#EEF2EF]">
       {loadRecaptcha && (
@@ -119,6 +125,7 @@ export function ContactSection({ id }: { id?: string }) {
             </label>
             <div className="relative">
               <select
+                ref={selectRef}
                 id="contact-subject"
                 name="subject"
                 value={subject}

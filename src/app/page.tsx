@@ -143,7 +143,7 @@ export default async function HomePage() {
               Als Vriend steun je ons met een eenmalige bijdrage van € 15, € 20 of € 50.
             </p>
             <Link
-              href="/vrienden-worden"
+              href="/vrienden"
               className="group inline-flex items-center gap-2 self-start font-bold text-actie-blauw hover:text-actie-blauw"
             >
               Word Vriend van LiemersCity Korfbal
