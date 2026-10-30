@@ -37,7 +37,7 @@ Test: https://korfballiemers.vercel.app (branch `development`, Vercel Preview)
 
 ## 3b. Vrienden van LiemersCity Korfbal
 
-- [ ] QR-codes van de Rabobank-betaalverzoeken staan in `public/vrienden-qr-15.png`, `-20.png` en `-50.png`
+- [ ] QR-codes van de Rabobank-betaalverzoeken staan in `public/vrienden-qr-15.png`, `-25.png` en `-50.png`
 - [ ] Bedragen en betaallinks staan in `VRIENDEN_OPTIONS` in `src/lib/vrienden.ts`
 - [ ] Google Sheet aanmaken met liemerscitykorfbal@gmail.com, rij 1: `Datum | Naam | E-mail | Telefoon | Bedrag | Betaald`
 - [ ] In de Sheet: Extensies → Apps Script, deze code plakken en opslaan:

@@ -6,10 +6,10 @@ export const VRIENDEN_OPTIONS = {
     payUrl: "https://betaalverzoek.rabobank.nl/betaalverzoek/?id=y4VGFQMETr28whtyBYd1jA",
     qrSrc: "/vrienden-qr-15.png",
   },
-  "20": {
-    amount: 20,
-    payUrl: "https://betaalverzoek.rabobank.nl/betaalverzoek/?id=nJggJxrVRGqEqUeRic7rWQ",
-    qrSrc: "/vrienden-qr-20.png",
+  "25": {
+    amount: 25,
+    payUrl: "https://betaalverzoek.rabobank.nl/betaalverzoek/?id=INxIVDK-S8aCQoYxVpXKsw",
+    qrSrc: "/vrienden-qr-25.png",
   },
   "50": {
     amount: 50,

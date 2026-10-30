@@ -140,7 +140,7 @@ export default async function HomePage() {
           <div className="flex min-w-0 flex-[1.4_1_480px] flex-col gap-6">
             <p className="m-0 text-lg">
               Steun het korfbal in de Liemers en help mee aan een onvergetelijk WK Korfbal 2027.
-              Als Vriend steun je ons met een eenmalige bijdrage van € 15, € 20 of € 50.
+              Als Vriend steun je ons met een eenmalige bijdrage van € 15, € 25 of € 50.
             </p>
             <Link
               href="/vrienden"
